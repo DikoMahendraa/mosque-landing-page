@@ -2,46 +2,46 @@ import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
 export const metadata = {
-  title: "History | Al-Nur Community",
-  description: "Explore the rich history and heritage of Al-Nur mosque community.",
+  title: "Sejarah | Komunitas Al-Nur",
+  description: "Jelajahi sejarah dan warisan kaya komunitas Masjid Al-Nur.",
 }
 
 export default function HistoryPage() {
   const historyEvents = [
     {
       year: "2015",
-      title: "Community Foundation",
-      description: "Al-Nur community mosque was established with the vision of serving the local Muslim community.",
+      title: "Pendirian Komunitas",
+      description: "Masjid komunitas Al-Nur didirikan dengan visi melayani komunitas Muslim lokal.",
       color: "bg-accent",
     },
     {
       year: "2017",
-      title: "First Hajj Program",
-      description: "Organized our first collective Hajj program for community members.",
+      title: "Program Haji Pertama",
+      description: "Mengorganisir program Haji kolektif pertama kami untuk anggota komunitas.",
       color: "bg-secondary",
     },
     {
       year: "2019",
-      title: "Youth Education Center",
-      description: "Launched the youth education center with Quran memorization and Islamic studies programs.",
+      title: "Pusat Pendidikan Pemuda",
+      description: "Meluncurkan pusat pendidikan pemuda dengan program hafalan Al-Quran dan studi Islam.",
       color: "bg-accent",
     },
     {
       year: "2021",
-      title: "Community Kitchen Expansion",
-      description: "Expanded our community kitchen to serve meals during Ramadan and special occasions.",
+      title: "Ekspansi Dapur Komunitas",
+      description: "Memperluas dapur komunitas kami untuk menyajikan makanan selama Ramadan dan acara-acara khusus.",
       color: "bg-secondary",
     },
     {
       year: "2023",
-      title: "Digital Platform Launch",
-      description: "Launched our digital platform for better community engagement and event management.",
+      title: "Peluncuran Platform Digital",
+      description: "Meluncurkan platform digital kami untuk keterlibatan komunitas dan manajemen acara yang lebih baik.",
       color: "bg-accent",
     },
     {
       year: "2024",
-      title: "Community Outreach",
-      description: "Expanded our outreach programs to support families in need and strengthen community bonds.",
+      title: "Jangkauan Komunitas",
+      description: "Memperluas program jangkauan kami untuk mendukung keluarga yang membutuhkan dan memperkuat ikatan komunitas.",
       color: "bg-secondary",
     },
   ]
@@ -56,11 +56,11 @@ export default function HistoryPage() {
             className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors mb-6"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span className="text-sm font-medium">Back to Home</span>
+            <span className="text-sm font-medium">Kembali ke Beranda</span>
           </Link>
-          <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">Our History</h1>
+          <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">Sejarah Kami</h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
-            Discover the milestones and heritage of Al-Nur community mosque since our establishment.
+            Temukan tonggak sejarah dan warisan komunitas Masjid Al-Nur sejak pendirian kami.
           </p>
         </div>
       </section>

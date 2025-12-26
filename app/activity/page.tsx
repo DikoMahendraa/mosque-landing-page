@@ -2,59 +2,59 @@ import { Clock, MapPin, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
 export const metadata = {
-  title: "Daily Activity | Al-Nur Community",
-  description: "Check out our daily activities and prayer times at Al-Nur mosque.",
+  title: "Aktivitas Harian | Komunitas Al-Nur",
+  description: "Lihat aktivitas harian dan waktu sholat di Masjid Al-Nur.",
 }
 
 export default function ActivityPage() {
   const dailyActivities = [
     {
-      day: "Sunday",
+      day: "Minggu",
       activities: [
-        { time: "6:00 AM", title: "Fajr Prayer", location: "Main Prayer Hall" },
-        { time: "10:00 AM", title: "Youth Quran Class", location: "Education Center" },
-        { time: "1:00 PM", title: "Dhuhr Prayer", location: "Main Prayer Hall" },
-        { time: "4:00 PM", title: "Community Volunteer Work", location: "Community Center" },
-        { time: "6:00 PM", title: "Asr Prayer", location: "Main Prayer Hall" },
-        { time: "7:30 PM", title: "Maghrib & Isha Prayer", location: "Main Prayer Hall" },
+        { time: "06:00", title: "Sholat Subuh", location: "Aula Sholat Utama" },
+        { time: "10:00", title: "Kelas Al-Quran Pemuda", location: "Pusat Pendidikan" },
+        { time: "13:00", title: "Sholat Dzuhur", location: "Aula Sholat Utama" },
+        { time: "16:00", title: "Kerja Suka Rela Komunitas", location: "Pusat Komunitas" },
+        { time: "18:00", title: "Sholat Ashar", location: "Aula Sholat Utama" },
+        { time: "19:30", title: "Sholat Maghrib & Isya", location: "Aula Sholat Utama" },
       ],
     },
     {
-      day: "Monday",
+      day: "Senin",
       activities: [
-        { time: "6:00 AM", title: "Fajr Prayer", location: "Main Prayer Hall" },
-        { time: "12:00 PM", title: "Dhuhr Prayer", location: "Main Prayer Hall" },
-        { time: "3:00 PM", title: "Islamic Studies Class", location: "Education Center" },
-        { time: "6:00 PM", title: "Asr Prayer", location: "Main Prayer Hall" },
-        { time: "7:30 PM", title: "Maghrib & Isha Prayer", location: "Main Prayer Hall" },
+        { time: "06:00", title: "Sholat Subuh", location: "Aula Sholat Utama" },
+        { time: "12:00", title: "Sholat Dzuhur", location: "Aula Sholat Utama" },
+        { time: "15:00", title: "Kelas Studi Islam", location: "Pusat Pendidikan" },
+        { time: "18:00", title: "Sholat Ashar", location: "Aula Sholat Utama" },
+        { time: "19:30", title: "Sholat Maghrib & Isya", location: "Aula Sholat Utama" },
       ],
     },
     {
-      day: "Tuesday to Thursday",
+      day: "Selasa hingga Kamis",
       activities: [
-        { time: "6:00 AM", title: "Fajr Prayer", location: "Main Prayer Hall" },
-        { time: "12:00 PM", title: "Dhuhr Prayer", location: "Main Prayer Hall" },
-        { time: "6:00 PM", title: "Asr Prayer", location: "Main Prayer Hall" },
-        { time: "7:30 PM", title: "Maghrib & Isha Prayer + Taraweeh", location: "Main Prayer Hall" },
+        { time: "06:00", title: "Sholat Subuh", location: "Aula Sholat Utama" },
+        { time: "12:00", title: "Sholat Dzuhur", location: "Aula Sholat Utama" },
+        { time: "18:00", title: "Sholat Ashar", location: "Aula Sholat Utama" },
+        { time: "19:30", title: "Sholat Maghrib & Isya + Tarawih", location: "Aula Sholat Utama" },
       ],
     },
     {
-      day: "Friday",
+      day: "Jumat",
       activities: [
-        { time: "6:00 AM", title: "Fajr Prayer", location: "Main Prayer Hall" },
-        { time: "1:00 PM", title: "Jumu'ah (Friday Prayer)", location: "Main Prayer Hall" },
-        { time: "6:00 PM", title: "Asr Prayer", location: "Main Prayer Hall" },
-        { time: "7:30 PM", title: "Maghrib & Isha Prayer", location: "Main Prayer Hall" },
+        { time: "06:00", title: "Sholat Subuh", location: "Aula Sholat Utama" },
+        { time: "13:00", title: "Sholat Jum'at", location: "Aula Sholat Utama" },
+        { time: "18:00", title: "Sholat Ashar", location: "Aula Sholat Utama" },
+        { time: "19:30", title: "Sholat Maghrib & Isya", location: "Aula Sholat Utama" },
       ],
     },
     {
-      day: "Saturday",
+      day: "Sabtu",
       activities: [
-        { time: "6:00 AM", title: "Fajr Prayer", location: "Main Prayer Hall" },
-        { time: "10:00 AM", title: "Children's Islamic Class", location: "Education Center" },
-        { time: "1:00 PM", title: "Dhuhr Prayer", location: "Main Prayer Hall" },
-        { time: "6:00 PM", title: "Asr Prayer", location: "Main Prayer Hall" },
-        { time: "7:30 PM", title: "Maghrib & Isha Prayer", location: "Main Prayer Hall" },
+        { time: "06:00", title: "Sholat Subuh", location: "Aula Sholat Utama" },
+        { time: "10:00", title: "Kelas Islam Anak-Anak", location: "Pusat Pendidikan" },
+        { time: "13:00", title: "Sholat Dzuhur", location: "Aula Sholat Utama" },
+        { time: "18:00", title: "Sholat Ashar", location: "Aula Sholat Utama" },
+        { time: "19:30", title: "Sholat Maghrib & Isya", location: "Aula Sholat Utama" },
       ],
     },
   ]
@@ -69,11 +69,11 @@ export default function ActivityPage() {
             className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors mb-6"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span className="text-sm font-medium">Back to Home</span>
+            <span className="text-sm font-medium">Kembali ke Beranda</span>
           </Link>
-          <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">Daily Activity</h1>
+          <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">Aktivitas Harian</h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
-            Stay connected with our daily activities, prayer times, and community programs throughout the week.
+            Tetap terhubung dengan aktivitas harian, waktu sholat, dan program komunitas kami sepanjang minggu.
           </p>
         </div>
       </section>
@@ -121,10 +121,9 @@ export default function ActivityPage() {
             <div className="flex items-start gap-4">
               <Clock className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
               <div>
-                <h3 className="font-semibold text-foreground mb-2">Prayer Times</h3>
+                <h3 className="font-semibold text-foreground mb-2">Waktu Sholat</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Prayer times are displayed in local time (GMT+5:30). Join us for congregational prayers throughout the
-                  day. Our community welcomes everyone to participate in our spiritual and educational activities.
+                  Waktu sholat ditampilkan dalam waktu lokal (GMT+7). Bergabunglah dengan kami untuk sholat berjamaah sepanjang hari. Komunitas kami menyambut semua orang untuk berpartisipasi dalam aktivitas spiritual dan pendidikan kami.
                 </p>
               </div>
             </div>

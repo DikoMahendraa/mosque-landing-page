@@ -9,8 +9,8 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Al-Nur Mosque | Community & Learning",
-  description: "Join our vibrant community for events, kajian, and spiritual growth",
+  title: "Masjid Al-Nur | Komunitas & Pembelajaran",
+  description: "Bergabunglah dengan komunitas kami yang dinamis untuk acara, kajian, dan pertumbuhan spiritual",
   generator: "v0.app",
   icons: {
     icon: [
@@ -37,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="id">
       <body className={`font-sans antialiased`}>
         <AnnouncementModal />
         {children}

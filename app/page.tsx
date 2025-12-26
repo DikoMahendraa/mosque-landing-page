@@ -19,7 +19,7 @@ export default function HomePage() {
             <div className="space-y-4">
               <h1 className="text-5xl md:text-6xl font-bold text-pretty leading-tight">Al-Nur Mosque</h1>
               <p className="text-xl md:text-2xl text-muted-foreground text-pretty max-w-2xl mx-auto leading-relaxed">
-                A vibrant community space for youth, learning, and spiritual growth
+                Ruang komunitas yang dinamis untuk pemuda, pembelajaran, dan pertumbuhan spiritual
               </p>
             </div>
 
@@ -28,7 +28,7 @@ export default function HomePage() {
               <Link href="/events" className="w-full sm:w-auto">
                 <Button size="lg" className="w-full rounded-xl font-semibold">
                   <Calendar className="w-5 h-5 mr-2" />
-                  Explore Events
+                  Jelajahi Acara
                 </Button>
               </Link>
               <Link href="/kajian" className="w-full sm:w-auto">
@@ -38,7 +38,7 @@ export default function HomePage() {
                   className="w-full rounded-xl font-semibold bg-card border-border hover:bg-card/80"
                 >
                   <BookOpen className="w-5 h-5 mr-2" />
-                  View Kajian
+                  Lihat Kajian
                 </Button>
               </Link>
             </div>
@@ -55,21 +55,21 @@ export default function HomePage() {
                 <Calendar className="w-7 h-7 text-primary" />
               </div>
               <div className="text-4xl font-bold text-primary mb-2">15+</div>
-              <p className="text-muted-foreground">Events Monthly</p>
+              <p className="text-muted-foreground">Acara Bulanan</p>
             </Card>
             <Card className="p-8 text-center bg-background border-0 shadow-sm hover:shadow-md transition-shadow rounded-2xl">
               <div className="inline-flex items-center justify-center w-14 h-14 bg-accent/10 rounded-xl mb-4">
                 <Users className="w-7 h-7 text-accent" />
               </div>
               <div className="text-4xl font-bold text-accent mb-2">800+</div>
-              <p className="text-muted-foreground">Community Members</p>
+              <p className="text-muted-foreground">Anggota Komunitas</p>
             </Card>
             <Card className="p-8 text-center bg-background border-0 shadow-sm hover:shadow-md transition-shadow rounded-2xl">
               <div className="inline-flex items-center justify-center w-14 h-14 bg-secondary/20 rounded-xl mb-4">
                 <BookOpen className="w-7 h-7 text-secondary" />
               </div>
               <div className="text-4xl font-bold text-secondary mb-2">50+</div>
-              <p className="text-muted-foreground">Kajian Sessions</p>
+              <p className="text-muted-foreground">Sesi Kajian</p>
             </Card>
           </div>
         </div>
@@ -79,39 +79,39 @@ export default function HomePage() {
       <section className="py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <div className="mb-12">
-            <h2 className="text-4xl font-bold mb-2">Upcoming Events</h2>
-            <p className="text-muted-foreground">Join our community for meaningful experiences</p>
+            <h2 className="text-4xl font-bold mb-2">Acara Mendatang</h2>
+            <p className="text-muted-foreground">Bergabunglah dengan komunitas kami untuk pengalaman yang bermakna</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             {[
               {
-                title: "Quran Study Circle",
-                date: "Friday, Dec 27",
-                time: "7:00 PM",
-                attendees: "45 registered",
-                category: "Learning",
+                title: "Kajian Al-Quran",
+                date: "Jumat, 27 Des",
+                time: "19:00",
+                attendees: "45 terdaftar",
+                category: "Pembelajaran",
               },
               {
-                title: "Youth Sports Night",
-                date: "Saturday, Dec 28",
-                time: "6:00 PM",
-                attendees: "32 registered",
-                category: "Community",
+                title: "Malam Olahraga Pemuda",
+                date: "Sabtu, 28 Des",
+                time: "18:00",
+                attendees: "32 terdaftar",
+                category: "Komunitas",
               },
               {
-                title: "Islamic Finance Workshop",
-                date: "Sunday, Dec 29",
-                time: "3:00 PM",
-                attendees: "28 registered",
+                title: "Workshop Keuangan Islam",
+                date: "Minggu, 29 Des",
+                time: "15:00",
+                attendees: "28 terdaftar",
                 category: "Workshop",
               },
               {
-                title: "Community Iftar",
-                date: "Wednesday, Jan 1",
-                time: "6:30 PM",
-                attendees: "120 registered",
-                category: "Social",
+                title: "Buka Puasa Bersama",
+                date: "Rabu, 1 Jan",
+                time: "18:30",
+                attendees: "120 terdaftar",
+                category: "Sosial",
               },
             ].map((event, i) => (
               <Link key={i} href="/events" className="group">
@@ -140,7 +140,7 @@ export default function HomePage() {
                     size="sm"
                     className="w-full rounded-xl border-primary/20 hover:bg-primary/5 text-primary font-medium bg-transparent"
                   >
-                    Learn More
+                    Pelajari Lebih Lanjut
                   </Button>
                 </Card>
               </Link>
@@ -150,7 +150,7 @@ export default function HomePage() {
           <div className="text-center">
             <Link href="/events">
               <Button variant="ghost" size="lg" className="text-primary hover:bg-primary/10 font-semibold">
-                View All Events →
+                Lihat Semua Acara →
               </Button>
             </Link>
           </div>
@@ -160,14 +160,14 @@ export default function HomePage() {
       {/* Call-to-Action Section */}
       <section className="py-20 px-4 sm:px-6 bg-primary/10">
         <div className="max-w-4xl mx-auto text-center space-y-6">
-          <h2 className="text-4xl font-bold">Make a Difference</h2>
+          <h2 className="text-4xl font-bold">Buat Perbedaan</h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Support our community initiatives and help us create meaningful experiences for everyone
+            Dukung inisiatif komunitas kami dan bantu kami menciptakan pengalaman yang bermakna untuk semua orang
           </p>
           <Link href="/donate">
             <Button size="lg" className="rounded-xl font-semibold gap-2">
               <Heart className="w-5 h-5" />
-              Donate Now
+              Donasi Sekarang
             </Button>
           </Link>
         </div>

@@ -9,62 +9,62 @@ export default function EventsPage() {
   const events = [
     {
       id: 1,
-      title: "Quran Study Circle",
-      date: "Friday, Dec 27",
-      time: "7:00 PM - 8:30 PM",
-      location: "Main Hall",
+      title: "Kajian Al-Quran",
+      date: "Jumat, 27 Des",
+      time: "19:00 - 20:30",
+      location: "Aula Utama",
       attendees: 45,
-      description: "Weekly Quran recitation and tafsir session for all levels.",
-      category: "Learning",
+      description: "Sesi pembacaan Al-Quran dan tafsir mingguan untuk semua tingkat.",
+      category: "Pembelajaran",
     },
     {
       id: 2,
-      title: "Youth Sports Night",
-      date: "Saturday, Dec 28",
-      time: "6:00 PM - 8:00 PM",
-      location: "Sports Court",
+      title: "Malam Olahraga Pemuda",
+      date: "Sabtu, 28 Des",
+      time: "18:00 - 20:00",
+      location: "Lapangan Olahraga",
       attendees: 32,
-      description: "Football, basketball, and badminton for youth aged 15-35.",
-      category: "Community",
+      description: "Sepak bola, basket, dan bulu tangkis untuk pemuda usia 15-35 tahun.",
+      category: "Komunitas",
     },
     {
       id: 3,
-      title: "Islamic Finance Workshop",
-      date: "Sunday, Dec 29",
-      time: "3:00 PM - 5:00 PM",
-      location: "Community Center",
+      title: "Workshop Keuangan Islam",
+      date: "Minggu, 29 Des",
+      time: "15:00 - 17:00",
+      location: "Pusat Komunitas",
       attendees: 28,
-      description: "Learn halal investment and financial planning principles.",
+      description: "Pelajari prinsip investasi halal dan perencanaan keuangan.",
       category: "Workshop",
     },
     {
       id: 4,
-      title: "Community Iftar",
-      date: "Wednesday, Jan 1",
-      time: "6:30 PM",
-      location: "Dining Hall",
+      title: "Buka Puasa Bersama",
+      date: "Rabu, 1 Jan",
+      time: "18:30",
+      location: "Aula Makan",
       attendees: 120,
-      description: "Join us for a communal breaking of fast with the whole community.",
-      category: "Social",
+      description: "Bergabunglah dengan kami untuk berbuka puasa bersama seluruh komunitas.",
+      category: "Sosial",
     },
     {
       id: 5,
-      title: "Sisters Circle",
-      date: "Thursday, Jan 2",
-      time: "7:00 PM - 8:30 PM",
-      location: "Women's Hall",
+      title: "Kelas Perempuan",
+      date: "Kamis, 2 Jan",
+      time: "19:00 - 20:30",
+      location: "Aula Perempuan",
       attendees: 35,
-      description: "Exclusive session for women to discuss faith, life, and sisterhood.",
-      category: "Community",
+      description: "Sesi eksklusif untuk perempuan untuk membahas iman, kehidupan, dan persaudaraan.",
+      category: "Komunitas",
     },
     {
       id: 6,
-      title: "Career Talk Series",
-      date: "Friday, Jan 3",
-      time: "6:30 PM - 8:00 PM",
-      location: "Meeting Room",
+      title: "Seri Diskusi Karir",
+      date: "Jumat, 3 Jan",
+      time: "18:30 - 20:00",
+      location: "Ruang Pertemuan",
       attendees: 40,
-      description: "Young professionals share insights on careers and balancing faith.",
+      description: "Profesional muda berbagi wawasan tentang karir dan menyeimbangkan iman.",
       category: "Workshop",
     },
   ]
@@ -76,9 +76,9 @@ export default function EventsPage() {
       {/* Header Section */}
       <section className="pt-20 pb-12 px-4 sm:px-6 bg-gradient-to-b from-secondary/20 to-background">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Upcoming Events</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Acara Mendatang</h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
-            Join our vibrant community for enriching experiences and meaningful connections
+            Bergabunglah dengan komunitas kami yang dinamis untuk pengalaman yang memperkaya dan koneksi yang bermakna
           </p>
         </div>
       </section>
@@ -119,13 +119,13 @@ export default function EventsPage() {
                     </div>
                     <div className="flex items-center gap-3 font-medium text-primary">
                       <Users className="w-4 h-4 flex-shrink-0" />
-                      <span>{event.attendees} registered</span>
+                      <span>{event.attendees} terdaftar</span>
                     </div>
                   </div>
 
                   {/* CTA Button */}
                   <Button className="w-full rounded-xl font-semibold gap-2 bg-primary hover:bg-primary/90">
-                    View Details
+                    Lihat Detail
                     <ArrowRight className="w-4 h-4" />
                   </Button>
                 </Card>

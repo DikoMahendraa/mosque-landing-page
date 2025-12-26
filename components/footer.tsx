@@ -8,20 +8,20 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold mb-4">Al-Nur Mosque</h3>
             <p className="text-sm text-muted-foreground">
-              Building community, fostering learning, and nurturing faith.
+              Membangun komunitas, memupuk pembelajaran, dan memelihara iman.
             </p>
           </div>
           <div>
-            <h4 className="font-semibold mb-4">Quick Links</h4>
+            <h4 className="font-semibold mb-4">Tautan Cepat</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/" className="text-muted-foreground hover:text-foreground">
-                  Home
+                  Beranda
                 </Link>
               </li>
               <li>
                 <Link href="/events" className="text-muted-foreground hover:text-foreground">
-                  Events
+                  Acara
                 </Link>
               </li>
               <li>
@@ -32,14 +32,14 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold mb-4">Contact</h4>
+            <h4 className="font-semibold mb-4">Kontak</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>Phone: (555) 123-4567</li>
               <li>Email: info@alnur.org</li>
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold mb-4">Follow Us</h4>
+            <h4 className="font-semibold mb-4">Ikuti Kami</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="#" className="text-muted-foreground hover:text-foreground">
@@ -60,7 +60,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-border pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; 2025 Al-Nur Mosque. All rights reserved.</p>
+          <p>&copy; 2025 Masjid Al-Nur. Hak cipta dilindungi.</p>
         </div>
       </div>
     </footer>

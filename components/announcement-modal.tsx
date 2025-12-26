@@ -30,7 +30,7 @@ export default function AnnouncementModal() {
         <button
           onClick={() => setIsOpen(false)}
           className="absolute top-4 right-4 p-2 hover:bg-muted rounded-lg transition-colors"
-          aria-label="Close announcement"
+          aria-label="Tutup pengumuman"
         >
           <X className="w-5 h-5 text-muted-foreground" />
         </button>
@@ -43,26 +43,25 @@ export default function AnnouncementModal() {
 
           {/* Content */}
           <div className="space-y-3">
-            <h2 className="text-2xl font-bold text-foreground">Welcome to Al-Nur Mosque</h2>
+            <h2 className="text-2xl font-bold text-foreground">Selamat Datang di Masjid Al-Nur</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Join our vibrant community for meaningful events, insightful kajian sessions, and spiritual growth.
-              Explore upcoming events, register for programs, and connect with fellow community members.
+              Bergabunglah dengan komunitas kami yang dinamis untuk acara-acara bermakna, sesi kajian yang mendalam, dan pertumbuhan spiritual.
+              Jelajahi acara mendatang, daftar untuk program, dan terhubung dengan sesama anggota komunitas.
             </p>
           </div>
 
           {/* Important Info Box */}
           <div className="p-4 bg-primary/10 rounded-xl border border-primary/20">
-            <p className="text-sm font-semibold text-primary mb-2">📍 Important</p>
+            <p className="text-sm font-semibold text-primary mb-2">📍 Penting</p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Don't miss our upcoming Quran Study Circle on Friday at 7:00 PM and Youth Sports Night on Saturday at 6:00
-              PM!
+              Jangan lewatkan Kajian Al-Quran kami pada Jumat pukul 19:00 dan Malam Olahraga Pemuda pada Sabtu pukul 18:00!
             </p>
           </div>
 
           {/* Actions */}
           <div className="flex flex-col gap-3 pt-4">
             <Button onClick={() => setIsOpen(false)} size="lg" className="w-full rounded-xl font-semibold">
-              Explore Now
+              Jelajahi Sekarang
             </Button>
             <Button
               onClick={() => setIsOpen(false)}
@@ -70,7 +69,7 @@ export default function AnnouncementModal() {
               size="lg"
               className="w-full rounded-xl font-semibold bg-card border-border hover:bg-card/80"
             >
-              Dismiss
+              Tutup
             </Button>
           </div>
         </div>

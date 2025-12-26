@@ -8,26 +8,26 @@ export default function DonatePage() {
   const donationTiers = [
     {
       amount: 25,
-      title: "Friend",
-      description: "Support our youth programs",
+      title: "Sahabat",
+      description: "Dukung program pemuda kami",
       icon: "🤝",
     },
     {
       amount: 50,
-      title: "Contributor",
-      description: "Help fund educational initiatives",
+      title: "Kontributor",
+      description: "Bantu danai inisiatif pendidikan",
       icon: "📚",
     },
     {
       amount: 100,
-      title: "Supporter",
-      description: "Sponsor events and activities",
+      title: "Pendukung",
+      description: "Sponsori acara dan aktivitas",
       icon: "⭐",
     },
     {
       amount: 250,
-      title: "Guardian",
-      description: "Support community development",
+      title: "Pelindung",
+      description: "Dukung pengembangan komunitas",
       icon: "👑",
     },
   ]
@@ -35,38 +35,38 @@ export default function DonatePage() {
   const impactMetrics = [
     {
       icon: Users,
-      label: "Community Members Served",
+      label: "Anggota Komunitas yang Dilayani",
       value: "800+",
     },
     {
       icon: TrendingUp,
-      label: "Programs Running",
+      label: "Program yang Berjalan",
       value: "15+",
     },
     {
       icon: Heart,
-      label: "Lives Impacted",
+      label: "Kehidupan yang Terdampak",
       value: "2000+",
     },
   ]
 
   const whyDonate = [
     {
-      title: "Youth Engagement",
+      title: "Keterlibatan Pemuda",
       description:
-        "We create safe spaces where young Muslims can explore their faith, build lasting friendships, and develop leadership skills.",
+        "Kami menciptakan ruang aman di mana pemuda Muslim dapat menjelajahi iman mereka, membangun persahabatan yang langgeng, dan mengembangkan keterampilan kepemimpinan.",
     },
     {
-      title: "Quality Education",
-      description: "Our kajian programs are led by experienced instructors offering courses for all knowledge levels.",
+      title: "Pendidikan Berkualitas",
+      description: "Program kajian kami dipimpin oleh instruktur berpengalaman yang menawarkan kursus untuk semua tingkat pengetahuan.",
     },
     {
-      title: "Community Support",
-      description: "We provide counseling, food assistance, and emergency support for community members in need.",
+      title: "Dukungan Komunitas",
+      description: "Kami menyediakan konseling, bantuan makanan, dan dukungan darurat untuk anggota komunitas yang membutuhkan.",
     },
     {
-      title: "Inclusive Spaces",
-      description: "Everyone is welcome regardless of background, experience, or current understanding of Islam.",
+      title: "Ruang Inklusif",
+      description: "Semua orang disambut terlepas dari latar belakang, pengalaman, atau pemahaman saat ini tentang Islam.",
     },
   ]
 
@@ -77,9 +77,9 @@ export default function DonatePage() {
       {/* Header Section */}
       <section className="pt-20 pb-12 px-4 sm:px-6 bg-gradient-to-b from-primary/20 to-background">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Support Our Mission</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Dukung Misi Kami</h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
-            Your generosity helps us create meaningful experiences and educational opportunities for our community
+            Kemurahan hati Anda membantu kami menciptakan pengalaman yang bermakna dan peluang pendidikan untuk komunitas kami
           </p>
         </div>
       </section>
@@ -111,9 +111,9 @@ export default function DonatePage() {
       <section className="py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Choose Your Way to Give</h2>
+            <h2 className="text-4xl font-bold mb-4">Pilih Cara Anda untuk Memberi</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Every contribution makes a meaningful difference in our community
+              Setiap kontribusi membuat perbedaan yang bermakna dalam komunitas kami
             </p>
           </div>
 
@@ -130,7 +130,7 @@ export default function DonatePage() {
                   <p className="text-sm text-muted-foreground">{tier.description}</p>
                 </div>
                 <Button className="w-full rounded-xl font-semibold gap-2 bg-primary hover:bg-primary/90">
-                  Donate ${tier.amount}
+                  Donasi ${tier.amount}
                   <ArrowRight className="w-4 h-4" />
                 </Button>
               </Card>
@@ -139,18 +139,18 @@ export default function DonatePage() {
 
           {/* Custom Donation */}
           <Card className="p-8 bg-background border-0 shadow-sm rounded-2xl max-w-2xl mx-auto mb-12">
-            <h3 className="text-2xl font-bold mb-4">Custom Donation</h3>
+            <h3 className="text-2xl font-bold mb-4">Donasi Kustom</h3>
             <p className="text-muted-foreground mb-6">
-              Have a specific amount in mind? We welcome donations of any size to support our mission.
+              Punya jumlah tertentu dalam pikiran? Kami menyambut donasi dalam ukuran apa pun untuk mendukung misi kami.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <input
                 type="number"
-                placeholder="Enter amount"
+                placeholder="Masukkan jumlah"
                 className="flex-1 px-4 py-3 bg-background border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
               />
               <Button className="rounded-xl font-semibold gap-2 bg-primary hover:bg-primary/90">
-                Donate
+                Donasi
                 <ArrowRight className="w-4 h-4" />
               </Button>
             </div>
@@ -161,7 +161,7 @@ export default function DonatePage() {
       {/* Why Support Section */}
       <section className="py-20 px-4 sm:px-6 bg-accent/20">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold mb-12">Why Support Al-Nur?</h2>
+          <h2 className="text-4xl font-bold mb-12">Mengapa Mendukung Al-Nur?</h2>
           <div className="grid md:grid-cols-2 gap-8">
             {whyDonate.map((item, i) => (
               <div key={i} className="flex gap-4">

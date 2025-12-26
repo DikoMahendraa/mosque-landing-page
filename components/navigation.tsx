@@ -8,13 +8,13 @@ export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const navItems = [
-    { label: "Home", href: "/" },
-    { label: "Events", href: "/events" },
+    { label: "Beranda", href: "/" },
+    { label: "Acara", href: "/events" },
     { label: "Kajian", href: "/kajian" },
-    { label: "History", href: "/history" },
-    { label: "Activity", href: "/activity" },
-    { label: "Documentation", href: "/documentation" },
-    { label: "Donate", href: "/donate" },
+    { label: "Sejarah", href: "/history" },
+    { label: "Aktivitas", href: "/activity" },
+    { label: "Dokumentasi", href: "/documentation" },
+    { label: "Donasi", href: "/donate" },
   ]
 
   return (

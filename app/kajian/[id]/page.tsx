@@ -15,111 +15,111 @@ export default function KajianDetailPage() {
   const kajianData = [
     {
       id: 1,
-      title: "Quranic Arabic Fundamentals",
+      title: "Dasar-Dasar Bahasa Arab Al-Quran",
       instructor: "Sheikh Ahmad Al-Rashid",
-      level: "Beginner",
-      description: "Learn the basics of Quranic Arabic language and grammar.",
-      duration: "8 weeks",
+      level: "Pemula",
+      description: "Pelajari dasar-dasar bahasa dan tata bahasa Arab Al-Quran.",
+      duration: "8 minggu",
       students: 32,
       fullDescription:
-        "Master the foundational elements of Quranic Arabic with our comprehensive course. Learn to recognize and understand the unique vocabulary and grammar patterns of the Quran, enabling you to read and comprehend the divine message more deeply.",
+        "Kuasai elemen dasar bahasa Arab Al-Quran dengan kursus komprehensif kami. Pelajari untuk mengenali dan memahami kosakata serta pola tata bahasa unik Al-Quran, memungkinkan Anda membaca dan memahami pesan ilahi dengan lebih mendalam.",
       syllabus: [
-        "Introduction to Quranic Arabic alphabet and pronunciation",
-        "Basic grammar rules and sentence structure",
-        "Common Quranic vocabulary and roots",
-        "Simple Quranic passages analysis",
+        "Pengenalan alfabet dan pengucapan bahasa Arab Al-Quran",
+        "Aturan tata bahasa dasar dan struktur kalimat",
+        "Kosakata Al-Quran umum dan akar kata",
+        "Analisis ayat Al-Quran sederhana",
       ],
-      schedule: "Every Saturday, 7:00 PM - 8:30 PM",
+      schedule: "Setiap Sabtu, 19:00 - 20:30",
       image: "bg-primary",
     },
     {
       id: 2,
-      title: "Tafsir of Surah Al-Kahf",
+      title: "Tafsir Surat Al-Kahf",
       instructor: "Dr. Fatima Al-Hassan",
-      level: "Intermediate",
-      description: "Deep dive into the meanings and lessons of Surah Al-Kahf.",
-      duration: "10 weeks",
+      level: "Menengah",
+      description: "Menyelami makna dan pelajaran dari Surat Al-Kahf.",
+      duration: "10 minggu",
       students: 28,
       fullDescription:
-        "Explore the profound stories and lessons within Surah Al-Kahf, one of the most significant chapters of the Quran. This course provides a detailed tafsir (exegesis) that helps you understand the context, meanings, and contemporary applications of these verses.",
+        "Jelajahi kisah dan pelajaran mendalam dalam Surat Al-Kahf, salah satu surat terpenting dalam Al-Quran. Kursus ini menyediakan tafsir (penafsiran) detail yang membantu Anda memahami konteks, makna, dan aplikasi kontemporer dari ayat-ayat ini.",
       syllabus: [
-        "Story of Dhul-Qarnayn",
-        "The people of the cave",
-        "The man with two gardens",
-        "Themes of faith and trials",
+        "Kisah Dzulqarnain",
+        "Ashabul Kahfi (penghuni gua)",
+        "Kisah pemilik dua kebun",
+        "Tema iman dan ujian",
       ],
-      schedule: "Every Sunday, 3:00 PM - 4:30 PM",
+      schedule: "Setiap Minggu, 15:00 - 16:30",
       image: "bg-secondary",
     },
     {
       id: 3,
-      title: "Islamic Ethics & Morality",
+      title: "Etika & Moralitas Islam",
       instructor: "Ustaz Muhammad Saeed",
-      level: "All Levels",
-      description: "Explore Islamic principles for living a purposeful life.",
-      duration: "6 weeks",
+      level: "Semua Tingkat",
+      description: "Jelajahi prinsip-prinsip Islam untuk menjalani hidup yang bermakna.",
+      duration: "6 minggu",
       students: 45,
       fullDescription:
-        "Build character and develop a strong moral compass guided by Islamic teachings. This course explores ethical dilemmas, virtues, and how to apply Islamic principles to modern challenges.",
+        "Bangun karakter dan kembangkan kompas moral yang kuat yang dipandu oleh ajaran Islam. Kursus ini mengeksplorasi dilema etika, kebajikan, dan cara menerapkan prinsip-prinsip Islam pada tantangan modern.",
       syllabus: [
-        "Islamic character (Akhlaq)",
-        "Justice and fairness",
-        "Compassion and mercy",
-        "Integrity in daily life",
+        "Karakter Islam (Akhlaq)",
+        "Keadilan dan kejujuran",
+        "Kasih sayang dan rahmat",
+        "Integritas dalam kehidupan sehari-hari",
       ],
-      schedule: "Every Wednesday, 7:30 PM - 8:30 PM",
+      schedule: "Setiap Rabu, 19:30 - 20:30",
       image: "bg-accent",
     },
     {
       id: 4,
-      title: "Women in Islamic History",
+      title: "Perempuan dalam Sejarah Islam",
       instructor: "Dr. Aisha Al-Mansouri",
-      level: "All Levels",
-      description: "Inspiring stories of remarkable Muslim women throughout history.",
-      duration: "8 weeks",
+      level: "Semua Tingkat",
+      description: "Kisah inspiratif tentang perempuan Muslim yang luar biasa sepanjang sejarah.",
+      duration: "8 minggu",
       students: 38,
       fullDescription:
-        "Discover the remarkable contributions and achievements of women throughout Islamic history. From scholars and leaders to activists and educators, learn about the Muslim women who shaped our ummah.",
+        "Temukan kontribusi dan pencapaian luar biasa perempuan sepanjang sejarah Islam. Dari ulama dan pemimpin hingga aktivis dan pendidik, pelajari tentang perempuan Muslim yang membentuk umat kita.",
       syllabus: [
-        "The Prophet's wives and daughters",
-        "Female scholars and jurists",
-        "Women leaders and warriors",
-        "Contemporary Muslim women role models",
+        "Istri dan putri Nabi",
+        "Ulama dan ahli hukum perempuan",
+        "Pemimpin dan pejuang perempuan",
+        "Teladan perempuan Muslim kontemporer",
       ],
-      schedule: "Every Thursday, 7:00 PM - 8:30 PM",
+      schedule: "Setiap Kamis, 19:00 - 20:30",
       image: "bg-primary",
     },
     {
       id: 5,
-      title: "Hadith Sciences & Methodology",
+      title: "Ilmu Hadits & Metodologi",
       instructor: "Sheikh Abdullah Al-Qahtani",
-      level: "Advanced",
-      description: "Understanding the science of hadith authentication and narration.",
-      duration: "12 weeks",
+      level: "Lanjutan",
+      description: "Memahami ilmu autentikasi dan periwayatan hadits.",
+      duration: "12 minggu",
       students: 22,
       fullDescription:
-        "Dive deep into the scientific methodology of hadith collection, preservation, and authentication. Learn the criteria scholars use to evaluate hadith authenticity and reliability.",
+        "Menyelami metodologi ilmiah pengumpulan, pelestarian, dan autentikasi hadits. Pelajari kriteria yang digunakan ulama untuk mengevaluasi keaslian dan keandalan hadits.",
       syllabus: [
-        "Hadith terminology and grading",
-        "Chain of narration (Isnad)",
-        "Text analysis (Matn)",
-        "Famous hadith collections",
+        "Terminologi dan penilaian hadits",
+        "Rantai periwayatan (Isnad)",
+        "Analisis teks (Matn)",
+        "Koleksi hadits terkenal",
       ],
-      schedule: "Every Friday, 6:00 PM - 7:30 PM",
+      schedule: "Setiap Jumat, 18:00 - 19:30",
       image: "bg-secondary",
     },
     {
       id: 6,
-      title: "Islam & Modern Challenges",
+      title: "Islam & Tantangan Modern",
       instructor: "Dr. Hassan Al-Aziz",
-      level: "Intermediate",
-      description: "Navigating contemporary issues through Islamic framework.",
-      duration: "8 weeks",
+      level: "Menengah",
+      description: "Menavigasi isu-isu kontemporer melalui kerangka Islam.",
+      duration: "8 minggu",
       students: 35,
       fullDescription:
-        "Apply Islamic teachings to address modern challenges including technology, social media, mental health, and interfaith relations. Learn to find Islamic solutions to contemporary issues.",
-      syllabus: ["Islam and technology", "Social media ethics", "Mental health in Islam", "Interfaith dialogue"],
-      schedule: "Every Tuesday, 7:30 PM - 8:30 PM",
+        "Terapkan ajaran Islam untuk mengatasi tantangan modern termasuk teknologi, media sosial, kesehatan mental, dan hubungan antaragama. Pelajari cara menemukan solusi Islam untuk isu-isu kontemporer.",
+      syllabus: ["Islam dan teknologi", "Etika media sosial", "Kesehatan mental dalam Islam", "Dialog antaragama"],
+      schedule: "Setiap Selasa, 19:30 - 20:30",
       image: "bg-accent",
     },
   ]
@@ -132,11 +132,11 @@ export default function KajianDetailPage() {
         <Navigation />
         <div className="pt-32 pb-16 px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-3xl font-bold mb-4">Course Not Found</h1>
-            <p className="text-muted-foreground mb-8">The course you're looking for doesn't exist.</p>
+            <h1 className="text-3xl font-bold mb-4">Kursus Tidak Ditemukan</h1>
+            <p className="text-muted-foreground mb-8">Kursus yang Anda cari tidak ada.</p>
             <Button onClick={() => router.back()} className="gap-2">
               <ArrowLeft className="w-4 h-4" />
-              Go Back
+              Kembali
             </Button>
           </div>
         </div>
@@ -147,11 +147,11 @@ export default function KajianDetailPage() {
 
   const getLevelColor = (level: string) => {
     switch (level) {
-      case "Beginner":
+      case "Pemula":
         return "bg-accent/10 text-accent"
-      case "Intermediate":
+      case "Menengah":
         return "bg-secondary/10 text-secondary"
-      case "Advanced":
+      case "Lanjutan":
         return "bg-primary/10 text-primary"
       default:
         return "bg-muted text-muted-foreground"
@@ -170,7 +170,7 @@ export default function KajianDetailPage() {
             className="mb-6 flex items-center gap-2 text-sm font-medium hover:opacity-80 transition-opacity text-white/90"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Kajian
+            Kembali ke Kajian
           </button>
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-white">
             <div className="mb-4">
@@ -192,13 +192,13 @@ export default function KajianDetailPage() {
             <div className="md:col-span-2">
               {/* About Section */}
               <div className="mb-12">
-                <h2 className="text-2xl font-bold mb-4">About this Course</h2>
+                <h2 className="text-2xl font-bold mb-4">Tentang Kursus Ini</h2>
                 <p className="text-muted-foreground leading-relaxed">{kajian.fullDescription}</p>
               </div>
 
               {/* Syllabus */}
               <div className="mb-12">
-                <h2 className="text-2xl font-bold mb-6">Course Syllabus</h2>
+                <h2 className="text-2xl font-bold mb-6">Silabus Kursus</h2>
                 <div className="space-y-3">
                   {kajian.syllabus.map((topic, idx) => (
                     <Card key={idx} className="p-4 bg-secondary/5 border-0 rounded-xl flex items-start gap-3">
@@ -211,7 +211,7 @@ export default function KajianDetailPage() {
 
               {/* Instructor */}
               <div className="mb-12">
-                <h2 className="text-2xl font-bold mb-4">Instructor</h2>
+                <h2 className="text-2xl font-bold mb-4">Instruktur</h2>
                 <Card className="p-6 bg-accent/5 border-0 rounded-2xl">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
@@ -219,11 +219,11 @@ export default function KajianDetailPage() {
                     </div>
                     <div>
                       <p className="font-semibold text-lg text-foreground">{kajian.instructor}</p>
-                      <p className="text-sm text-muted-foreground">Expert Instructor</p>
+                      <p className="text-sm text-muted-foreground">Instruktur Ahli</p>
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Experienced educator dedicated to making Islamic knowledge accessible and transformative.
+                    Pendidik berpengalaman yang berdedikasi untuk membuat pengetahuan Islam dapat diakses dan transformatif.
                   </p>
                 </Card>
               </div>
@@ -234,7 +234,7 @@ export default function KajianDetailPage() {
               <Card className="p-6 bg-background border-2 border-secondary/20 rounded-2xl sticky top-24 space-y-6">
                 {/* Level */}
                 <div>
-                  <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">Level</h3>
+                  <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">Tingkat</h3>
                   <span
                     className={`inline-block px-3 py-2 text-sm font-semibold rounded-lg ${getLevelColor(kajian.level)}`}
                   >
@@ -247,13 +247,13 @@ export default function KajianDetailPage() {
                 {/* Schedule */}
                 <div>
                   <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-                    Schedule
+                    Jadwal
                   </h3>
                   <div className="flex items-start gap-3">
                     <Clock className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="font-medium text-sm">{kajian.schedule}</p>
-                      <p className="text-xs text-muted-foreground mt-1">{kajian.duration} course</p>
+                      <p className="text-xs text-muted-foreground mt-1">Kursus {kajian.duration}</p>
                     </div>
                   </div>
                 </div>
@@ -263,12 +263,12 @@ export default function KajianDetailPage() {
                 {/* Enrolled */}
                 <div>
                   <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-                    Enrollment
+                    Pendaftaran
                   </h3>
                   <div className="flex items-center gap-3">
                     <UsersIcon className="w-5 h-5 text-primary flex-shrink-0" />
                     <span className="font-bold text-lg text-foreground">{kajian.students}</span>
-                    <span className="text-sm text-muted-foreground">enrolled</span>
+                    <span className="text-sm text-muted-foreground">terdaftar</span>
                   </div>
                 </div>
 
@@ -278,8 +278,8 @@ export default function KajianDetailPage() {
                 <div className="flex items-start gap-3">
                   <Award className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-medium text-sm">Certificate Included</p>
-                    <p className="text-xs text-muted-foreground mt-1">Upon completion</p>
+                    <p className="font-medium text-sm">Sertifikat Disertakan</p>
+                    <p className="text-xs text-muted-foreground mt-1">Setelah selesai</p>
                   </div>
                 </div>
 
@@ -287,7 +287,7 @@ export default function KajianDetailPage() {
 
                 {/* Action Buttons */}
                 <div className="space-y-3 pt-2">
-                  <Button className="w-full rounded-xl font-semibold bg-primary hover:bg-primary/90">Enroll Now</Button>
+                  <Button className="w-full rounded-xl font-semibold bg-primary hover:bg-primary/90">Daftar Sekarang</Button>
                   <div className="flex gap-3">
                     <Button variant="outline" className="flex-1 rounded-xl bg-transparent">
                       <Heart className="w-4 h-4" />

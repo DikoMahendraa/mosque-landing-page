@@ -17,7 +17,7 @@ export default function NotFound() {
             <div className="relative">
               <h1 className="text-9xl md:text-[150px] font-bold text-primary/20 leading-none">404</h1>
               <div className="absolute inset-0 flex items-center justify-center">
-                <p className="text-3xl md:text-4xl font-bold text-primary">Page Not Found</p>
+                <p className="text-3xl md:text-4xl font-bold text-primary">Halaman Tidak Ditemukan</p>
               </div>
             </div>
           </div>
@@ -25,10 +25,10 @@ export default function NotFound() {
           {/* Description */}
           <div className="space-y-4">
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Sorry, we couldn't find the page you're looking for. It might have been moved or deleted.
+              Maaf, kami tidak dapat menemukan halaman yang Anda cari. Halaman mungkin telah dipindahkan atau dihapus.
             </p>
             <p className="text-sm text-muted-foreground">
-              But don't worry, there's plenty to explore at Al-Nur Mosque!
+              Tapi jangan khawatir, masih banyak yang bisa dijelajahi di Masjid Al-Nur!
             </p>
           </div>
 
@@ -39,8 +39,8 @@ export default function NotFound() {
                 <div className="inline-flex items-center justify-center w-10 h-10 bg-primary/10 rounded-lg mb-3 group-hover:bg-primary/20 transition-colors">
                   <Home className="w-5 h-5 text-primary" />
                 </div>
-                <h3 className="font-semibold mb-1">Home</h3>
-                <p className="text-xs text-muted-foreground">Back to homepage</p>
+                <h3 className="font-semibold mb-1">Beranda</h3>
+                <p className="text-xs text-muted-foreground">Kembali ke beranda</p>
               </div>
             </Link>
             <Link href="/events" className="group">
@@ -48,8 +48,8 @@ export default function NotFound() {
                 <div className="inline-flex items-center justify-center w-10 h-10 bg-accent/10 rounded-lg mb-3 group-hover:bg-accent/20 transition-colors">
                   <span className="text-primary text-lg">📅</span>
                 </div>
-                <h3 className="font-semibold mb-1">Events</h3>
-                <p className="text-xs text-muted-foreground">Explore activities</p>
+                <h3 className="font-semibold mb-1">Acara</h3>
+                <p className="text-xs text-muted-foreground">Jelajahi aktivitas</p>
               </div>
             </Link>
             <Link href="/kajian" className="group">
@@ -58,7 +58,7 @@ export default function NotFound() {
                   <span className="text-primary text-lg">📚</span>
                 </div>
                 <h3 className="font-semibold mb-1">Kajian</h3>
-                <p className="text-xs text-muted-foreground">Learning programs</p>
+                <p className="text-xs text-muted-foreground">Program pembelajaran</p>
               </div>
             </Link>
           </div>
@@ -68,7 +68,7 @@ export default function NotFound() {
             <Link href="/">
               <Button size="lg" className="rounded-xl font-semibold gap-2">
                 <Home className="w-5 h-5" />
-                Go to Home
+                Ke Beranda
               </Button>
             </Link>
             <Link href="/events">
@@ -78,7 +78,7 @@ export default function NotFound() {
                 className="rounded-xl font-semibold gap-2 bg-card border-border hover:bg-card/80"
               >
                 <ArrowLeft className="w-5 h-5" />
-                View Events
+                Lihat Acara
               </Button>
             </Link>
           </div>

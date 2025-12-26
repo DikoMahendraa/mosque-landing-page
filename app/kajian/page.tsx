@@ -8,67 +8,67 @@ export default function KajianPage() {
   const kajianSessions = [
     {
       id: 1,
-      title: "Quranic Arabic Fundamentals",
+      title: "Dasar-Dasar Bahasa Arab Al-Quran",
       instructor: "Sheikh Ahmad Al-Rashid",
-      level: "Beginner",
-      description: "Learn the basics of Quranic Arabic language and grammar.",
-      duration: "8 weeks",
+      level: "Pemula",
+      description: "Pelajari dasar-dasar bahasa dan tata bahasa Arab Al-Quran.",
+      duration: "8 minggu",
       students: 32,
     },
     {
       id: 2,
-      title: "Tafsir of Surah Al-Kahf",
+      title: "Tafsir Surat Al-Kahf",
       instructor: "Dr. Fatima Al-Hassan",
-      level: "Intermediate",
-      description: "Deep dive into the meanings and lessons of Surah Al-Kahf.",
-      duration: "10 weeks",
+      level: "Menengah",
+      description: "Menyelami makna dan pelajaran dari Surat Al-Kahf.",
+      duration: "10 minggu",
       students: 28,
     },
     {
       id: 3,
-      title: "Islamic Ethics & Morality",
+      title: "Etika & Moralitas Islam",
       instructor: "Ustaz Muhammad Saeed",
-      level: "All Levels",
-      description: "Explore Islamic principles for living a purposeful life.",
-      duration: "6 weeks",
+      level: "Semua Tingkat",
+      description: "Jelajahi prinsip-prinsip Islam untuk menjalani hidup yang bermakna.",
+      duration: "6 minggu",
       students: 45,
     },
     {
       id: 4,
-      title: "Women in Islamic History",
+      title: "Perempuan dalam Sejarah Islam",
       instructor: "Dr. Aisha Al-Mansouri",
-      level: "All Levels",
-      description: "Inspiring stories of remarkable Muslim women throughout history.",
-      duration: "8 weeks",
+      level: "Semua Tingkat",
+      description: "Kisah inspiratif tentang perempuan Muslim yang luar biasa sepanjang sejarah.",
+      duration: "8 minggu",
       students: 38,
     },
     {
       id: 5,
-      title: "Hadith Sciences & Methodology",
+      title: "Ilmu Hadits & Metodologi",
       instructor: "Sheikh Abdullah Al-Qahtani",
-      level: "Advanced",
-      description: "Understanding the science of hadith authentication and narration.",
-      duration: "12 weeks",
+      level: "Lanjutan",
+      description: "Memahami ilmu autentikasi dan periwayatan hadits.",
+      duration: "12 minggu",
       students: 22,
     },
     {
       id: 6,
-      title: "Islam & Modern Challenges",
+      title: "Islam & Tantangan Modern",
       instructor: "Dr. Hassan Al-Aziz",
-      level: "Intermediate",
-      description: "Navigating contemporary issues through Islamic framework.",
-      duration: "8 weeks",
+      level: "Menengah",
+      description: "Menavigasi isu-isu kontemporer melalui kerangka Islam.",
+      duration: "8 minggu",
       students: 35,
     },
   ]
 
   const getLevelColor = (level: string) => {
     switch (level) {
-      case "Beginner":
+      case "Pemula":
         return "bg-accent/10 text-accent"
-      case "Intermediate":
+      case "Menengah":
         return "bg-secondary/10 text-secondary"
-      case "Advanced":
+      case "Lanjutan":
         return "bg-primary/10 text-primary"
       default:
         return "bg-muted text-muted-foreground"
@@ -82,9 +82,9 @@ export default function KajianPage() {
       {/* Header Section */}
       <section className="pt-20 pb-12 px-4 sm:px-6 bg-gradient-to-b from-accent/20 to-background">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Kajian Sessions</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Sesi Kajian</h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
-            Deepen your Islamic knowledge with expert instructors and structured courses
+            Perdalam pengetahuan Islam Anda dengan instruktur ahli dan kursus terstruktur
           </p>
         </div>
       </section>
@@ -123,13 +123,13 @@ export default function KajianPage() {
                   </div>
                   <div className="flex items-center gap-3 text-muted-foreground">
                     <Award className="w-4 h-4 flex-shrink-0 text-secondary" />
-                    <span>{kajian.students} students enrolled</span>
+                    <span>{kajian.students} peserta terdaftar</span>
                   </div>
                 </div>
 
                 {/* CTA Button */}
                 <Button className="w-full rounded-xl font-semibold gap-2 bg-primary hover:bg-primary/90">
-                  Enroll Now
+                  Daftar Sekarang
                   <ArrowRight className="w-4 h-4" />
                 </Button>
               </Card>

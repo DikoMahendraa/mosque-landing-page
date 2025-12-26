@@ -2,40 +2,40 @@ import { BookOpen, FileText, HelpCircle, Award, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
 export const metadata = {
-  title: "Documentation | Al-Nur Community",
-  description: "Documentation, guidelines, and resources for Al-Nur community members.",
+  title: "Dokumentasi | Komunitas Al-Nur",
+  description: "Dokumentasi, pedoman, dan sumber daya untuk anggota komunitas Al-Nur.",
 }
 
 export default function DocumentationPage() {
   const docCategories = [
     {
       icon: FileText,
-      title: "Community Guidelines",
-      description: "Learn about our community values, code of conduct, and membership guidelines.",
-      items: ["Community Charter", "Code of Conduct", "Membership Guidelines", "Privacy Policy"],
+      title: "Pedoman Komunitas",
+      description: "Pelajari tentang nilai-nilai komunitas kami, kode etik, dan pedoman keanggotaan.",
+      items: ["Piagam Komunitas", "Kode Etik", "Pedoman Keanggotaan", "Kebijakan Privasi"],
     },
     {
       icon: BookOpen,
-      title: "Educational Resources",
-      description: "Access our collection of Islamic learning materials and educational programs.",
+      title: "Sumber Daya Pendidikan",
+      description: "Akses koleksi materi pembelajaran Islam dan program pendidikan kami.",
       items: [
-        "Quran Memorization Program",
-        "Islamic Studies Curriculum",
-        "Youth Education Guide",
-        "Children's Learning Materials",
+        "Program Hafalan Al-Quran",
+        "Kurikulum Studi Islam",
+        "Panduan Pendidikan Pemuda",
+        "Materi Pembelajaran Anak-Anak",
       ],
     },
     {
       icon: Award,
-      title: "Event Guidelines",
-      description: "Understand how to participate in, organize, and contribute to community events.",
-      items: ["Event Registration Process", "Volunteer Opportunities", "Event Organization Guide", "Donation Process"],
+      title: "Pedoman Acara",
+      description: "Pahami cara berpartisipasi, mengorganisir, dan berkontribusi pada acara komunitas.",
+      items: ["Proses Pendaftaran Acara", "Peluang Relawan", "Panduan Organisasi Acara", "Proses Donasi"],
     },
     {
       icon: HelpCircle,
-      title: "FAQ & Support",
-      description: "Find answers to common questions and access support resources.",
-      items: ["Frequently Asked Questions", "Getting Started Guide", "Contact & Support", "Technical Support"],
+      title: "FAQ & Dukungan",
+      description: "Temukan jawaban untuk pertanyaan umum dan akses sumber daya dukungan.",
+      items: ["Pertanyaan yang Sering Diajukan", "Panduan Memulai", "Kontak & Dukungan", "Dukungan Teknis"],
     },
   ]
 
@@ -49,11 +49,11 @@ export default function DocumentationPage() {
             className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors mb-6"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span className="text-sm font-medium">Back to Home</span>
+            <span className="text-sm font-medium">Kembali ke Beranda</span>
           </Link>
-          <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">Documentation</h1>
+          <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">Dokumentasi</h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
-            Comprehensive guides, resources, and information to help you get the most out of Al-Nur community.
+            Panduan komprehensif, sumber daya, dan informasi untuk membantu Anda memaksimalkan manfaat dari komunitas Al-Nur.
           </p>
         </div>
       </section>
@@ -99,16 +99,15 @@ export default function DocumentationPage() {
           {/* Additional Resources */}
           <div className="mt-12 rounded-2xl bg-gradient-to-br from-accent/20 to-primary/10 border border-accent/40 p-6 sm:p-8">
             <div className="max-w-3xl">
-              <h2 className="text-2xl font-bold text-foreground mb-4">Need More Help?</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-4">Butuh Bantuan Lebih Lanjut?</h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                If you can't find what you're looking for in our documentation, feel free to reach out to our support
-                team. We're here to help you navigate community resources and answer any questions you may have.
+                Jika Anda tidak dapat menemukan apa yang Anda cari dalam dokumentasi kami, jangan ragu untuk menghubungi tim dukungan kami. Kami di sini untuk membantu Anda menavigasi sumber daya komunitas dan menjawab pertanyaan apa pun yang mungkin Anda miliki.
               </p>
               <Link
                 href="/contact"
                 className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium"
               >
-                Contact Support
+                Hubungi Dukungan
               </Link>
             </div>
           </div>
