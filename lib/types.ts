@@ -54,3 +54,17 @@ export interface DailyActivity {
   location: string
   sort_order: number
 }
+
+export interface Transaction {
+  id: string
+  type: 'in' | 'out'
+  category: string
+  amount: number
+  description?: string
+  date: string
+  recorded_by: string
+  created_at: string
+}
+
+export const INCOME_CATEGORIES  = ['Infaq', 'Zakat', 'Wakaf', 'Shodaqoh', 'Donasi', 'Lainnya'] as const
+export const EXPENSE_CATEGORIES = ['Operasional', 'Pembangunan', 'Konsumsi', 'Gaji/Honor', 'Lainnya'] as const

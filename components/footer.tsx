@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
-            <h3 className="font-semibold mb-4">Al-Nur Mosque</h3>
+            <h3 className="font-semibold mb-4">Darussalam Mosque</h3>
             <p className="text-sm text-muted-foreground">
               Membangun komunitas, memupuk pembelajaran, dan memelihara iman.
             </p>
@@ -60,7 +60,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-border pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; 2025 Masjid Al-Nur. Hak cipta dilindungi.</p>
+          <p>&copy; 2025 Masjid Darussalam. Hak cipta dilindungi.</p>
         </div>
       </div>
     </footer>

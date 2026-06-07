@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Calendar, MapPin, Users, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -96,16 +97,19 @@ export default function EventsPage() {
           {loading ? (
             <div className="grid md:grid-cols-2 gap-6">
               {[...Array(4)].map((_, i) => (
-                <Card key={i} className="p-6 rounded-2xl animate-pulse">
-                  <div className="h-4 bg-muted rounded w-1/4 mb-4" />
-                  <div className="h-6 bg-muted rounded w-3/4 mb-2" />
-                  <div className="h-4 bg-muted rounded w-full mb-6" />
-                  <div className="space-y-3 mb-6">
-                    {[...Array(4)].map((_, j) => (
-                      <div key={j} className="h-4 bg-muted rounded w-1/2" />
-                    ))}
+                <Card key={i} className="rounded-2xl overflow-hidden animate-pulse">
+                  <div className="h-44 bg-muted" />
+                  <div className="p-6 space-y-3">
+                    <div className="h-4 bg-muted rounded w-1/4" />
+                    <div className="h-6 bg-muted rounded w-3/4" />
+                    <div className="h-4 bg-muted rounded w-full" />
+                    <div className="space-y-2 pt-2">
+                      {[...Array(4)].map((_, j) => (
+                        <div key={j} className="h-4 bg-muted rounded w-1/2" />
+                      ))}
+                    </div>
+                    <div className="h-10 bg-muted rounded-xl pt-2" />
                   </div>
-                  <div className="h-10 bg-muted rounded-xl" />
                 </Card>
               ))}
             </div>
@@ -113,38 +117,57 @@ export default function EventsPage() {
             <div className="grid md:grid-cols-2 gap-6">
               {events.map((event) => (
                 <Link key={event.id} href={`/events/${event.id}`} className="group">
-                  <Card className="p-6 bg-background border-0 shadow-sm hover:shadow-lg transition-all duration-300 rounded-2xl h-full">
-                    <div className="mb-4">
-                      <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-lg">
-                        {event.category}
-                      </span>
+                  <Card className="overflow-hidden border-0 shadow-sm hover:shadow-xl transition-all duration-300 rounded-2xl h-full flex flex-col">
+                    {/* Thumbnail */}
+                    {event.image_url ? (
+                      <div className="relative h-44 w-full overflow-hidden flex-shrink-0">
+                        <Image
+                          src={event.image_url}
+                          alt={event.title}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          unoptimized
+                        />
+                      </div>
+                    ) : (
+                      <div className="h-44 w-full bg-gradient-to-br from-primary/20 to-accent/10 flex items-center justify-center flex-shrink-0">
+                        <Calendar className="w-14 h-14 text-primary/30" />
+                      </div>
+                    )}
+                    {/* Content — gradient background */}
+                    <div className="flex flex-col flex-1 p-6 bg-gradient-to-br from-primary to-accent text-white">
+                      <div className="mb-3">
+                        <span className="inline-block px-3 py-1 bg-white/20 text-white text-xs font-semibold rounded-lg backdrop-blur-sm">
+                          {event.category}
+                        </span>
+                      </div>
+                      <h3 className="text-xl font-semibold mb-2 group-hover:text-white/90 transition-colors">
+                        {event.title}
+                      </h3>
+                      <p className="text-sm text-white/80 mb-6 flex-1">{event.description}</p>
+                      <div className="space-y-2.5 mb-6 text-sm">
+                        <div className="flex items-center gap-3 text-white/80">
+                          <Calendar className="w-4 h-4 flex-shrink-0 text-white/60" />
+                          <span>{event.date}</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-white/80">
+                          <span className="w-4 h-4 flex-shrink-0">⏰</span>
+                          <span>{event.time}</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-white/80">
+                          <MapPin className="w-4 h-4 flex-shrink-0 text-white/60" />
+                          <span>{event.location}</span>
+                        </div>
+                        <div className="flex items-center gap-3 font-medium text-white">
+                          <Users className="w-4 h-4 flex-shrink-0" />
+                          <span>{event.attendees_count} terdaftar</span>
+                        </div>
+                      </div>
+                      <Button className="w-full rounded-xl font-semibold gap-2 bg-white text-primary hover:bg-white/90">
+                        Lihat Detail
+                        <ArrowRight className="w-4 h-4" />
+                      </Button>
                     </div>
-                    <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
-                      {event.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground mb-6">{event.description}</p>
-                    <div className="space-y-3 mb-6 text-sm">
-                      <div className="flex items-center gap-3 text-muted-foreground">
-                        <Calendar className="w-4 h-4 flex-shrink-0 text-primary" />
-                        <span>{event.date}</span>
-                      </div>
-                      <div className="flex items-center gap-3 text-muted-foreground">
-                        <span className="w-4 h-4 flex-shrink-0">⏰</span>
-                        <span>{event.time}</span>
-                      </div>
-                      <div className="flex items-center gap-3 text-muted-foreground">
-                        <MapPin className="w-4 h-4 flex-shrink-0 text-accent" />
-                        <span>{event.location}</span>
-                      </div>
-                      <div className="flex items-center gap-3 font-medium text-primary">
-                        <Users className="w-4 h-4 flex-shrink-0" />
-                        <span>{event.attendees_count} terdaftar</span>
-                      </div>
-                    </div>
-                    <Button className="w-full rounded-xl font-semibold gap-2 bg-primary hover:bg-primary/90">
-                      Lihat Detail
-                      <ArrowRight className="w-4 h-4" />
-                    </Button>
                   </Card>
                 </Link>
               ))}

@@ -2,8 +2,8 @@ import { Clock, MapPin, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
 export const metadata = {
-  title: "Aktivitas Harian | Komunitas Al-Nur",
-  description: "Lihat aktivitas harian dan waktu sholat di Masjid Al-Nur.",
+  title: "Aktivitas Harian | Komunitas Darussalam",
+  description: "Lihat aktivitas harian dan waktu sholat di Masjid Darussalam.",
 }
 
 export default function ActivityPage() {

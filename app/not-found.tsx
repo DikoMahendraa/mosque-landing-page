@@ -28,7 +28,7 @@ export default function NotFound() {
               Maaf, kami tidak dapat menemukan halaman yang Anda cari. Halaman mungkin telah dipindahkan atau dihapus.
             </p>
             <p className="text-sm text-muted-foreground">
-              Tapi jangan khawatir, masih banyak yang bisa dijelajahi di Masjid Al-Nur!
+              Tapi jangan khawatir, masih banyak yang bisa dijelajahi di Masjid Darussalam!
             </p>
           </div>
 

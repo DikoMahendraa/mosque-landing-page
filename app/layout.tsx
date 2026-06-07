@@ -4,12 +4,14 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import AnnouncementModal from "@/components/announcement-modal"
+import WhatsAppButton from "@/components/whatsapp-button"
+import WhatsAppFloatingButton from "@/components/whatsapp-floating-button"
 
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Masjid Al-Nur | Komunitas & Pembelajaran",
+  title: "Masjid Darussalam | Komunitas & Pembelajaran",
   description: "Bergabunglah dengan komunitas kami yang dinamis untuk acara, kajian, dan pertumbuhan spiritual",
   generator: "v0.app",
   icons: {
@@ -38,9 +40,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
-      <body className={`font-sans antialiased`}>
+      <body className={`font-sans antialiased mb-12`}>
         <AnnouncementModal />
         {children}
+        <WhatsAppFloatingButton />
         <Analytics />
       </body>
     </html>

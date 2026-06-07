@@ -2,8 +2,8 @@ import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
 export const metadata = {
-  title: "Sejarah | Komunitas Al-Nur",
-  description: "Jelajahi sejarah dan warisan kaya komunitas Masjid Al-Nur.",
+  title: "Sejarah | Komunitas Darussalam",
+  description: "Jelajahi sejarah dan warisan kaya komunitas Masjid Darussalam.",
 }
 
 export default function HistoryPage() {
@@ -11,7 +11,7 @@ export default function HistoryPage() {
     {
       year: "2015",
       title: "Pendirian Komunitas",
-      description: "Masjid komunitas Al-Nur didirikan dengan visi melayani komunitas Muslim lokal.",
+      description: "Masjid komunitas Darussalam didirikan dengan visi melayani komunitas Muslim lokal.",
       color: "bg-accent",
     },
     {
@@ -60,7 +60,7 @@ export default function HistoryPage() {
           </Link>
           <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">Sejarah Kami</h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
-            Temukan tonggak sejarah dan warisan komunitas Masjid Al-Nur sejak pendirian kami.
+            Temukan tonggak sejarah dan warisan komunitas Masjid Darussalam sejak pendirian kami.
           </p>
         </div>
       </section>

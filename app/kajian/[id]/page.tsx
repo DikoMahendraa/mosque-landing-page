@@ -287,7 +287,7 @@ export default function KajianDetailPage() {
 
                 {/* Action Buttons */}
                 <div className="space-y-3 pt-2">
-                  <Button className="w-full rounded-xl font-semibold bg-primary hover:bg-primary/90">Daftar Sekarang</Button>
+                  <Button className="w-full hover:text-white/50 rounded-xl font-semibold bg-primary hover:bg-primary/90">Daftar Sekarang</Button>
                   <div className="flex gap-3">
                     <Button variant="outline" className="flex-1 rounded-xl bg-transparent">
                       <Heart className="w-4 h-4" />

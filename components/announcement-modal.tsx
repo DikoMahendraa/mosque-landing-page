@@ -43,7 +43,7 @@ export default function AnnouncementModal() {
 
           {/* Content */}
           <div className="space-y-3">
-            <h2 className="text-2xl font-bold text-foreground">Selamat Datang di Masjid Al-Nur</h2>
+            <h2 className="text-2xl font-bold text-foreground">Selamat Datang di Masjid Darussalam</h2>
             <p className="text-muted-foreground leading-relaxed">
               Bergabunglah dengan komunitas kami yang dinamis untuk acara-acara bermakna, sesi kajian yang mendalam, dan pertumbuhan spiritual.
               Jelajahi acara mendatang, daftar untuk program, dan terhubung dengan sesama anggota komunitas.

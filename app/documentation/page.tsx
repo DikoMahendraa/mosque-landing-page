@@ -2,8 +2,8 @@ import { BookOpen, FileText, HelpCircle, Award, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
 export const metadata = {
-  title: "Dokumentasi | Komunitas Al-Nur",
-  description: "Dokumentasi, pedoman, dan sumber daya untuk anggota komunitas Al-Nur.",
+  title: "Dokumentasi | Komunitas Darussalam",
+  description: "Dokumentasi, pedoman, dan sumber daya untuk anggota komunitas Darussalam.",
 }
 
 export default function DocumentationPage() {
@@ -53,7 +53,7 @@ export default function DocumentationPage() {
           </Link>
           <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">Dokumentasi</h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
-            Panduan komprehensif, sumber daya, dan informasi untuk membantu Anda memaksimalkan manfaat dari komunitas Al-Nur.
+            Panduan komprehensif, sumber daya, dan informasi untuk membantu Anda memaksimalkan manfaat dari komunitas Darussalam.
           </p>
         </div>
       </section>

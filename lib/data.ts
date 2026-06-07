@@ -108,3 +108,36 @@ export async function getDailyActivities() {
   }
   return data
 }
+
+// ── TRANSACTIONS ──────────────────────────────────────────
+export async function getTransactions(type?: 'in' | 'out') {
+  let query = supabase
+    .from('transactions')
+    .select('*')
+    .order('date', { ascending: false })
+    .order('created_at', { ascending: false })
+
+  if (type) query = query.eq('type', type)
+
+  const { data, error } = await query
+  if (error) { console.error('Error fetching transactions:', error); return [] }
+  return data
+}
+
+export async function addTransaction(payload: {
+  type: 'in' | 'out'
+  category: string
+  amount: number
+  description?: string
+  date: string
+  recorded_by: string
+}) {
+  const { data, error } = await supabase.from('transactions').insert([payload]).select().single()
+  if (error) throw error
+  return data
+}
+
+export async function deleteTransaction(id: string) {
+  const { error } = await supabase.from('transactions').delete().eq('id', id)
+  if (error) throw error
+}

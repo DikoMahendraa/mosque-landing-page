@@ -214,7 +214,7 @@ export default function EventDetailPage() {
                     <MapPin className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="font-medium">{event.location}</p>
-                      <p className="text-xs text-muted-foreground mt-1">Masjid Al-Nur, Area Komunitas</p>
+                      <p className="text-xs text-muted-foreground mt-1">Masjid Darussalam, Area Komunitas</p>
                     </div>
                   </div>
                 </div>

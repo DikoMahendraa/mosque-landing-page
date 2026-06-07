@@ -161,7 +161,7 @@ export default function DonatePage() {
       {/* Why Support Section */}
       <section className="py-20 px-4 sm:px-6 bg-accent/20">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold mb-12">Mengapa Mendukung Al-Nur?</h2>
+          <h2 className="text-4xl font-bold mb-12">Mengapa Mendukung Darussalam?</h2>
           <div className="grid md:grid-cols-2 gap-8">
             {whyDonate.map((item, i) => (
               <div key={i} className="flex gap-4">

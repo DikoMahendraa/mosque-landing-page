@@ -120,7 +120,7 @@ CREATE POLICY "auth_write_activities" ON daily_activities FOR ALL USING (auth.ro
 -- ============================================================
 
 INSERT INTO hero_sections (title, subtitle, description, button_text, button_link) VALUES
-('Al-Nur Mosque',
+('Darussalam Mosque',
  'Ruang komunitas yang dinamis',
  'Ruang komunitas yang dinamis untuk pemuda, pembelajaran, dan pertumbuhan spiritual',
  'Jelajahi Acara',
@@ -161,3 +161,34 @@ INSERT INTO daily_activities (day, time, title, location, sort_order) VALUES
 ('Jumat',  '12:00', 'Sholat Jumat',              'Aula Sholat Utama', 2),
 ('Jumat',  '19:00', 'Kajian Mingguan',           'Aula Utama',        3),
 ('Jumat',  '19:30', 'Sholat Maghrib & Isya',     'Aula Sholat Utama', 4);
+
+-- ============================================================
+-- 6. TRANSACTIONS (Kas Masjid)
+-- ============================================================
+CREATE TABLE IF NOT EXISTS transactions (
+  id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  type        TEXT NOT NULL CHECK (type IN ('in', 'out')),
+  category    TEXT NOT NULL,
+  amount      NUMERIC(15, 2) NOT NULL CHECK (amount > 0),
+  description TEXT,
+  date        DATE NOT NULL DEFAULT CURRENT_DATE,
+  recorded_by TEXT NOT NULL DEFAULT 'Admin',
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+ALTER TABLE transactions ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "public_read_transactions"  ON transactions FOR SELECT USING (true);
+CREATE POLICY "public_write_transactions" ON transactions FOR ALL   USING (true);
+
+-- Seed sample data
+INSERT INTO transactions (type, category, amount, description, date, recorded_by) VALUES
+('in',  'Infaq',         2500000,  'Infaq Jumat minggu ke-1',          CURRENT_DATE - 14, 'Admin'),
+('in',  'Donasi',        5000000,  'Donasi pembangunan dari Pak Ahmad', CURRENT_DATE - 12, 'Admin'),
+('out', 'Operasional',   800000,   'Bayar listrik & air bulan ini',    CURRENT_DATE - 10, 'Admin'),
+('in',  'Zakat',         1500000,  'Zakat maal anggota komunitas',     CURRENT_DATE - 8,  'Admin'),
+('out', 'Konsumsi',      350000,   'Konsumsi kajian mingguan',         CURRENT_DATE - 7,  'Admin'),
+('in',  'Infaq',         3200000,  'Infaq Jumat minggu ke-2',          CURRENT_DATE - 7,  'Admin'),
+('out', 'Pembangunan',   4500000,  'Material renovasi serambi masjid', CURRENT_DATE - 5,  'Admin'),
+('in',  'Shodaqoh',      750000,   'Kotak amal harian',                CURRENT_DATE - 3,  'Admin'),
+('out', 'Operasional',   200000,   'Perlengkapan kebersihan',          CURRENT_DATE - 2,  'Admin'),
+('in',  'Wakaf',         10000000, 'Wakaf tunai dari Ibu Siti',        CURRENT_DATE - 1,  'Admin');
