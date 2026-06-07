@@ -1,6 +1,5 @@
 import { supabase } from './supabase'
 
-// Simple data fetching functions - just consume existing data
 export async function getHomePageData() {
   const { data, error } = await supabase
     .from('hero_sections')
@@ -8,26 +7,9 @@ export async function getHomePageData() {
     .single()
 
   if (error) {
-    console.error('Error fetching home page data:', error)
+    console.error('Error fetching hero section:', error)
     return null
   }
-
-  return data
-}
-
-export async function getFeaturedEvents(limit: number = 4) {
-  const { data, error } = await supabase
-    .from('events')
-    .select('*')
-    .eq('featured', true)
-    .order('date', { ascending: true })
-    .limit(limit)
-
-  if (error) {
-    console.error('Error fetching featured events:', error)
-    return []
-  }
-
   return data
 }
 
@@ -41,7 +23,21 @@ export async function getMosqueStats() {
     console.error('Error fetching mosque stats:', error)
     return null
   }
+  return data
+}
 
+export async function getFeaturedEvents(limit = 4) {
+  const { data, error } = await supabase
+    .from('events')
+    .select('*')
+    .eq('featured', true)
+    .order('date', { ascending: true })
+    .limit(limit)
+
+  if (error) {
+    console.error('Error fetching featured events:', error)
+    return []
+  }
   return data
 }
 
@@ -52,9 +48,63 @@ export async function getAllEvents() {
     .order('date', { ascending: true })
 
   if (error) {
-    console.error('Error fetching all events:', error)
+    console.error('Error fetching events:', error)
     return []
   }
+  return data
+}
 
+export async function getEventById(id: string) {
+  const { data, error } = await supabase
+    .from('events')
+    .select('*')
+    .eq('id', id)
+    .single()
+
+  if (error) {
+    console.error('Error fetching event:', error)
+    return null
+  }
+  return data
+}
+
+export async function getAllKajian() {
+  const { data, error } = await supabase
+    .from('kajian')
+    .select('*')
+    .eq('active', true)
+    .order('created_at', { ascending: true })
+
+  if (error) {
+    console.error('Error fetching kajian:', error)
+    return []
+  }
+  return data
+}
+
+export async function getKajianById(id: string) {
+  const { data, error } = await supabase
+    .from('kajian')
+    .select('*')
+    .eq('id', id)
+    .single()
+
+  if (error) {
+    console.error('Error fetching kajian:', error)
+    return null
+  }
+  return data
+}
+
+export async function getDailyActivities() {
+  const { data, error } = await supabase
+    .from('daily_activities')
+    .select('*')
+    .order('sort_order', { ascending: true })
+
+  if (error) {
+    console.error('Error fetching daily activities:', error)
+    return []
+  }
   return data
 }

@@ -1,13 +1,12 @@
-export interface Event {
+export interface HeroSection {
   id: string
   title: string
-  description?: string
-  date: string
-  time: string
-  category: string
-  attendees_count: number
-  image_url?: string
-  created_at: string
+  subtitle: string
+  description: string
+  image: string
+  button_text: string
+  button_link: string
+  updated_at: string
 }
 
 export interface MosqueStats {
@@ -18,13 +17,40 @@ export interface MosqueStats {
   updated_at: string
 }
 
-export interface HeroSection {
+export interface Event {
   id: string
   title: string
-  subtitle: string
-  description: string
-  image: string
-  button_text: string
-  button_link: string
+  description?: string
+  date: string
+  time: string
+  location: string
+  category: string
+  attendees_count: number
+  featured: boolean
+  image_url?: string
+  created_at: string
   updated_at: string
+}
+
+export interface Kajian {
+  id: string
+  title: string
+  instructor: string
+  level: string
+  description?: string
+  duration: string
+  students: number
+  image_url?: string
+  active: boolean
+  created_at: string
+  updated_at: string
+}
+
+export interface DailyActivity {
+  id: string
+  day: string
+  time: string
+  title: string
+  location: string
+  sort_order: number
 }
