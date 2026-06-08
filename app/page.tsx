@@ -29,6 +29,8 @@ export default function HomePage() {
   const [prevHeroIndex, setPrevHeroIndex] = useState<number | null>(null)
   const [fading, setFading] = useState(false)
 
+  console.log("homeData", homeData)
+
   useEffect(() => {
     const interval = setInterval(() => {
       setFading(true)
