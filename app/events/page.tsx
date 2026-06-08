@@ -5,8 +5,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { Calendar, MapPin, Users, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
 import { MotionCard } from "@/components/motion-card"
+import EventGridSkeleton from "@/components/event-grid-skeleton"
 import { MotionSection } from "@/components/motion-section"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
@@ -98,24 +98,7 @@ export default function EventsPage() {
       <MotionSection className="py-16 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           {loading ? (
-            <div className="grid md:grid-cols-2 gap-6">
-              {[...Array(4)].map((_, i) => (
-                <Card key={i} className="rounded-2xl overflow-hidden animate-pulse">
-                  <div className="h-44 bg-muted" />
-                  <div className="p-6 space-y-3">
-                    <div className="h-4 bg-muted rounded w-1/4" />
-                    <div className="h-6 bg-muted rounded w-3/4" />
-                    <div className="h-4 bg-muted rounded w-full" />
-                    <div className="space-y-2 pt-2">
-                      {[...Array(4)].map((_, j) => (
-                        <div key={j} className="h-4 bg-muted rounded w-1/2" />
-                      ))}
-                    </div>
-                    <div className="h-10 bg-muted rounded-xl pt-2" />
-                  </div>
-                </Card>
-              ))}
-            </div>
+            <EventGridSkeleton count={4} variant="event" />
           ) : (
             <div className="grid md:grid-cols-2 gap-6">
               {events.map((event, index) => (

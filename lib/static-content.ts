@@ -1,0 +1,72 @@
+import { Event, HeroSection, MosqueStats } from "@/lib/types"
+
+export const STATIC_HERO: HeroSection = {
+  id: "static",
+  title: "Masjid Darussalam",
+  subtitle: "Ruang komunitas yang dinamis",
+  description:
+    "Ruang komunitas yang dinamis untuk pemuda, pembelajaran, dan pertumbuhan spiritual",
+  image: "",
+  button_text: "Jelajahi Acara",
+  button_link: "/events",
+  updated_at: new Date().toISOString(),
+}
+
+export const STATIC_STATS: MosqueStats = {
+  id: "static",
+  monthly_events: 15,
+  community_members: 800,
+  study_sessions: 50,
+  updated_at: new Date().toISOString(),
+}
+
+export const FALLBACK_FEATURED_EVENTS: Event[] = [
+  {
+    id: "1",
+    title: "Kajian Al-Quran",
+    date: "Jumat, 27 Des",
+    time: "19:00",
+    location: "Aula Utama",
+    category: "Pembelajaran",
+    attendees_count: 45,
+    featured: true,
+    created_at: "",
+    updated_at: "",
+  },
+  {
+    id: "2",
+    title: "Malam Olahraga Pemuda",
+    date: "Sabtu, 28 Des",
+    time: "18:00",
+    location: "Lapangan Olahraga",
+    category: "Komunitas",
+    attendees_count: 32,
+    featured: true,
+    created_at: "",
+    updated_at: "",
+  },
+  {
+    id: "3",
+    title: "Workshop Keuangan Islam",
+    date: "Minggu, 29 Des",
+    time: "15:00",
+    location: "Ruang Konferensi",
+    category: "Workshop",
+    attendees_count: 28,
+    featured: true,
+    created_at: "",
+    updated_at: "",
+  },
+  {
+    id: "4",
+    title: "Buka Puasa Bersama",
+    date: "Rabu, 1 Jan",
+    time: "18:30",
+    location: "Ruang Makan",
+    category: "Sosial",
+    attendees_count: 120,
+    featured: true,
+    created_at: "",
+    updated_at: "",
+  },
+]

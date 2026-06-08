@@ -1,12 +1,13 @@
 "use client"
 
 import { useParams, useRouter } from "next/navigation"
-import { User, Clock, Award, ArrowLeft, Share2, Heart, BookOpen, UsersIcon } from "lucide-react"
+import { Clock, Award, ArrowLeft, Share2, Heart, UsersIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { MotionCard } from "@/components/motion-card"
 import { MotionSection } from "@/components/motion-section"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
+import { buildRegistrationUrl } from "@/lib/whatsapp"
 
 export default function KajianDetailPage() {
   const params = useParams()
@@ -160,151 +161,152 @@ export default function KajianDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Navigation />
+    <>
+      <div className="min-h-screen bg-primary text-foreground">
+        <Navigation />
 
-      {/* Header with back button */}
-      <MotionSection variant="hero" className={`${kajian.image} bg-gradient-to-b to-background pt-20 pb-12 px-4 sm:px-6`}>
-        <div className="max-w-4xl mx-auto">
-          <button
-            onClick={() => router.back()}
-            className="mb-6 flex items-center gap-2 text-sm font-medium hover:opacity-80 transition-opacity text-white/90"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Kembali ke Kajian
-          </button>
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-white">
-            <div className="mb-4">
-              <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-lg bg-white/20 text-white`}>
-                {kajian.level}
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">{kajian.title}</h1>
-            <p className="text-lg text-white/80">{kajian.description}</p>
-          </div>
-        </div>
-      </MotionSection>
-
-      {/* Main Content */}
-      <MotionSection className="py-16 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Main Content */}
-            <div className="md:col-span-2">
-              {/* About Section */}
-              <div className="mb-12">
-                <h2 className="text-2xl font-bold mb-4">Tentang Kursus Ini</h2>
-                <p className="text-muted-foreground leading-relaxed">{kajian.fullDescription}</p>
+        {/* Header with back button */}
+        <MotionSection variant="hero" className={`${kajian.image} bg-gradient-to-b to-background pt-20 pb-12 px-4 sm:px-6`}>
+          <div className="max-w-4xl mx-auto">
+            <button
+              onClick={() => router.back()}
+              className="mb-6 flex items-center gap-2 cursor-pointer text-sm font-medium hover:opacity-80 transition-opacity text-white/90"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Kembali ke Kajian
+            </button>
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-white">
+              <div className="mb-4">
+                <span className="inline-block px-3 py-1 bg-primary/50 backdrop-blur text-white text-xs font-semibold rounded-lg">
+                  {kajian.level}
+                </span>
               </div>
+              <h1 className="text-4xl md:text-5xl text-black font-bold mb-4">{kajian.title}</h1>
+              <p className="text-lg text-black">{kajian.description}</p>
+            </div>
+          </div>
+        </MotionSection>
 
-              {/* Syllabus */}
-              <div className="mb-12">
-                <h2 className="text-2xl font-bold mb-6">Silabus Kursus</h2>
-                <div className="space-y-3">
-                  {kajian.syllabus.map((topic, idx) => (
-                    <MotionCard key={idx} index={idx} className="p-4 bg-secondary/5 border-0 rounded-xl flex items-start gap-3">
-                      <BookOpen className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="font-medium">{topic}</span>
-                    </MotionCard>
-                  ))}
+        {/* Main Content */}
+        <MotionSection className="py-16 px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* Main Content */}
+              <div className="md:col-span-2">
+                {/* About Section */}
+                <div className="mb-12">
+                  <h2 className="text-2xl text-white font-bold mb-4">Tentang Kursus Ini</h2>
+                  <p className="text-white leading-relaxed mb-6">{kajian.fullDescription}</p>
+                </div>
+
+                {/* Syllabus */}
+                <div className="mb-12">
+                  <h2 className="text-2xl text-white font-bold mb-6">Silabus Kursus</h2>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    {kajian.syllabus.map((topic, idx) => (
+                      <MotionCard
+                        key={idx}
+                        index={idx}
+                        className="p-4 border-0 rounded-xl flex items-center gap-3 bg-white text-primary"
+                      >
+                        <span className="font-medium">&#8226; {topic}</span>
+                      </MotionCard>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Instructor */}
+                <div className="mb-12">
+                  <h2 className="text-2xl text-white font-bold mb-4">Instruktur</h2>
+                  <MotionCard index={0} className="p-6 bg-white border-0 text-primary rounded-2xl">
+                    <p className="text-lg font-semibold">{kajian.instructor}</p>
+                    <p className="text-sm mt-2">Memimpin kursus ini dengan keahlian dan semangat</p>
+                  </MotionCard>
                 </div>
               </div>
 
-              {/* Instructor */}
-              <div className="mb-12">
-                <h2 className="text-2xl font-bold mb-4">Instruktur</h2>
-                <MotionCard index={0} className="p-6 bg-accent/5 border-0 rounded-2xl">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
-                      <User className="w-6 h-6 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-lg text-foreground">{kajian.instructor}</p>
-                      <p className="text-sm text-muted-foreground">Instruktur Ahli</p>
+              {/* Sidebar */}
+              <div>
+                <MotionCard index={0} className="p-6 bg-background border-2 border-secondary/20 rounded-2xl sticky top-24 space-y-6">
+                  {/* Level */}
+                  <div>
+                    <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Tingkat</h3>
+                    <span
+                      className={`inline-block px-3 py-2 text-sm font-semibold rounded-lg ${getLevelColor(kajian.level)}`}
+                    >
+                      {kajian.level}
+                    </span>
+                  </div>
+
+                  <div className="h-px bg-border" />
+
+                  {/* Schedule */}
+                  <div>
+                    <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Jadwal</h3>
+                    <div className="flex items-start gap-3">
+                      <Clock className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                      <div>
+                        <p className="font-medium">{kajian.schedule}</p>
+                        <p className="text-xs text-primary mt-1">Kursus {kajian.duration}</p>
+                      </div>
                     </div>
                   </div>
-                  <p className="text-sm text-muted-foreground">
-                    Pendidik berpengalaman yang berdedikasi untuk membuat pengetahuan Islam dapat diakses dan transformatif.
-                  </p>
+
+                  <div className="h-px bg-border" />
+
+                  {/* Enrolled */}
+                  <div>
+                    <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Pendaftaran</h3>
+                    <div className="flex items-center gap-3">
+                      <UsersIcon className="w-5 h-5 text-primary shrink-0" />
+                      <span className="font-bold text-lg text-primary">{kajian.students}</span>
+                      <span className="text-sm text-primary">terdaftar</span>
+                    </div>
+                  </div>
+
+                  <div className="h-px bg-border" />
+
+                  {/* Certificate */}
+                  <div>
+                    <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Sertifikat</h3>
+                    <div className="flex items-start gap-3">
+                      <Award className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                      <div>
+                        <p className="font-medium">Sertifikat Disertakan</p>
+                        <p className="text-xs text-primary mt-1">Setelah selesai</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="h-px bg-border" />
+
+                  {/* Action Buttons */}
+                  <div className="space-y-3 pt-2">
+                    <Button asChild className="w-full rounded-xl font-semibold bg-primary hover:bg-primary/90">
+                      <a
+                        href={buildRegistrationUrl(kajian.title, "kajian")}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Daftar Sekarang
+                      </a>
+                    </Button>
+                    <div className="flex gap-3">
+                      <Button variant="outline" className="flex-1 rounded-xl bg-transparent">
+                        <Heart className="w-4 h-4" />
+                      </Button>
+                      <Button variant="outline" className="flex-1 rounded-xl bg-transparent">
+                        <Share2 className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
                 </MotionCard>
               </div>
             </div>
-
-            {/* Sidebar */}
-            <div>
-              <MotionCard index={0} className="p-6 bg-background border-2 border-secondary/20 rounded-2xl sticky top-24 space-y-6">
-                {/* Level */}
-                <div>
-                  <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">Tingkat</h3>
-                  <span
-                    className={`inline-block px-3 py-2 text-sm font-semibold rounded-lg ${getLevelColor(kajian.level)}`}
-                  >
-                    {kajian.level}
-                  </span>
-                </div>
-
-                <div className="h-px bg-border" />
-
-                {/* Schedule */}
-                <div>
-                  <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-                    Jadwal
-                  </h3>
-                  <div className="flex items-start gap-3">
-                    <Clock className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="font-medium text-sm">{kajian.schedule}</p>
-                      <p className="text-xs text-muted-foreground mt-1">Kursus {kajian.duration}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="h-px bg-border" />
-
-                {/* Enrolled */}
-                <div>
-                  <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-                    Pendaftaran
-                  </h3>
-                  <div className="flex items-center gap-3">
-                    <UsersIcon className="w-5 h-5 text-primary flex-shrink-0" />
-                    <span className="font-bold text-lg text-foreground">{kajian.students}</span>
-                    <span className="text-sm text-muted-foreground">terdaftar</span>
-                  </div>
-                </div>
-
-                <div className="h-px bg-border" />
-
-                {/* Certificate */}
-                <div className="flex items-start gap-3">
-                  <Award className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-medium text-sm">Sertifikat Disertakan</p>
-                    <p className="text-xs text-muted-foreground mt-1">Setelah selesai</p>
-                  </div>
-                </div>
-
-                <div className="h-px bg-border" />
-
-                {/* Action Buttons */}
-                <div className="space-y-3 pt-2">
-                  <Button className="w-full hover:text-white/50 rounded-xl font-semibold bg-primary hover:bg-primary/90">Daftar Sekarang</Button>
-                  <div className="flex gap-3">
-                    <Button variant="outline" className="flex-1 rounded-xl bg-transparent">
-                      <Heart className="w-4 h-4" />
-                    </Button>
-                    <Button variant="outline" className="flex-1 rounded-xl bg-transparent">
-                      <Share2 className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </div>
-              </MotionCard>
-            </div>
           </div>
-        </div>
-      </MotionSection>
-
+        </MotionSection>
+      </div>
       <Footer />
-    </div>
+    </>
   )
 }

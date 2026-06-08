@@ -7,6 +7,7 @@ import { MotionCard } from "@/components/motion-card"
 import { MotionSection } from "@/components/motion-section"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
+import { buildRegistrationUrl } from "@/lib/whatsapp"
 
 export default function EventDetailPage() {
   const params = useParams()
@@ -128,134 +129,145 @@ export default function EventDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-primary text-foreground">
-      <Navigation />
+    <>
+      <div className="min-h-screen bg-primary text-foreground">
+        <Navigation />
 
-      {/* Header with back button */}
-      <MotionSection variant="hero" className={`${event.image} bg-gradient-to-b to-background pt-20 pb-12 px-4 sm:px-6`}>
-        <div className="max-w-4xl mx-auto">
-          <button
-            onClick={() => router.back()}
-            className="mb-6 flex items-center gap-2 cursor-pointer text-sm font-medium hover:opacity-80 transition-opacity text-white/90"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Kembali ke Acara
-          </button>
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-white">
-            <div className="mb-4">
-              <span className="inline-block px-3 py-1 bg-primary/50 backdrop-blur text-white text-xs font-semibold rounded-lg">
-                {event.category}
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl text-black font-bold mb-4">{event.title}</h1>
-            <p className="text-lg text-black">{event.description}</p>
-          </div>
-        </div>
-      </MotionSection>
-
-      {/* Main Content */}
-      <MotionSection className="py-16 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Main Content */}
-            <div className="md:col-span-2">
-              {/* About Section */}
-              <div className="mb-12">
-                <h2 className="text-2xl text-white font-bold mb-4">Tentang Acara Ini</h2>
-                <p className="text-white leading-relaxed mb-6">{event.fullDescription}</p>
+        {/* Header with back button */}
+        <MotionSection variant="hero" className={`${event.image} bg-gradient-to-b to-background pt-20 pb-12 px-4 sm:px-6`}>
+          <div className="max-w-4xl mx-auto">
+            <button
+              onClick={() => router.back()}
+              className="mb-6 flex items-center gap-2 cursor-pointer text-sm font-medium hover:opacity-80 transition-opacity text-white/90"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Kembali ke Acara
+            </button>
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-white">
+              <div className="mb-4">
+                <span className="inline-block px-3 py-1 bg-primary/50 backdrop-blur text-white text-xs font-semibold rounded-lg">
+                  {event.category}
+                </span>
               </div>
+              <h1 className="text-4xl md:text-5xl text-black font-bold mb-4">{event.title}</h1>
+              <p className="text-lg text-black">{event.description}</p>
+            </div>
+          </div>
+        </MotionSection>
 
-              {/* Features */}
-              <div className="mb-12">
-                <h2 className="text-2xl text-white font-bold mb-6">Yang Akan Didapatkan</h2>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  {event.features.map((feature, idx) => (
-                    <MotionCard key={idx} index={idx} className="p-4 border-0 rounded-xl flex items-center gap-3 bg-white text-primary">
-                      <span className="font-medium">&#8226; {feature}</span>
-                    </MotionCard>
-                  ))}
+        {/* Main Content */}
+        <MotionSection className="py-16 px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* Main Content */}
+              <div className="md:col-span-2">
+                {/* About Section */}
+                <div className="mb-12">
+                  <h2 className="text-2xl text-white font-bold mb-4">Tentang Acara Ini</h2>
+                  <p className="text-white leading-relaxed mb-6">{event.fullDescription}</p>
+                </div>
+
+                {/* Features */}
+                <div className="mb-12">
+                  <h2 className="text-2xl text-white font-bold mb-6">Yang Akan Didapatkan</h2>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    {event.features.map((feature, idx) => (
+                      <MotionCard key={idx} index={idx} className="p-4 border-0 rounded-xl flex items-center gap-3 bg-white text-primary">
+                        <span className="font-medium">&#8226; {feature}</span>
+                      </MotionCard>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Speaker */}
+                <div className="mb-12">
+                  <h2 className="text-2xl text-white font-bold mb-4">Penyelenggara Acara</h2>
+                  <MotionCard index={0} className="p-6 bg-white border-0 text-primary rounded-2xl">
+                    <p className="text-lg font-semibold">{event.speaker}</p>
+                    <p className="text-sm mt-2">Memimpin sesi ini dengan keahlian dan semangat</p>
+                  </MotionCard>
                 </div>
               </div>
 
-              {/* Speaker */}
-              <div className="mb-12">
-                <h2 className="text-2xl text-white font-bold mb-4">Penyelenggara Acara</h2>
-                <MotionCard index={0} className="p-6 bg-white border-0 text-primary rounded-2xl">
-                  <p className="text-lg font-semibold">{event.speaker}</p>
-                  <p className="text-sm mt-2">Memimpin sesi ini dengan keahlian dan semangat</p>
+              {/* Sidebar */}
+              <div>
+                <MotionCard index={0} className="p-6 bg-background border-2 border-secondary/20 rounded-2xl sticky top-24 space-y-6">
+                  {/* Date & Time */}
+                  <div>
+                    <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Kapan</h3>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-3 text-foreground">
+                        <Calendar className="w-5 h-5 text-primary flex-shrink-0" />
+                        <span className="font-medium">{event.date}</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-foreground">
+                        <Clock className="w-5 h-5 text-primary flex-shrink-0" />
+                        <span className="font-medium">{event.time}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="h-px bg-border" />
+
+                  {/* Location */}
+                  <div>
+                    <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Dimana</h3>
+                    <div className="flex items-start gap-3">
+                      <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="font-medium">{event.location}</p>
+                        <p className="text-xs text-primary mt-1">Masjid Darussalam, Area Komunitas</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="h-px bg-border" />
+
+                  {/* Attendees */}
+                  <div>
+                    <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
+                      Peserta
+                    </h3>
+                    <div className="flex items-center gap-3">
+                      <Users className="w-5 h-5 text-primary flex-shrink-0" />
+                      <span className="font-bold text-lg text-primary">{event.attendees}</span>
+                      <span className="text-sm text-primary">terdaftar</span>
+                    </div>
+                  </div>
+
+                  <div className="h-px bg-border" />
+
+                  {/* Action Buttons */}
+                  <div className="space-y-3 pt-2">
+                    <Button
+                      asChild
+                      className="w-full rounded-xl font-semibold bg-primary hover:bg-primary/90"
+                    >
+                      <a
+                        href={buildRegistrationUrl(event.title, "acara")}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Daftar Sekarang
+                      </a>
+                    </Button>
+                    <div className="flex gap-3">
+                      <Button variant="outline" className="flex-1 rounded-xl bg-transparent">
+                        <Heart className="w-4 h-4" />
+                      </Button>
+                      <Button variant="outline" className="flex-1 rounded-xl bg-transparent">
+                        <Share2 className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
                 </MotionCard>
               </div>
             </div>
-
-            {/* Sidebar */}
-            <div>
-              <MotionCard index={0} className="p-6 bg-background border-2 border-secondary/20 rounded-2xl sticky top-24 space-y-6">
-                {/* Date & Time */}
-                <div>
-                  <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Kapan</h3>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-3 text-foreground">
-                      <Calendar className="w-5 h-5 text-primary flex-shrink-0" />
-                      <span className="font-medium">{event.date}</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-foreground">
-                      <Clock className="w-5 h-5 text-primary flex-shrink-0" />
-                      <span className="font-medium">{event.time}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="h-px bg-border" />
-
-                {/* Location */}
-                <div>
-                  <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Dimana</h3>
-                  <div className="flex items-start gap-3">
-                    <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="font-medium">{event.location}</p>
-                      <p className="text-xs text-primary mt-1">Masjid Darussalam, Area Komunitas</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="h-px bg-border" />
-
-                {/* Attendees */}
-                <div>
-                  <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
-                    Peserta
-                  </h3>
-                  <div className="flex items-center gap-3">
-                    <Users className="w-5 h-5 text-primary flex-shrink-0" />
-                    <span className="font-bold text-lg text-primary">{event.attendees}</span>
-                    <span className="text-sm text-primary">terdaftar</span>
-                  </div>
-                </div>
-
-                <div className="h-px bg-border" />
-
-                {/* Action Buttons */}
-                <div className="space-y-3 pt-2">
-                  <Button className="w-full rounded-xl font-semibold bg-primary hover:bg-primary/90">
-                    Daftar Sekarang
-                  </Button>
-                  <div className="flex gap-3">
-                    <Button variant="outline" className="flex-1 rounded-xl bg-transparent">
-                      <Heart className="w-4 h-4" />
-                    </Button>
-                    <Button variant="outline" className="flex-1 rounded-xl bg-transparent">
-                      <Share2 className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </div>
-              </MotionCard>
-            </div>
           </div>
-        </div>
-      </MotionSection>
+        </MotionSection>
 
+      </div>
       <Footer />
-    </div>
+    </>
   )
 }

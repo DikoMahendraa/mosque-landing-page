@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import AnnouncementModal from "@/components/announcement-modal"
-import WhatsAppButton from "@/components/whatsapp-button"
+import { MobileNavProvider } from "@/components/mobile-nav-context"
 import WhatsAppFloatingButton from "@/components/whatsapp-floating-button"
 
 const _geist = Geist({ subsets: ["latin"] })
@@ -41,9 +41,11 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className={`font-sans antialiased mb-12`}>
-        <AnnouncementModal />
-        {children}
-        <WhatsAppFloatingButton />
+        <MobileNavProvider>
+          <AnnouncementModal />
+          {children}
+          <WhatsAppFloatingButton />
+        </MobileNavProvider>
         <Analytics />
       </body>
     </html>

@@ -4,8 +4,8 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Clock, User, Award, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
 import { MotionCard } from "@/components/motion-card"
+import EventGridSkeleton from "@/components/event-grid-skeleton"
 import { MotionSection } from "@/components/motion-section"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
@@ -101,21 +101,7 @@ export default function KajianPage() {
       <MotionSection className="py-16 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           {loading ? (
-            <div className="grid md:grid-cols-2 gap-6">
-              {[...Array(4)].map((_, i) => (
-                <Card key={i} className="p-6 rounded-2xl animate-pulse">
-                  <div className="h-4 bg-muted rounded w-1/4 mb-4" />
-                  <div className="h-6 bg-muted rounded w-3/4 mb-2" />
-                  <div className="h-4 bg-muted rounded w-full mb-6" />
-                  <div className="space-y-3 mb-6">
-                    {[...Array(3)].map((_, j) => (
-                      <div key={j} className="h-4 bg-muted rounded w-1/2" />
-                    ))}
-                  </div>
-                  <div className="h-10 bg-muted rounded-xl" />
-                </Card>
-              ))}
-            </div>
+            <EventGridSkeleton count={4} variant="kajian" />
           ) : (
             <div className="grid md:grid-cols-2 gap-6">
               {kajianList.map((kajian, index) => (
