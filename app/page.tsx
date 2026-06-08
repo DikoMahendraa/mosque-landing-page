@@ -2,12 +2,16 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { Calendar, Users, BookOpen, Heart } from "lucide-react"
+import { Calendar, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
+import { MotionCard } from "@/components/motion-card"
+import { MotionSection } from "@/components/motion-section"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import SponsorCarousel from "@/components/sponsor-carousel"
+import IslamicQuotesCarousel from "@/components/islamic-quotes-carousel"
+import HeroTypingContent from "@/components/hero-typing-content"
+import CommunityStats from "@/components/community-stats"
 import { useEffect, useState } from "react"
 import { getHomePageData, getFeaturedEvents, getMosqueStats } from "@/lib/data"
 import { Event, MosqueStats, HeroSection } from "@/lib/types"
@@ -80,7 +84,7 @@ export default function HomePage() {
   // Fallback data if Supabase is not configured
   const fallbackHomeData: HeroSection = {
     id: 'fallback',
-    title: 'Darussalam Mosque',
+    title: 'Masjid Darussalam',
     subtitle: 'Ruang komunitas yang dinamis',
     description: 'Ruang komunitas yang dinamis untuk pemuda, pembelajaran, dan pertumbuhan spiritual',
     image: '',
@@ -104,7 +108,7 @@ export default function HomePage() {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+      <MotionSection variant="hero" className="relative min-h-[90vh] flex items-center overflow-hidden">
         {/* Background images — crossfade */}
         {HERO_IMAGES.map((src, i) => (
           <div
@@ -136,73 +140,21 @@ export default function HomePage() {
 
         {/* Content */}
         <div className="relative z-20 w-full max-w-5xl mx-auto px-4 sm:px-6 py-32 md:py-48">
-          <div className="text-center space-y-8">
-            <div className="space-y-4">
-              <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight drop-shadow-lg">
-                {data.title}
-              </h1>
-              <p className="text-xl md:text-2xl text-white/80 max-w-2xl mx-auto leading-relaxed drop-shadow">
-                {data.description}
-              </p>
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
-              <Link href="/events" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full rounded-xl font-semibold bg-white text-black hover:bg-white/90">
-                  <Calendar className="w-5 h-5 mr-2" />
-                  {data.button_text}
-                </Button>
-              </Link>
-              <Link href="/kajian" className="w-full sm:w-auto">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="w-full rounded-xl font-semibold border-white/60 text-white hover:bg-white/10 bg-transparent"
-                >
-                  <BookOpen className="w-5 h-5 mr-2" />
-                  Lihat Kajian
-                </Button>
-              </Link>
-            </div>
-          </div>
+          <HeroTypingContent
+            title={data.title}
+            description={data.description}
+            buttonText={data.button_text}
+          />
         </div>
-      </section>
+      </MotionSection>
 
-      {/* Quick Stats */}
-      <section className="py-16 px-4 sm:px-6 bg-primary">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-6">
-            <Card className="p-8 text-center bg-background border-0 shadow-sm hover:shadow-md transition-shadow rounded-2xl">
-              <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-xl mb-4">
-                <Calendar className="w-7 h-7 text-primary" />
-              </div>
-              <div className="text-4xl font-bold text-primary mb-2">{stats.monthly_events}+</div>
-              <p className="text-muted-foreground">Acara Bulanan</p>
-            </Card>
-            <Card className="p-8 text-center bg-background border-0 shadow-sm hover:shadow-md transition-shadow rounded-2xl">
-              <div className="inline-flex items-center justify-center w-14 h-14 bg-accent/10 rounded-xl mb-4">
-                <Users className="w-7 h-7 text-accent" />
-              </div>
-              <div className="text-4xl font-bold text-accent mb-2">{stats.community_members}+</div>
-              <p className="text-muted-foreground">Anggota Komunitas</p>
-            </Card>
-            <Card className="p-8 text-center bg-background border-0 shadow-sm hover:shadow-md transition-shadow rounded-2xl">
-              <div className="inline-flex items-center justify-center w-14 h-14 bg-secondary/20 rounded-xl mb-4">
-                <BookOpen className="w-7 h-7 text-secondary" />
-              </div>
-              <div className="text-4xl font-bold text-secondary mb-2">{stats.study_sessions}+</div>
-              <p className="text-muted-foreground">Sesi Kajian</p>
-            </Card>
-          </div>
-        </div>
-      </section>
+      <CommunityStats stats={stats} />
 
       {/* Sponsor Carousel */}
       <SponsorCarousel />
 
       {/* Featured Events Section */}
-      <section className="py-20 px-4 sm:px-6">
+      <MotionSection className="py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <div className="mb-12">
             <h2 className="text-4xl font-bold mb-2">Acara Mendatang</h2>
@@ -210,9 +162,9 @@ export default function HomePage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 mb-8">
-            {featuredEvents.length > 0 ? featuredEvents.map((event) => (
-              <Link key={event.id} href="/events" className="group">
-                <Card className="overflow-hidden border-0 shadow-sm hover:shadow-xl transition-all duration-300 rounded-2xl h-full flex flex-col">
+            {featuredEvents.length > 0 ? featuredEvents.map((event, index) => (
+              <Link key={event.id} href="/events" className="group block h-full">
+                <MotionCard index={index} className="overflow-hidden border-0 shadow-sm hover:shadow-xl transition-all duration-300 rounded-2xl h-full flex flex-col">
                   {/* Thumbnail */}
                   {event.image_url ? (
                     <div className="relative h-40 w-full overflow-hidden flex-shrink-0">
@@ -252,7 +204,7 @@ export default function HomePage() {
                       Pelajari Lebih Lanjut
                     </Button>
                   </div>
-                </Card>
+                </MotionCard>
               </Link>
             )) : (
               // Fallback events when Supabase is not configured
@@ -261,9 +213,9 @@ export default function HomePage() {
                 { id: '2', title: "Malam Olahraga Pemuda", date: "Sabtu, 28 Des", time: "18:00", category: "Komunitas", attendees_count: 32 },
                 { id: '3', title: "Workshop Keuangan Islam", date: "Minggu, 29 Des", time: "15:00", category: "Workshop", attendees_count: 28 },
                 { id: '4', title: "Buka Puasa Bersama", date: "Rabu, 1 Jan", time: "18:30", category: "Sosial", attendees_count: 120 },
-              ].map((event) => (
-                <Link key={event.id} href="/events" className="group">
-                  <Card className="overflow-hidden border-0 shadow-sm hover:shadow-xl transition-all duration-300 rounded-2xl h-full flex flex-col">
+              ].map((event, index) => (
+                <Link key={event.id} href="/events" className="group block h-full">
+                  <MotionCard index={index} className="overflow-hidden border-0 shadow-sm hover:shadow-xl transition-all duration-300 rounded-2xl h-full flex flex-col">
                     {/* Placeholder thumbnail */}
                     <div className="h-40 w-full bg-gradient-to-br from-primary/20 to-accent/10 flex items-center justify-center flex-shrink-0">
                       <Calendar className="w-12 h-12 text-primary/30" />
@@ -291,7 +243,7 @@ export default function HomePage() {
                         Pelajari Lebih Lanjut
                       </Button>
                     </div>
-                  </Card>
+                  </MotionCard>
                 </Link>
               ))
             )}
@@ -305,23 +257,9 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-      </section>
+      </MotionSection>
 
-      {/* Call-to-Action Section */}
-      <section className="py-20 px-4 sm:px-6 bg-primary">
-        <div className="max-w-4xl mx-auto text-center space-y-6">
-          <h2 className="text-4xl font-bold">Buat Perbedaan</h2>
-          <p className="text-lg text-white leading-relaxed">
-            Dukung inisiatif komunitas kami dan bantu kami menciptakan pengalaman yang bermakna untuk semua orang
-          </p>
-          <Link href="/donate">
-            <Button size="lg" className="rounded-xl hover:bg-white text-primary bg-white font-semibold gap-2">
-              <Heart className="w-5 h-5" />
-              Donasi Sekarang
-            </Button>
-          </Link>
-        </div>
-      </section>
+      <IslamicQuotesCarousel />
 
       <Footer />
     </div>

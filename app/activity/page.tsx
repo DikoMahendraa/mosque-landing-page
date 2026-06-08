@@ -2,8 +2,8 @@ import { Clock, MapPin, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
 export const metadata = {
-  title: "Aktivitas Harian | Komunitas Darussalam",
-  description: "Lihat aktivitas harian dan waktu sholat di Masjid Darussalam.",
+  title: "Kegiatan Harian | Komunitas Darussalam",
+  description: "Lihat Kegiatan harian dan waktu sholat di Masjid Darussalam.",
 }
 
 export default function ActivityPage() {
@@ -60,20 +60,20 @@ export default function ActivityPage() {
   ]
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-primary/10">
       {/* Header Section */}
-      <section className="bg-gradient-to-br from-primary/10 to-accent/10 border-b border-border/40 py-12 sm:py-16">
+      <section className="bg-linear-to-br from-primary to-primary/60 border-b border-border/40 py-12 sm:py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors mb-6"
+            className="inline-flex items-center gap-2 text-primary hover:text-white transition-colors mb-6"
           >
-            <ArrowLeft className="w-4 h-4" />
-            <span className="text-sm font-medium">Kembali ke Beranda</span>
+            <ArrowLeft className="w-4 h-4 text-white" />
+            <span className="text-sm font-medium text-white">Kembali ke Beranda</span>
           </Link>
-          <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">Aktivitas Harian</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl">
-            Tetap terhubung dengan aktivitas harian, waktu sholat, dan program komunitas kami sepanjang minggu.
+          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">Kegiatan Harian</h1>
+          <p className="text-lg text-white max-w-2xl">
+            Tetap terhubung dengan Kegiatan harian, waktu sholat, dan program komunitas kami sepanjang minggu.
           </p>
         </div>
       </section>
@@ -88,8 +88,8 @@ export default function ActivityPage() {
                 className="rounded-2xl overflow-hidden border border-border/40 hover:shadow-lg transition-shadow"
               >
                 {/* Day header */}
-                <div className="bg-gradient-to-r from-primary/20 to-secondary/20 px-6 sm:px-8 py-4 border-b border-border/40">
-                  <h2 className="text-2xl font-bold text-foreground">{daySchedule.day}</h2>
+                <div className="bg-gradient-to-r from-primary to-secondary/20 px-6 sm:px-8 py-4 border-b border-border/40">
+                  <h2 className="text-2xl font-bold text-white">{daySchedule.day}</h2>
                 </div>
 
                 {/* Activities list */}

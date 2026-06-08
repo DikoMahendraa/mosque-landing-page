@@ -70,7 +70,7 @@ export default function HistoryPage() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <div className="relative">
             {/* Timeline line */}
-            <div className="absolute left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-secondary/50"></div>
+            <div className="absolute left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-primary/50"></div>
 
             {/* Timeline items */}
             <div className="space-y-12">

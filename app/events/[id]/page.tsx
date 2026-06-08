@@ -3,7 +3,8 @@
 import { useParams, useRouter } from "next/navigation"
 import { Calendar, MapPin, Users, Clock, ArrowLeft, Share2, Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
+import { MotionCard } from "@/components/motion-card"
+import { MotionSection } from "@/components/motion-section"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 
@@ -127,79 +128,78 @@ export default function EventDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-primary text-foreground">
       <Navigation />
 
       {/* Header with back button */}
-      <section className={`${event.image} bg-gradient-to-b to-background pt-20 pb-12 px-4 sm:px-6`}>
+      <MotionSection variant="hero" className={`${event.image} bg-gradient-to-b to-background pt-20 pb-12 px-4 sm:px-6`}>
         <div className="max-w-4xl mx-auto">
           <button
             onClick={() => router.back()}
-            className="mb-6 flex items-center gap-2 text-sm font-medium hover:opacity-80 transition-opacity text-white/90"
+            className="mb-6 flex items-center gap-2 cursor-pointer text-sm font-medium hover:opacity-80 transition-opacity text-white/90"
           >
             <ArrowLeft className="w-4 h-4" />
             Kembali ke Acara
           </button>
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-white">
             <div className="mb-4">
-              <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur text-white text-xs font-semibold rounded-lg">
+              <span className="inline-block px-3 py-1 bg-primary/50 backdrop-blur text-white text-xs font-semibold rounded-lg">
                 {event.category}
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">{event.title}</h1>
-            <p className="text-lg text-white/80">{event.description}</p>
+            <h1 className="text-4xl md:text-5xl text-black font-bold mb-4">{event.title}</h1>
+            <p className="text-lg text-black">{event.description}</p>
           </div>
         </div>
-      </section>
+      </MotionSection>
 
       {/* Main Content */}
-      <section className="py-16 px-4 sm:px-6">
+      <MotionSection className="py-16 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8">
             {/* Main Content */}
             <div className="md:col-span-2">
               {/* About Section */}
               <div className="mb-12">
-                <h2 className="text-2xl font-bold mb-4">Tentang Acara Ini</h2>
-                <p className="text-muted-foreground leading-relaxed mb-6">{event.fullDescription}</p>
+                <h2 className="text-2xl text-white font-bold mb-4">Tentang Acara Ini</h2>
+                <p className="text-white leading-relaxed mb-6">{event.fullDescription}</p>
               </div>
 
               {/* Features */}
               <div className="mb-12">
-                <h2 className="text-2xl font-bold mb-6">Yang Akan Didapatkan</h2>
+                <h2 className="text-2xl text-white font-bold mb-6">Yang Akan Didapatkan</h2>
                 <div className="grid sm:grid-cols-2 gap-4">
                   {event.features.map((feature, idx) => (
-                    <Card key={idx} className="p-4 bg-secondary/5 border-0 rounded-xl flex items-center gap-3">
-                      <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0" />
-                      <span className="font-medium">{feature}</span>
-                    </Card>
+                    <MotionCard key={idx} index={idx} className="p-4 border-0 rounded-xl flex items-center gap-3 bg-white text-primary">
+                      <span className="font-medium">&#8226; {feature}</span>
+                    </MotionCard>
                   ))}
                 </div>
               </div>
 
               {/* Speaker */}
               <div className="mb-12">
-                <h2 className="text-2xl font-bold mb-4">Penyelenggara Acara</h2>
-                <Card className="p-6 bg-accent/5 border-0 rounded-2xl">
-                  <p className="text-lg font-semibold text-primary">{event.speaker}</p>
-                  <p className="text-sm text-muted-foreground mt-2">Memimpin sesi ini dengan keahlian dan semangat</p>
-                </Card>
+                <h2 className="text-2xl text-white font-bold mb-4">Penyelenggara Acara</h2>
+                <MotionCard index={0} className="p-6 bg-white border-0 text-primary rounded-2xl">
+                  <p className="text-lg font-semibold">{event.speaker}</p>
+                  <p className="text-sm mt-2">Memimpin sesi ini dengan keahlian dan semangat</p>
+                </MotionCard>
               </div>
             </div>
 
             {/* Sidebar */}
             <div>
-              <Card className="p-6 bg-background border-2 border-secondary/20 rounded-2xl sticky top-24 space-y-6">
+              <MotionCard index={0} className="p-6 bg-background border-2 border-secondary/20 rounded-2xl sticky top-24 space-y-6">
                 {/* Date & Time */}
                 <div>
-                  <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">Kapan</h3>
+                  <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Kapan</h3>
                   <div className="space-y-2">
                     <div className="flex items-center gap-3 text-foreground">
                       <Calendar className="w-5 h-5 text-primary flex-shrink-0" />
                       <span className="font-medium">{event.date}</span>
                     </div>
                     <div className="flex items-center gap-3 text-foreground">
-                      <Clock className="w-5 h-5 text-secondary flex-shrink-0" />
+                      <Clock className="w-5 h-5 text-primary flex-shrink-0" />
                       <span className="font-medium">{event.time}</span>
                     </div>
                   </div>
@@ -209,12 +209,12 @@ export default function EventDetailPage() {
 
                 {/* Location */}
                 <div>
-                  <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">Dimana</h3>
+                  <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Dimana</h3>
                   <div className="flex items-start gap-3">
-                    <MapPin className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                    <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="font-medium">{event.location}</p>
-                      <p className="text-xs text-muted-foreground mt-1">Masjid Darussalam, Area Komunitas</p>
+                      <p className="text-xs text-primary mt-1">Masjid Darussalam, Area Komunitas</p>
                     </div>
                   </div>
                 </div>
@@ -223,13 +223,13 @@ export default function EventDetailPage() {
 
                 {/* Attendees */}
                 <div>
-                  <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+                  <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
                     Peserta
                   </h3>
                   <div className="flex items-center gap-3">
                     <Users className="w-5 h-5 text-primary flex-shrink-0" />
-                    <span className="font-bold text-lg text-foreground">{event.attendees}</span>
-                    <span className="text-sm text-muted-foreground">terdaftar</span>
+                    <span className="font-bold text-lg text-primary">{event.attendees}</span>
+                    <span className="text-sm text-primary">terdaftar</span>
                   </div>
                 </div>
 
@@ -249,11 +249,11 @@ export default function EventDetailPage() {
                     </Button>
                   </div>
                 </div>
-              </Card>
+              </MotionCard>
             </div>
           </div>
         </div>
-      </section>
+      </MotionSection>
 
       <Footer />
     </div>

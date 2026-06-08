@@ -18,10 +18,11 @@ export default function Navigation() {
 
   const navItems = [
     { label: "Acara", href: "/events" },
-    { label: "Sejarah", href: "/history" },
-    { label: "Aktivitas", href: "/activity" },
+    { label: "Kegiatan", href: "/activity" },
+    { label: "Kajian", href: "/kajian" },
     { label: "Keuangan", href: "/keuangan" },
     { label: "Dokumentasi", href: "/documentation" },
+    { label: "Sejarah", href: "/history" },
   ]
 
   return (
@@ -29,7 +30,7 @@ export default function Navigation() {
       className={`sticky top-0 z-50 transition-all duration-300
         ${scrolled
           ? "bg-white/10 dark:bg-black/10 backdrop-blur-xl border-b border-white/30 dark:border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.08)]"
-          : "bg-white/10 dark:bg-black/10 backdrop-blur-md border-b border-white/10 dark:border-white/5 shadow-none"
+          : "bg-primary/30 dark:bg-black/10 backdrop-blur-md border-b border-white/10 dark:border-white/5 shadow-none"
         }`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-2 flex items-center justify-between">

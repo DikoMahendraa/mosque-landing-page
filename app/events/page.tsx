@@ -6,6 +6,8 @@ import Image from "next/image"
 import { Calendar, MapPin, Users, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
+import { MotionCard } from "@/components/motion-card"
+import { MotionSection } from "@/components/motion-section"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import { getAllEvents } from "@/lib/data"
@@ -82,17 +84,17 @@ export default function EventsPage() {
       <Navigation />
 
       {/* Header */}
-      <section className="pt-20 pb-12 px-4 sm:px-6 bg-gradient-to-b from-secondary/20 to-background">
+      <MotionSection variant="hero" className="pt-20 pb-12 px-4 sm:px-6 bg-gradient-to-b from-primary/80 to-background">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Acara Mendatang</h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
             Bergabunglah dengan komunitas kami yang dinamis untuk pengalaman yang memperkaya dan koneksi yang bermakna
           </p>
         </div>
-      </section>
+      </MotionSection>
 
       {/* Events Grid */}
-      <section className="py-16 px-4 sm:px-6">
+      <MotionSection className="py-16 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           {loading ? (
             <div className="grid md:grid-cols-2 gap-6">
@@ -115,9 +117,9 @@ export default function EventsPage() {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 gap-6">
-              {events.map((event) => (
-                <Link key={event.id} href={`/events/${event.id}`} className="group">
-                  <Card className="overflow-hidden border-0 shadow-sm hover:shadow-xl transition-all duration-300 rounded-2xl h-full flex flex-col">
+              {events.map((event, index) => (
+                <Link key={event.id} href={`/events/${event.id}`} className="group block h-full">
+                  <MotionCard index={index} className="overflow-hidden border-0 shadow-sm hover:shadow-xl transition-all duration-300 rounded-2xl h-full flex flex-col">
                     {/* Thumbnail */}
                     {event.image_url ? (
                       <div className="relative h-44 w-full overflow-hidden flex-shrink-0">
@@ -168,13 +170,13 @@ export default function EventsPage() {
                         <ArrowRight className="w-4 h-4" />
                       </Button>
                     </div>
-                  </Card>
+                  </MotionCard>
                 </Link>
               ))}
             </div>
           )}
         </div>
-      </section>
+      </MotionSection>
 
       <Footer />
     </div>

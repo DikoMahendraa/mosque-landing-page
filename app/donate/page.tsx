@@ -1,6 +1,7 @@
 import { Heart, TrendingUp, Users, Check, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
+import { MotionCard } from "@/components/motion-card"
+import { MotionSection } from "@/components/motion-section"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 
@@ -75,24 +76,25 @@ export default function DonatePage() {
       <Navigation />
 
       {/* Header Section */}
-      <section className="pt-20 pb-12 px-4 sm:px-6 bg-gradient-to-b from-primary/20 to-background">
+      <MotionSection variant="hero" className="pt-20 pb-12 px-4 sm:px-6 bg-gradient-to-b from-primary/80 to-background">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Dukung Misi Kami</h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
             Kemurahan hati Anda membantu kami menciptakan pengalaman yang bermakna dan peluang pendidikan untuk komunitas kami
           </p>
         </div>
-      </section>
+      </MotionSection>
 
       {/* Impact Metrics */}
-      <section className="py-16 px-4 sm:px-6 bg-secondary/20">
+      <MotionSection className="py-16 px-4 sm:px-6 bg-secondary/20">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-6">
             {impactMetrics.map((metric, i) => {
               const Icon = metric.icon
               return (
-                <Card
+                <MotionCard
                   key={i}
+                  index={i}
                   className="p-8 bg-background border-0 shadow-sm hover:shadow-md transition-shadow rounded-2xl text-center"
                 >
                   <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-xl mb-4">
@@ -100,15 +102,15 @@ export default function DonatePage() {
                   </div>
                   <p className="text-4xl font-bold text-primary mb-2">{metric.value}</p>
                   <p className="text-sm text-muted-foreground">{metric.label}</p>
-                </Card>
+                </MotionCard>
               )
             })}
           </div>
         </div>
-      </section>
+      </MotionSection>
 
       {/* Donation Tiers */}
-      <section className="py-20 px-4 sm:px-6">
+      <MotionSection className="py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">Pilih Cara Anda untuk Memberi</h2>
@@ -119,8 +121,9 @@ export default function DonatePage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {donationTiers.map((tier, i) => (
-              <Card
+              <MotionCard
                 key={i}
+                index={i}
                 className="p-6 bg-background border-0 shadow-sm hover:shadow-lg transition-all duration-300 rounded-2xl text-center flex flex-col justify-between hover:scale-105"
               >
                 <div className="mb-6">
@@ -133,12 +136,12 @@ export default function DonatePage() {
                   Donasi ${tier.amount}
                   <ArrowRight className="w-4 h-4" />
                 </Button>
-              </Card>
+              </MotionCard>
             ))}
           </div>
 
           {/* Custom Donation */}
-          <Card className="p-8 bg-background border-0 shadow-sm rounded-2xl max-w-2xl mx-auto mb-12">
+          <MotionCard index={0} className="p-8 bg-background border-0 shadow-sm rounded-2xl max-w-2xl mx-auto mb-12">
             <h3 className="text-2xl font-bold mb-4">Donasi Kustom</h3>
             <p className="text-muted-foreground mb-6">
               Punya jumlah tertentu dalam pikiran? Kami menyambut donasi dalam ukuran apa pun untuk mendukung misi kami.
@@ -154,12 +157,12 @@ export default function DonatePage() {
                 <ArrowRight className="w-4 h-4" />
               </Button>
             </div>
-          </Card>
+          </MotionCard>
         </div>
-      </section>
+      </MotionSection>
 
       {/* Why Support Section */}
-      <section className="py-20 px-4 sm:px-6 bg-accent/20">
+      <MotionSection className="py-20 px-4 sm:px-6 bg-accent/20">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold mb-12">Mengapa Mendukung Darussalam?</h2>
           <div className="grid md:grid-cols-2 gap-8">
@@ -178,7 +181,7 @@ export default function DonatePage() {
             ))}
           </div>
         </div>
-      </section>
+      </MotionSection>
 
       <Footer />
     </div>

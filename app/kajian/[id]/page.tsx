@@ -3,7 +3,8 @@
 import { useParams, useRouter } from "next/navigation"
 import { User, Clock, Award, ArrowLeft, Share2, Heart, BookOpen, UsersIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
+import { MotionCard } from "@/components/motion-card"
+import { MotionSection } from "@/components/motion-section"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 
@@ -163,7 +164,7 @@ export default function KajianDetailPage() {
       <Navigation />
 
       {/* Header with back button */}
-      <section className={`${kajian.image} bg-gradient-to-b to-background pt-20 pb-12 px-4 sm:px-6`}>
+      <MotionSection variant="hero" className={`${kajian.image} bg-gradient-to-b to-background pt-20 pb-12 px-4 sm:px-6`}>
         <div className="max-w-4xl mx-auto">
           <button
             onClick={() => router.back()}
@@ -182,10 +183,10 @@ export default function KajianDetailPage() {
             <p className="text-lg text-white/80">{kajian.description}</p>
           </div>
         </div>
-      </section>
+      </MotionSection>
 
       {/* Main Content */}
-      <section className="py-16 px-4 sm:px-6">
+      <MotionSection className="py-16 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8">
             {/* Main Content */}
@@ -201,10 +202,10 @@ export default function KajianDetailPage() {
                 <h2 className="text-2xl font-bold mb-6">Silabus Kursus</h2>
                 <div className="space-y-3">
                   {kajian.syllabus.map((topic, idx) => (
-                    <Card key={idx} className="p-4 bg-secondary/5 border-0 rounded-xl flex items-start gap-3">
+                    <MotionCard key={idx} index={idx} className="p-4 bg-secondary/5 border-0 rounded-xl flex items-start gap-3">
                       <BookOpen className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                       <span className="font-medium">{topic}</span>
-                    </Card>
+                    </MotionCard>
                   ))}
                 </div>
               </div>
@@ -212,7 +213,7 @@ export default function KajianDetailPage() {
               {/* Instructor */}
               <div className="mb-12">
                 <h2 className="text-2xl font-bold mb-4">Instruktur</h2>
-                <Card className="p-6 bg-accent/5 border-0 rounded-2xl">
+                <MotionCard index={0} className="p-6 bg-accent/5 border-0 rounded-2xl">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
                       <User className="w-6 h-6 text-primary" />
@@ -225,13 +226,13 @@ export default function KajianDetailPage() {
                   <p className="text-sm text-muted-foreground">
                     Pendidik berpengalaman yang berdedikasi untuk membuat pengetahuan Islam dapat diakses dan transformatif.
                   </p>
-                </Card>
+                </MotionCard>
               </div>
             </div>
 
             {/* Sidebar */}
             <div>
-              <Card className="p-6 bg-background border-2 border-secondary/20 rounded-2xl sticky top-24 space-y-6">
+              <MotionCard index={0} className="p-6 bg-background border-2 border-secondary/20 rounded-2xl sticky top-24 space-y-6">
                 {/* Level */}
                 <div>
                   <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">Tingkat</h3>
@@ -297,11 +298,11 @@ export default function KajianDetailPage() {
                     </Button>
                   </div>
                 </div>
-              </Card>
+              </MotionCard>
             </div>
           </div>
         </div>
-      </section>
+      </MotionSection>
 
       <Footer />
     </div>

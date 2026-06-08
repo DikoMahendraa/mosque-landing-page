@@ -5,6 +5,8 @@ import Link from "next/link"
 import { Clock, User, Award, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
+import { MotionCard } from "@/components/motion-card"
+import { MotionSection } from "@/components/motion-section"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import { getAllKajian } from "@/lib/data"
@@ -63,10 +65,10 @@ const FALLBACK_KAJIAN: Kajian[] = [
 
 function getLevelColor(level: string) {
   switch (level) {
-    case "Pemula":    return "bg-accent/10 text-accent"
-    case "Menengah":  return "bg-secondary/10 text-secondary"
-    case "Lanjutan":  return "bg-primary/10 text-primary"
-    default:          return "bg-muted text-muted-foreground"
+    case "Pemula": return "bg-accent/10 text-accent"
+    case "Menengah": return "bg-secondary/10 text-secondary"
+    case "Lanjutan": return "bg-primary/10 text-primary"
+    default: return "bg-muted text-muted-foreground"
   }
 }
 
@@ -86,17 +88,17 @@ export default function KajianPage() {
       <Navigation />
 
       {/* Header */}
-      <section className="pt-20 pb-12 px-4 sm:px-6 bg-gradient-to-b from-accent/20 to-background">
+      <MotionSection variant="hero" className="pt-20 pb-12 px-4 sm:px-6 bg-gradient-to-b from-primary/80 to-background">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Sesi Kajian</h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
             Perdalam pengetahuan Islam Anda dengan instruktur ahli dan kursus terstruktur
           </p>
         </div>
-      </section>
+      </MotionSection>
 
       {/* Kajian Grid */}
-      <section className="py-16 px-4 sm:px-6">
+      <MotionSection className="py-16 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           {loading ? (
             <div className="grid md:grid-cols-2 gap-6">
@@ -116,9 +118,9 @@ export default function KajianPage() {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 gap-6">
-              {kajianList.map((kajian) => (
-                <Link key={kajian.id} href={`/kajian/${kajian.id}`} className="group">
-                  <Card className="p-6 bg-background border-0 shadow-sm hover:shadow-lg transition-all duration-300 rounded-2xl flex flex-col h-full">
+              {kajianList.map((kajian, index) => (
+                <Link key={kajian.id} href={`/kajian/${kajian.id}`} className="group block h-full">
+                  <MotionCard index={index} className="p-6 bg-background border-0 shadow-sm hover:shadow-lg transition-all duration-300 rounded-2xl flex flex-col h-full">
                     <div className="mb-4">
                       <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-lg ${getLevelColor(kajian.level)}`}>
                         {kajian.level}
@@ -146,13 +148,13 @@ export default function KajianPage() {
                       Daftar Sekarang
                       <ArrowRight className="w-4 h-4" />
                     </Button>
-                  </Card>
+                  </MotionCard>
                 </Link>
               ))}
             </div>
           )}
         </div>
-      </section>
+      </MotionSection>
 
       <Footer />
     </div>
