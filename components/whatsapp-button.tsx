@@ -30,7 +30,7 @@ export default function WhatsAppButton() {
           href={WA_LINK}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-3 bg-[#25D366] hover:bg-[#20ba58] text-white font-semibold text-sm shadow-lg pl-4 pr-5 py-3 rounded-full translate-x-0 hover:-translate-x-1 transition-all duration-300"
+          className="flex items-center gap-3 bg-primary hover:bg-[#20ba58] text-white font-semibold text-sm shadow-lg pl-4 pr-5 py-3 rounded-full translate-x-0 hover:-translate-x-1 transition-all duration-300"
         >
           <WhatsAppIcon className="w-5 h-5 flex-shrink-0" />
           <div className="flex flex-col leading-tight">

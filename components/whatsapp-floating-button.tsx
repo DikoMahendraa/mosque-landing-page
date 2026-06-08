@@ -25,7 +25,7 @@ export default function WhatsAppFloatingButton() {
             href={WA_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#20ba58] active:bg-[#1aa34a]
+            className="flex-1 flex items-center justify-center gap-3 bg-primary hover:bg-[#20ba58] active:bg-[#1aa34a] border border-white
                        text-white font-semibold text-sm rounded-2xl py-3.5 shadow-xl
                        transition-colors duration-200"
           >

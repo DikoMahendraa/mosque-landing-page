@@ -22,7 +22,7 @@ export default function Navigation() {
     { label: "Kajian", href: "/kajian" },
     { label: "Keuangan", href: "/keuangan" },
     { label: "Dokumentasi", href: "/documentation" },
-    { label: "Sejarah", href: "/history" },
+    { label: "Pengurus", href: "/history" },
   ]
 
   return (

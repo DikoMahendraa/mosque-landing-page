@@ -14,15 +14,10 @@ import HeroTypingContent from "@/components/hero-typing-content"
 import CommunityStats from "@/components/community-stats"
 import { useEffect, useState } from "react"
 import { getHomePageData, getFeaturedEvents, getMosqueStats } from "@/lib/data"
+import { getEventThumbnail, PLACEHOLDER_IMAGES } from "@/lib/placeholder-images"
 import { Event, MosqueStats, HeroSection } from "@/lib/types"
 
-// Ganti dengan foto masjid kamu sendiri — bisa URL eksternal atau file di /public
-const HERO_IMAGES = [
-  "https://images.unsplash.com/photo-1564769662533-4f00a87b4056?w=1600&q=80", // masjid kubah
-  "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=1600&q=80", // interior masjid
-  "https://images.unsplash.com/photo-1581621709064-7c0e0ca81a1e?w=1600&q=80", // masjid malam
-  "https://images.unsplash.com/photo-1569738440207-e30e06b2b26e?w=1600&q=80", // kubah emas
-]
+const HERO_IMAGES = PLACEHOLDER_IMAGES
 
 export default function HomePage() {
   const [homeData, setHomeData] = useState<HeroSection | null>(null)
@@ -42,7 +37,7 @@ export default function HomePage() {
         setPrevHeroIndex(null)
         setHeroIndex((i) => (i + 1) % HERO_IMAGES.length)
         setFading(false)
-      }, 600)
+      }, 1000)
     }, 2000)
     return () => clearInterval(interval)
   }, [])
@@ -165,22 +160,15 @@ export default function HomePage() {
             {featuredEvents.length > 0 ? featuredEvents.map((event, index) => (
               <Link key={event.id} href="/events" className="group block h-full">
                 <MotionCard index={index} className="overflow-hidden border-0 shadow-sm hover:shadow-xl transition-all duration-300 rounded-2xl h-full flex flex-col">
-                  {/* Thumbnail */}
-                  {event.image_url ? (
-                    <div className="relative h-40 w-full overflow-hidden flex-shrink-0">
-                      <Image
-                        src={event.image_url}
-                        alt={event.title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        unoptimized
-                      />
-                    </div>
-                  ) : (
-                    <div className="h-40 w-full bg-gradient-to-br from-primary/20 to-accent/10 flex items-center justify-center flex-shrink-0">
-                      <Calendar className="w-12 h-12 text-primary/30" />
-                    </div>
-                  )}
+                  <div className="relative h-40 w-full overflow-hidden shrink-0">
+                    <Image
+                      src={getEventThumbnail(event.image_url, event.id)}
+                      alt={event.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      unoptimized
+                    />
+                  </div>
                   {/* Content — gradient */}
                   <div className="flex flex-col flex-1 p-6 bg-gradient-to-br from-primary to-accent text-white">
                     <span className="inline-block px-3 py-1 bg-white/20 text-white text-xs font-semibold rounded-lg mb-3 self-start backdrop-blur-sm">
@@ -216,9 +204,14 @@ export default function HomePage() {
               ].map((event, index) => (
                 <Link key={event.id} href="/events" className="group block h-full">
                   <MotionCard index={index} className="overflow-hidden border-0 shadow-sm hover:shadow-xl transition-all duration-300 rounded-2xl h-full flex flex-col">
-                    {/* Placeholder thumbnail */}
-                    <div className="h-40 w-full bg-gradient-to-br from-primary/20 to-accent/10 flex items-center justify-center flex-shrink-0">
-                      <Calendar className="w-12 h-12 text-primary/30" />
+                    <div className="relative h-40 w-full overflow-hidden shrink-0">
+                      <Image
+                        src={getEventThumbnail(undefined, event.id)}
+                        alt={event.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        unoptimized
+                      />
                     </div>
                     {/* Content — gradient */}
                     <div className="flex flex-col flex-1 p-6 bg-gradient-to-br from-primary to-accent text-white">

@@ -11,6 +11,7 @@ import { MotionSection } from "@/components/motion-section"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import { getAllEvents } from "@/lib/data"
+import { getEventThumbnail } from "@/lib/placeholder-images"
 import { Event } from "@/lib/types"
 
 const FALLBACK_EVENTS: Event[] = [
@@ -120,22 +121,15 @@ export default function EventsPage() {
               {events.map((event, index) => (
                 <Link key={event.id} href={`/events/${event.id}`} className="group block h-full">
                   <MotionCard index={index} className="overflow-hidden border-0 shadow-sm hover:shadow-xl transition-all duration-300 rounded-2xl h-full flex flex-col">
-                    {/* Thumbnail */}
-                    {event.image_url ? (
-                      <div className="relative h-44 w-full overflow-hidden flex-shrink-0">
-                        <Image
-                          src={event.image_url}
-                          alt={event.title}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
-                          unoptimized
-                        />
-                      </div>
-                    ) : (
-                      <div className="h-44 w-full bg-gradient-to-br from-primary/20 to-accent/10 flex items-center justify-center flex-shrink-0">
-                        <Calendar className="w-14 h-14 text-primary/30" />
-                      </div>
-                    )}
+                    <div className="relative h-44 w-full overflow-hidden shrink-0">
+                      <Image
+                        src={getEventThumbnail(event.image_url, event.id)}
+                        alt={event.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        unoptimized
+                      />
+                    </div>
                     {/* Content — gradient background */}
                     <div className="flex flex-col flex-1 p-6 bg-gradient-to-br from-primary to-accent text-white">
                       <div className="mb-3">
