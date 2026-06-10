@@ -12,6 +12,15 @@ export const STATIC_HERO: HeroSection = {
   updated_at: new Date().toISOString(),
 }
 
+export const STATIC_YOUTUBE_INTRO = {
+  title: "Kenalan dengan Masjid Darussalam",
+  description:
+    "Tonton video perkenalan singkat untuk mengenal visi masjid, program jamaah, dan bagaimana Anda bisa terlibat dalam komunitas kami.",
+  // YouTube video ID from https://www.youtube.com/watch?v=VIDEO_ID
+  videoId: "HQzbjtUKjeA",
+  channelUrl: "https://youtu.be/HQzbjtUKjeA?si=11FkwvSwpcVhI3XA",
+}
+
 export const STATIC_STATS: MosqueStats = {
   id: "static",
   monthly_events: 15,
