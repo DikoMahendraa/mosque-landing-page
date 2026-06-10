@@ -57,7 +57,7 @@ export interface DailyActivity {
 
 export interface Transaction {
   id: string
-  type: 'in' | 'out'
+  type: 'income' | 'expense'
   category: string
   amount: number
   description?: string

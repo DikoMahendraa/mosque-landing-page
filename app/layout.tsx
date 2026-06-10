@@ -11,9 +11,54 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Masjid Darussalam | Komunitas & Pembelajaran",
-  description: "Bergabunglah dengan komunitas kami yang dinamis untuk acara, kajian, dan pertumbuhan spiritual",
-  generator: "v0.app",
+  metadataBase: new URL('https://masjiddarussalam.vercel.app'), // Update with your actual domain
+  title: {
+    default: "Masjid Darussalam | Komunitas & Pembelajaran Islam",
+    template: "%s | Masjid Darussalam"
+  },
+  description: "Bergabunglah dengan komunitas kami yang dinamis untuk acara, kajian, dan pertumbuhan spiritual. Masjid Darussalam - Pusat kegiatan Islam dan pembelajaran.",
+  keywords: ["masjid", "darussalam", "kajian islam", "acara masjid", "komunitas muslim", "pembelajaran islam", "pengajian", "kegiatan islam"],
+  authors: [{ name: "Masjid Darussalam" }],
+  creator: "Masjid Darussalam",
+  publisher: "Masjid Darussalam",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    locale: "id_ID",
+    url: "/",
+    siteName: "Masjid Darussalam",
+    title: "Masjid Darussalam | Komunitas & Pembelajaran Islam",
+    description: "Bergabunglah dengan komunitas kami yang dinamis untuk acara, kajian, dan pertumbuhan spiritual",
+    images: [
+      {
+        url: "/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Masjid Darussalam",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Masjid Darussalam | Komunitas & Pembelajaran Islam",
+    description: "Bergabunglah dengan komunitas kami yang dinamis untuk acara, kajian, dan pertumbuhan spiritual",
+    images: ["/logo.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   icons: {
     icon: [
       {

@@ -1,28 +1,15 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { TrendingUp, TrendingDown, Wallet, CalendarDays, X } from "lucide-react"
 import { MotionCard } from "@/components/motion-card"
 import { MotionSection } from "@/components/motion-section"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
+import { getTransactions } from "@/lib/data"
+import { Transaction } from "@/lib/types"
 
-// ── Dummy data — replace with Supabase when ready ────────────────────────────
-const DUMMY_TRANSACTIONS = [
-  { id: "1", type: "in", category: "Wakaf", amount: 10000000, description: "Wakaf tunai dari Ibu Siti", date: "2026-06-06", recorded_by: "Admin" },
-  { id: "2", type: "in", category: "Infaq", amount: 3200000, description: "Infaq Jumat minggu ke-2", date: "2026-06-06", recorded_by: "Admin" },
-  { id: "3", type: "out", category: "Pembangunan", amount: 4500000, description: "Material renovasi serambi masjid", date: "2026-06-05", recorded_by: "Admin" },
-  { id: "4", type: "in", category: "Shodaqoh", amount: 750000, description: "Kotak amal harian", date: "2026-06-04", recorded_by: "Admin" },
-  { id: "5", type: "out", category: "Operasional", amount: 200000, description: "Perlengkapan kebersihan", date: "2026-06-04", recorded_by: "Admin" },
-  { id: "6", type: "in", category: "Zakat", amount: 1500000, description: "Zakat maal anggota komunitas", date: "2026-05-30", recorded_by: "Admin" },
-  { id: "7", type: "out", category: "Konsumsi", amount: 350000, description: "Konsumsi kajian mingguan", date: "2026-05-30", recorded_by: "Admin" },
-  { id: "8", type: "out", category: "Operasional", amount: 800000, description: "Bayar listrik & air bulan ini", date: "2026-05-28", recorded_by: "Admin" },
-  { id: "9", type: "in", category: "Donasi", amount: 5000000, description: "Donasi pembangunan dari Pak Ahmad", date: "2026-05-26", recorded_by: "Admin" },
-  { id: "10", type: "in", category: "Infaq", amount: 2500000, description: "Infaq Jumat minggu ke-1", date: "2026-05-24", recorded_by: "Admin" },
-] as const
-
-type TxType = typeof DUMMY_TRANSACTIONS[number]["type"]
-type Filter = "all" | TxType
+type Filter = "all" | "income" | "expense"
 
 // ── helpers ───────────────────────────────────────────────────────────────────
 function formatRp(amount: number) {
@@ -31,13 +18,11 @@ function formatRp(amount: number) {
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })
 }
-// First & last date in dummy data for default bounds
-const ALL_DATES = DUMMY_TRANSACTIONS.map(t => t.date).sort()
-const MIN_DATE = ALL_DATES[0]
-const MAX_DATE = ALL_DATES[ALL_DATES.length - 1]
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function KeuanganPage() {
+  const [transactions, setTransactions] = useState<Transaction[]>([])
+  const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<Filter>("all")
   const [dateFrom, setDateFrom] = useState("")
   const [dateTo, setDateTo] = useState("")
@@ -46,17 +31,38 @@ export default function KeuanganPage() {
 
   function clearDates() { setDateFrom(""); setDateTo("") }
 
+  // Fetch transactions from Supabase
+  useEffect(() => {
+    getTransactions()
+      .then((data) => setTransactions(data || []))
+      .catch((err) => {
+        console.error("Failed to fetch transactions:", err)
+        setTransactions([])
+      })
+      .finally(() => setLoading(false))
+  }, [])
+
+  // Calculate date bounds from actual data
+  const { minDate, maxDate } = useMemo(() => {
+    if (transactions.length === 0) {
+      const today = new Date().toISOString().split('T')[0]
+      return { minDate: today, maxDate: today }
+    }
+    const dates = transactions.map(t => t.date).sort()
+    return { minDate: dates[0], maxDate: dates[dates.length - 1] }
+  }, [transactions])
+
   const filtered = useMemo(() => {
-    return DUMMY_TRANSACTIONS.filter(t => {
+    return transactions.filter(t => {
       if (filter !== "all" && t.type !== filter) return false
       if (dateFrom && t.date < dateFrom) return false
       if (dateTo && t.date > dateTo) return false
       return true
     })
-  }, [filter, dateFrom, dateTo])
+  }, [transactions, filter, dateFrom, dateTo])
 
-  const totalIn = useMemo(() => filtered.filter(t => t.type === "in").reduce((s, t) => s + t.amount, 0), [filtered])
-  const totalOut = useMemo(() => filtered.filter(t => t.type === "out").reduce((s, t) => s + t.amount, 0), [filtered])
+  const totalIn = useMemo(() => filtered.filter(t => t.type === "income").reduce((s, t) => s + t.amount, 0), [filtered])
+  const totalOut = useMemo(() => filtered.filter(t => t.type === "expense").reduce((s, t) => s + t.amount, 0), [filtered])
   const balance = totalIn - totalOut
 
   return (
@@ -92,7 +98,7 @@ export default function KeuanganPage() {
                 <TrendingUp className="w-5 h-5 text-emerald-500" />
               </div>
               <p className="text-2xl font-bold text-emerald-700 dark:text-emerald-400">{formatRp(totalIn)}</p>
-              <p className="text-xs text-emerald-600/70 mt-1">{filtered.filter(t => t.type === "in").length} transaksi masuk</p>
+              <p className="text-xs text-emerald-600/70 mt-1">{filtered.filter(t => t.type === "income").length} transaksi masuk</p>
             </MotionCard>
 
             <MotionCard index={2} className="p-6 rounded-2xl border-0 shadow-sm bg-red-50 dark:bg-red-950">
@@ -101,7 +107,7 @@ export default function KeuanganPage() {
                 <TrendingDown className="w-5 h-5 text-red-500" />
               </div>
               <p className="text-2xl font-bold text-red-700 dark:text-red-400">{formatRp(totalOut)}</p>
-              <p className="text-xs text-red-600/70 mt-1">{filtered.filter(t => t.type === "out").length} transaksi keluar</p>
+              <p className="text-xs text-red-600/70 mt-1">{filtered.filter(t => t.type === "expense").length} transaksi keluar</p>
             </MotionCard>
           </div>
 
@@ -109,16 +115,16 @@ export default function KeuanganPage() {
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
             {/* Type tabs */}
             <div className="flex gap-2 flex-shrink-0">
-              {(["all", "in", "out"] as Filter[]).map((f) => (
+              {(["all", "income", "expense"] as Filter[]).map((f) => (
                 <button
                   key={f}
                   onClick={() => setFilter(f)}
                   className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-colors ${filter === f
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted text-muted-foreground hover:bg-muted/80"
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground hover:bg-muted/80"
                     }`}
                 >
-                  {f === "all" ? "Semua" : f === "in" ? "Pemasukan" : "Pengeluaran"}
+                  {f === "all" ? "Semua" : f === "income" ? "Pemasukan" : "Pengeluaran"}
                 </button>
               ))}
             </div>
@@ -132,8 +138,8 @@ export default function KeuanganPage() {
               <input
                 type="date"
                 value={dateFrom}
-                min={MIN_DATE}
-                max={dateTo || MAX_DATE}
+                min={minDate}
+                max={dateTo || maxDate}
                 onChange={e => setDateFrom(e.target.value)}
                 className="rounded-xl border border-border bg-background px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 w-36"
                 placeholder="Dari tanggal"
@@ -142,8 +148,8 @@ export default function KeuanganPage() {
               <input
                 type="date"
                 value={dateTo}
-                min={dateFrom || MIN_DATE}
-                max={MAX_DATE}
+                min={dateFrom || minDate}
+                max={maxDate}
                 onChange={e => setDateTo(e.target.value)}
                 className="rounded-xl border border-border bg-background px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 w-36"
                 placeholder="Sampai tanggal"
@@ -170,69 +176,77 @@ export default function KeuanganPage() {
 
           {/* Transaction List */}
           <MotionCard index={0} className="rounded-2xl border-0 shadow-sm overflow-hidden">
-            {/* Desktop header */}
-            <div className="hidden sm:grid grid-cols-[auto_1fr_auto_auto] gap-4 px-6 py-3 bg-muted/50 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              <div />
-              <div>Keterangan</div>
-              <div className="text-right">Tanggal</div>
-              <div className="text-right">Nominal</div>
-            </div>
-
-            {filtered.length === 0 ? (
+            {loading ? (
               <div className="py-16 text-center text-muted-foreground text-sm">
-                Tidak ada transaksi dalam rentang tanggal ini.
+                Memuat data transaksi...
               </div>
             ) : (
-              <div className="divide-y divide-border">
-                {filtered.map((t) => (
-                  <div
-                    key={t.id}
-                    className="grid grid-cols-[auto_1fr] sm:grid-cols-[auto_1fr_auto_auto] gap-x-4 items-center px-6 py-4"
-                  >
-                    {/* Icon */}
-                    <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 ${t.type === "in" ? "bg-emerald-100 dark:bg-emerald-900" : "bg-red-100 dark:bg-red-900"
-                      }`}>
-                      {t.type === "in"
-                        ? <TrendingUp className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                        : <TrendingDown className="w-4 h-4 text-red-600 dark:text-red-400" />
-                      }
-                    </div>
+              <>
+                {/* Desktop header */}
+                <div className="hidden sm:grid grid-cols-[auto_1fr_auto_auto] gap-4 px-6 py-3 bg-muted/50 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  <div />
+                  <div>Keterangan</div>
+                  <div className="text-right">Tanggal</div>
+                  <div className="text-right">Nominal</div>
+                </div>
 
-                    {/* Description */}
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-semibold text-sm">{t.description}</span>
-                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${t.type === "in"
-                            ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-400"
-                            : "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-400"
-                          }`}>
-                          {t.category}
-                        </span>
-                      </div>
-                      <p className="text-xs text-muted-foreground mt-0.5">
-                        <span className="sm:hidden">{formatDate(t.date)} · </span>
-                        Dicatat oleh {t.recorded_by}
-                      </p>
-                      {/* Mobile amount */}
-                      <p className={`sm:hidden font-bold text-sm mt-1 ${t.type === "in" ? "text-emerald-600" : "text-red-600"
-                        }`}>
-                        {t.type === "in" ? "+" : "−"}{formatRp(t.amount)}
-                      </p>
-                    </div>
-
-                    {/* Date — desktop */}
-                    <div className="hidden sm:block text-right text-xs text-muted-foreground whitespace-nowrap">
-                      {formatDate(t.date)}
-                    </div>
-
-                    {/* Amount — desktop */}
-                    <div className={`hidden sm:block text-right font-bold text-sm whitespace-nowrap ${t.type === "in" ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"
-                      }`}>
-                      {t.type === "in" ? "+" : "−"}{formatRp(t.amount)}
-                    </div>
+                {filtered.length === 0 ? (
+                  <div className="py-16 text-center text-muted-foreground text-sm">
+                    Tidak ada transaksi dalam rentang tanggal ini.
                   </div>
-                ))}
-              </div>
+                ) : (
+                  <div className="divide-y divide-border">
+                    {filtered.map((t) => (
+                      <div
+                        key={t.id}
+                        className="grid grid-cols-[auto_1fr] sm:grid-cols-[auto_1fr_auto_auto] gap-x-4 items-center px-6 py-4"
+                      >
+                        {/* Icon */}
+                        <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 ${t.type === "income" ? "bg-emerald-100 dark:bg-emerald-900" : "bg-red-100 dark:bg-red-900"
+                          }`}>
+                          {t.type === "income"
+                            ? <TrendingUp className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                            : <TrendingDown className="w-4 h-4 text-red-600 dark:text-red-400" />
+                          }
+                        </div>
+
+                        {/* Description */}
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="font-semibold text-sm">{t.description}</span>
+                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${t.type === "income"
+                              ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-400"
+                              : "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-400"
+                              }`}>
+                              {t.category}
+                            </span>
+                          </div>
+                          <p className="text-xs text-muted-foreground mt-0.5">
+                            <span className="sm:hidden">{formatDate(t.date)} · </span>
+                            Dicatat oleh {t.recorded_by}
+                          </p>
+                          {/* Mobile amount */}
+                          <p className={`sm:hidden font-bold text-sm mt-1 ${t.type === "income" ? "text-emerald-600" : "text-red-600"
+                            }`}>
+                            {t.type === "income" ? "+" : "−"}{formatRp(t.amount)}
+                          </p>
+                        </div>
+
+                        {/* Date — desktop */}
+                        <div className="hidden sm:block text-right text-xs text-muted-foreground whitespace-nowrap">
+                          {formatDate(t.date)}
+                        </div>
+
+                        {/* Amount — desktop */}
+                        <div className={`hidden sm:block text-right font-bold text-sm whitespace-nowrap ${t.type === "income" ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"
+                          }`}>
+                          {t.type === "income" ? "+" : "−"}{formatRp(t.amount)}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
             )}
           </MotionCard>
 

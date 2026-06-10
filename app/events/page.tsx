@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
+import Head from "next/head"
 import { Calendar, MapPin, Users, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { MotionCard } from "@/components/motion-card"
@@ -30,8 +31,25 @@ export default function EventsPage() {
   if (events.length === 0) return <></>
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Navigation />
+    <>
+      <Head>
+        <title>Acara Mendatang | Masjid Darussalam</title>
+        <meta name="description" content="Jelajahi acara dan kegiatan mendatang di Masjid Darussalam. Bergabunglah dengan komunitas kami untuk kajian, workshop, dan kegiatan sosial." />
+        
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Acara Mendatang | Masjid Darussalam" />
+        <meta property="og:description" content="Jelajahi acara dan kegiatan mendatang di Masjid Darussalam" />
+        <meta property="og:site_name" content="Masjid Darussalam" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Acara Mendatang | Masjid Darussalam" />
+        <meta name="twitter:description" content="Jelajahi acara dan kegiatan mendatang di Masjid Darussalam" />
+      </Head>
+
+      <div className="min-h-screen bg-background text-foreground">
+        <Navigation />
 
       {/* Header */}
       <MotionSection variant="hero" className="pt-20 pb-12 px-4 sm:px-6 bg-gradient-to-b from-primary/80 to-background">
@@ -77,13 +95,13 @@ export default function EventsPage() {
                           <HtmlContent content={event.description} maxLength={100} detailLink={`/events/${event.id}`} />
                         )
                       }
-                      <div className="space-y-2.5 mb-6 text-sm">
-                        <div className="flex items-center gap-3 text-white/80">
-                          <Calendar className="w-4 h-4 flex-shrink-0 text-white/60" />
+                      <div className="space-y-2.5 mb-6 mt-4 text-sm">
+                        <div className="flex items-center gap-3 text-white">
+                          <Calendar className="w-4 h-4 flex-shrink-0 text-white" />
                           <span>{event.event_date}</span>
                         </div>
-                        <div className="flex items-center gap-3 text-white/80">
-                          <MapPin className="w-4 h-4 flex-shrink-0 text-white/60" />
+                        <div className="flex items-center gap-3 text-white">
+                          <MapPin className="w-4 h-4 flex-shrink-0 text-white" />
                           <span>{event.location}</span>
                         </div>
                       </div>
@@ -100,7 +118,8 @@ export default function EventsPage() {
         </div>
       </MotionSection>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </>
   )
 }
