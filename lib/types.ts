@@ -21,10 +21,10 @@ export interface Event {
   id: string
   title: string
   description?: string
-  date: string
+  event_date: string
   time: string
   location: string
-  category: string
+  status: string
   attendees_count: number
   featured: boolean
   image_url?: string
@@ -35,11 +35,11 @@ export interface Event {
 export interface Kajian {
   id: string
   title: string
-  instructor: string
-  level: string
+  speaker: string
+  status: string
   description?: string
-  duration: string
-  students: number
+  time: string
+  location: number
   image_url?: string
   active: boolean
   created_at: string

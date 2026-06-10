@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import { Clock, User, Award, ArrowRight } from "lucide-react"
+import { Clock, User, Award, ArrowRight, Building, Building2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { MotionCard } from "@/components/motion-card"
 import EventGridSkeleton from "@/components/event-grid-skeleton"
@@ -11,63 +11,13 @@ import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import { getAllKajian } from "@/lib/data"
 import { Kajian } from "@/lib/types"
+import HtmlContent from "@/lib/html-content"
 
-const FALLBACK_KAJIAN: Kajian[] = [
-  {
-    id: "1",
-    title: "Dasar-Dasar Bahasa Arab Al-Quran",
-    instructor: "Sheikh Ahmad Al-Rashid",
-    level: "Pemula",
-    description: "Pelajari dasar-dasar bahasa dan tata bahasa Arab Al-Quran.",
-    duration: "8 minggu",
-    students: 32,
-    active: true,
-    created_at: "",
-    updated_at: "",
-  },
-  {
-    id: "2",
-    title: "Tafsir Surat Al-Kahf",
-    instructor: "Dr. Fatima Al-Hassan",
-    level: "Menengah",
-    description: "Menyelami makna dan pelajaran dari Surat Al-Kahf.",
-    duration: "10 minggu",
-    students: 28,
-    active: true,
-    created_at: "",
-    updated_at: "",
-  },
-  {
-    id: "3",
-    title: "Etika & Moralitas Islam",
-    instructor: "Ustaz Muhammad Saeed",
-    level: "Semua",
-    description: "Panduan komprehensif tentang akhlak dan etika Islam dalam kehidupan modern.",
-    duration: "6 minggu",
-    students: 45,
-    active: true,
-    created_at: "",
-    updated_at: "",
-  },
-  {
-    id: "4",
-    title: "Fikih Ibadah Praktis",
-    instructor: "Dr. Aisha Rahman",
-    level: "Pemula",
-    description: "Panduan praktis tata cara shalat, puasa, zakat, dan ibadah sehari-hari.",
-    duration: "12 minggu",
-    students: 38,
-    active: true,
-    created_at: "",
-    updated_at: "",
-  },
-]
-
-function getLevelColor(level: string) {
-  switch (level) {
-    case "Pemula": return "bg-accent/10 text-accent"
-    case "Menengah": return "bg-secondary/10 text-secondary"
-    case "Lanjutan": return "bg-primary/10 text-primary"
+function getStatusColor(status: string) {
+  switch (status) {
+    case "upcoming": return "bg-accent/10 text-accent"
+    case "ongoing": return "bg-secondary/10 text-secondary"
+    case "completed": return "bg-primary/10 text-primary"
     default: return "bg-muted text-muted-foreground"
   }
 }
@@ -78,8 +28,8 @@ export default function KajianPage() {
 
   useEffect(() => {
     getAllKajian()
-      .then((data) => setKajianList(data?.length ? data : FALLBACK_KAJIAN))
-      .catch(() => setKajianList(FALLBACK_KAJIAN))
+      .then((data) => setKajianList(data?.length ? data : []))
+      .catch(() => setKajianList([]))
       .finally(() => setLoading(false))
   }, [])
 
@@ -104,39 +54,46 @@ export default function KajianPage() {
             <EventGridSkeleton count={4} variant="kajian" />
           ) : (
             <div className="grid md:grid-cols-2 gap-6">
-              {kajianList.map((kajian, index) => (
-                <Link key={kajian.id} href={`/kajian/${kajian.id}`} className="group block h-full">
-                  <MotionCard index={index} className="p-6 bg-background border-0 shadow-sm hover:shadow-lg transition-all duration-300 rounded-2xl flex flex-col h-full">
-                    <div className="mb-4">
-                      <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-lg ${getLevelColor(kajian.level)}`}>
-                        {kajian.level}
-                      </span>
-                    </div>
-                    <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
-                      {kajian.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground mb-6 flex-grow">{kajian.description}</p>
-                    <div className="space-y-3 mb-6 text-sm border-t border-border pt-4">
-                      <div className="flex items-center gap-3 text-muted-foreground">
-                        <User className="w-4 h-4 flex-shrink-0 text-primary" />
-                        <span className="font-medium">{kajian.instructor}</span>
+              {kajianList.map((kajian, index) => {
+                console.log(kajian)
+                return (
+                  <Link key={kajian.id} href={`/kajian/${kajian.id}`} className="group block h-full">
+                    <MotionCard index={index} className="p-6 bg-background border-0 shadow-sm hover:shadow-lg transition-all duration-300 rounded-2xl flex flex-col h-full">
+                      <div className="mb-4">
+                        <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-lg ${getStatusColor(kajian.status)}`}>
+                          {kajian.status}
+                        </span>
                       </div>
-                      <div className="flex items-center gap-3 text-muted-foreground">
-                        <Clock className="w-4 h-4 flex-shrink-0 text-accent" />
-                        <span>{kajian.duration}</span>
+                      <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
+                        {kajian.title}
+                      </h3>
+                      {
+                        kajian.description && (
+                          <HtmlContent content={kajian.description} maxLength={100} detailLink={`/kajian/${kajian.id}`} />
+                        )
+                      }
+                      <div className="space-y-3 mb-6 text-sm border-t border-border pt-4 mt-4">
+                        <div className="flex items-center gap-3 text-muted-foreground">
+                          <User className="w-4 h-4 flex-shrink-0 text-primary" />
+                          <span className="font-medium">{kajian.speaker}</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-muted-foreground">
+                          <Clock className="w-4 h-4 flex-shrink-0 text-primary" />
+                          <span>{kajian.time}</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-muted-foreground">
+                          <Building2 className="w-4 h-4 text-primary" />
+                          <span>{kajian.location}</span>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-3 text-muted-foreground">
-                        <Award className="w-4 h-4 flex-shrink-0 text-secondary" />
-                        <span>{kajian.students} peserta terdaftar</span>
-                      </div>
-                    </div>
-                    <Button className="w-full rounded-xl font-semibold gap-2 bg-primary hover:bg-primary/90">
-                      Daftar Sekarang
-                      <ArrowRight className="w-4 h-4" />
-                    </Button>
-                  </MotionCard>
-                </Link>
-              ))}
+                      <Button className="w-full rounded-xl font-semibold gap-2 bg-primary hover:bg-primary/90">
+                        Daftar Sekarang
+                        <ArrowRight className="w-4 h-4" />
+                      </Button>
+                    </MotionCard>
+                  </Link>
+                )
+              })}
             </div>
           )}
         </div>

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Calendar, Users } from "lucide-react"
+import { Building2, Calendar, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { MotionCard } from "@/components/motion-card"
 import { MotionSection } from "@/components/motion-section"
@@ -12,6 +12,7 @@ import { getFeaturedEvents } from "@/lib/data"
 import { getEventThumbnail } from "@/lib/placeholder-images"
 import { FALLBACK_FEATURED_EVENTS } from "@/lib/static-content"
 import { Event } from "@/lib/types"
+import HtmlContent from "@/lib/html-content"
 
 export default function FeaturedEventsSection() {
   const [events, setEvents] = useState<Event[]>([])
@@ -19,10 +20,12 @@ export default function FeaturedEventsSection() {
 
   useEffect(() => {
     getFeaturedEvents(4)
-      .then((data) => setEvents(data?.length ? data : FALLBACK_FEATURED_EVENTS))
-      .catch(() => setEvents(FALLBACK_FEATURED_EVENTS))
+      .then((data) => setEvents(data?.length ? data : []))
+      .catch(() => setEvents([]))
       .finally(() => setLoading(false))
   }, [])
+
+  if (events.length === 0) return <></>
 
   return (
     <MotionSection className="py-20 px-4 sm:px-6">
@@ -57,20 +60,22 @@ export default function FeaturedEventsSection() {
                   </div>
                   <div className="flex flex-col flex-1 p-6 bg-gradient-to-br from-primary to-accent text-white">
                     <span className="inline-block px-3 py-1 bg-white/20 text-white text-xs font-semibold rounded-lg mb-3 self-start backdrop-blur-sm">
-                      {event.category}
+                      {event.status}
                     </span>
                     <h3 className="font-semibold text-lg mb-3 group-hover:text-white/90 transition-colors flex-1">
                       {event.title}
                     </h3>
-                    <div className="space-y-2 mb-5 text-sm text-white/80">
-                      <p className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4 text-white/60" /> {event.date}
-                      </p>
-                      <p className="flex items-center gap-2">
-                        <span className="w-4 h-4">⏰</span> {event.time}
+                    {
+                      event.description && (
+                        <HtmlContent content={event.description} maxLength={100} detailLink={`/events/${event.id}`} />
+                      )
+                    }
+                    <div className="space-y-2 mb-5 text-sm mt-4">
+                      <p className="flex items-center gap-2 text-white">
+                        <Calendar className="w-4 h-4" /> {event.event_date}
                       </p>
                       <p className="flex items-center gap-2 font-medium text-white">
-                        <Users className="w-4 h-4" /> {event.attendees_count} terdaftar
+                        <Building2 className="w-4 h-4" /> {event.location}
                       </p>
                     </div>
                     <Button
@@ -86,13 +91,17 @@ export default function FeaturedEventsSection() {
           </div>
         )}
 
-        <div className="text-center">
-          <Link href="/events">
-            <Button variant="ghost" size="lg" className="text-primary hover:bg-primary/10 font-semibold">
-              Lihat Semua Acara →
-            </Button>
-          </Link>
-        </div>
+        {
+          events.length > 4 && (
+            <div className="text-center">
+              <Link href="/events">
+                <Button variant="ghost" size="lg" className="text-primary hover:bg-primary/10 font-semibold">
+                  Lihat Semua Acara →
+                </Button>
+              </Link>
+            </div>
+          )
+        }
       </div>
     </MotionSection>
   )

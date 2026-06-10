@@ -13,61 +13,8 @@ import Footer from "@/components/footer"
 import { getAllEvents } from "@/lib/data"
 import { getEventThumbnail } from "@/lib/placeholder-images"
 import { Event } from "@/lib/types"
+import HtmlContent from "@/lib/html-content"
 
-const FALLBACK_EVENTS: Event[] = [
-  {
-    id: "1",
-    title: "Kajian Al-Quran",
-    date: "Jumat, 27 Des",
-    time: "19:00 - 20:30",
-    location: "Aula Utama",
-    attendees_count: 45,
-    description: "Sesi pembacaan Al-Quran dan tafsir mingguan untuk semua tingkat.",
-    category: "Pembelajaran",
-    featured: true,
-    created_at: "",
-    updated_at: "",
-  },
-  {
-    id: "2",
-    title: "Malam Olahraga Pemuda",
-    date: "Sabtu, 28 Des",
-    time: "18:00 - 20:00",
-    location: "Lapangan Olahraga",
-    attendees_count: 32,
-    description: "Sepak bola, basket, dan bulu tangkis untuk pemuda usia 15-35 tahun.",
-    category: "Komunitas",
-    featured: true,
-    created_at: "",
-    updated_at: "",
-  },
-  {
-    id: "3",
-    title: "Workshop Keuangan Islam",
-    date: "Minggu, 29 Des",
-    time: "15:00 - 17:00",
-    location: "Ruang Konferensi",
-    attendees_count: 28,
-    description: "Memahami prinsip keuangan Islam dan perbankan syariah.",
-    category: "Workshop",
-    featured: true,
-    created_at: "",
-    updated_at: "",
-  },
-  {
-    id: "4",
-    title: "Buka Puasa Bersama",
-    date: "Rabu, 1 Jan",
-    time: "18:30 - 20:00",
-    location: "Ruang Makan",
-    attendees_count: 120,
-    description: "Bergabunglah bersama kami untuk berbuka puasa dan mempererat silaturahmi.",
-    category: "Sosial",
-    featured: true,
-    created_at: "",
-    updated_at: "",
-  },
-]
 
 export default function EventsPage() {
   const [events, setEvents] = useState<Event[]>([])
@@ -75,10 +22,12 @@ export default function EventsPage() {
 
   useEffect(() => {
     getAllEvents()
-      .then((data) => setEvents(data?.length ? data : FALLBACK_EVENTS))
-      .catch(() => setEvents(FALLBACK_EVENTS))
+      .then((data) => setEvents(data?.length ? data : []))
+      .catch(() => setEvents([]))
       .finally(() => setLoading(false))
   }, [])
+
+  if (events.length === 0) return <></>
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -117,29 +66,25 @@ export default function EventsPage() {
                     <div className="flex flex-col flex-1 p-6 bg-gradient-to-br from-primary to-accent text-white">
                       <div className="mb-3">
                         <span className="inline-block px-3 py-1 bg-white/20 text-white text-xs font-semibold rounded-lg backdrop-blur-sm">
-                          {event.category}
+                          {event.status}
                         </span>
                       </div>
                       <h3 className="text-xl font-semibold mb-2 group-hover:text-white/90 transition-colors">
                         {event.title}
                       </h3>
-                      <p className="text-sm text-white/80 mb-6 flex-1">{event.description}</p>
+                      {
+                        event.description && (
+                          <HtmlContent content={event.description} maxLength={100} detailLink={`/events/${event.id}`} />
+                        )
+                      }
                       <div className="space-y-2.5 mb-6 text-sm">
                         <div className="flex items-center gap-3 text-white/80">
                           <Calendar className="w-4 h-4 flex-shrink-0 text-white/60" />
-                          <span>{event.date}</span>
-                        </div>
-                        <div className="flex items-center gap-3 text-white/80">
-                          <span className="w-4 h-4 flex-shrink-0">⏰</span>
-                          <span>{event.time}</span>
+                          <span>{event.event_date}</span>
                         </div>
                         <div className="flex items-center gap-3 text-white/80">
                           <MapPin className="w-4 h-4 flex-shrink-0 text-white/60" />
                           <span>{event.location}</span>
-                        </div>
-                        <div className="flex items-center gap-3 font-medium text-white">
-                          <Users className="w-4 h-4 flex-shrink-0" />
-                          <span>{event.attendees_count} terdaftar</span>
                         </div>
                       </div>
                       <Button className="w-full rounded-xl font-semibold gap-2 bg-white text-primary hover:bg-white/90">

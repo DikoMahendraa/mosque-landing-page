@@ -41,11 +41,11 @@ export default function Navigation() {
 
   const navItems = [
     { label: "Acara", href: "/events" },
-    { label: "Kegiatan", href: "/activity" },
+    // { label: "Kegiatan", href: "/activity" },
+    // { label: "Dokumentasi", href: "/documentation" },
     { label: "Kajian", href: "/kajian" },
     { label: "Keuangan", href: "/keuangan" },
-    { label: "Dokumentasi", href: "/documentation" },
-    { label: "Pengurus", href: "/history" },
+    { label: "Pengurus", href: "/structure" },
   ]
 
   const closeMenu = () => setMobileMenuOpen(false)

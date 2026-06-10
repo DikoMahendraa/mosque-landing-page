@@ -30,8 +30,6 @@ export async function getFeaturedEvents(limit = 4) {
   const { data, error } = await supabase
     .from('events')
     .select('*')
-    .eq('featured', true)
-    .order('date', { ascending: true })
     .limit(limit)
 
   if (error) {
@@ -45,7 +43,6 @@ export async function getAllEvents() {
   const { data, error } = await supabase
     .from('events')
     .select('*')
-    .order('date', { ascending: true })
 
   if (error) {
     console.error('Error fetching events:', error)
@@ -72,8 +69,6 @@ export async function getAllKajian() {
   const { data, error } = await supabase
     .from('kajian')
     .select('*')
-    .eq('active', true)
-    .order('created_at', { ascending: true })
 
   if (error) {
     console.error('Error fetching kajian:', error)
