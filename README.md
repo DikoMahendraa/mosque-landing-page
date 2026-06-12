@@ -28,3 +28,8 @@ Continue building your app on:
 2. Deploy your chats from the v0 interface
 3. Changes are automatically pushed to this repository
 4. Vercel deploys the latest version from this repository
+
+## Development
+
+- **Local setup & git hooks:** [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)
+- **Supabase:** [SUPABASE_SETUP.md](SUPABASE_SETUP.md)

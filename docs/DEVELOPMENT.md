@@ -1,0 +1,83 @@
+# Development Guide
+
+## Prerequisites
+
+- Node.js 18+
+- pnpm (`npm install -g pnpm`)
+
+## Setup
+
+```bash
+pnpm install
+cp .env.local.example .env.local   # then fill in Supabase keys
+pnpm dev
+```
+
+See [SUPABASE_SETUP.md](../SUPABASE_SETUP.md) for database setup.
+
+## Scripts
+
+| Command | Description |
+|---------|-------------|
+| `pnpm dev` | Start Next.js dev server |
+| `pnpm build` | Production build |
+| `pnpm start` | Run production server |
+| `pnpm lint` | ESLint check (all files) |
+| `pnpm lint:fix` | ESLint with auto-fix |
+| `pnpm typecheck` | TypeScript check (`tsc --noEmit`) |
+
+## Git hooks (Husky)
+
+This project uses [Husky](https://typicode.github.io/husky/) to run checks before each commit.
+
+### Pre-commit
+
+When you run `git commit`, the **pre-commit** hook automatically:
+
+1. Runs **lint-staged** on staged files only
+2. Executes `eslint --fix` on staged `*.{js,jsx,ts,tsx,mjs}` files
+
+Config files:
+
+- `.husky/pre-commit` — hook entry point
+- `lint-staged.config.mjs` — which commands run on staged files
+- `eslint.config.mjs` — ESLint rules (Next.js core-web-vitals + TypeScript)
+
+### First-time setup for contributors
+
+Hooks are installed automatically when you run:
+
+```bash
+pnpm install
+```
+
+The `prepare` script in `package.json` runs `husky`, which registers Git hooks.
+
+If hooks are missing after clone, run manually:
+
+```bash
+pnpm prepare
+```
+
+### Bypass (emergency only)
+
+```bash
+git commit --no-verify -m "your message"
+```
+
+Use sparingly — skips lint checks.
+
+## Project structure (high level)
+
+```
+app/              Next.js pages and routes
+components/       React UI components
+lib/              Data fetching, types, utilities
+supabase/         SQL migrations, seed data, fixes
+.husky/           Git hooks
+```
+
+## Related docs
+
+- [SUPABASE_SETUP.md](../SUPABASE_SETUP.md) — Supabase connection
+- [supabase/README.md](../supabase/README.md) — SQL migrations reference
