@@ -5,10 +5,11 @@
   "private": true,
   "packageManager": "pnpm@10.24.0",
   "engines": {
-    "node": ">=20.10.0",
-    "pnpm": ">=9.0.0"
+    "node": "20.19.0",
+    "pnpm": "10.24.0"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "next build",
     "dev": "next dev",
     "lint": "eslint .",

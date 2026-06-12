@@ -2,8 +2,33 @@
 
 ## Prerequisites
 
-- Node.js 18+
-- pnpm (`npm install -g pnpm`)
+Strict versions are enforced — install will **fail** if your runtime does not match:
+
+| Tool | Required version |
+|------|------------------|
+| **Node.js** | `20.19.0` |
+| **pnpm** | `10.24.0` |
+
+Enforced via `package.json` → `engines`, `.npmrc` → `engine-strict=true`, and the `preinstall` script (blocks npm/yarn).
+
+### One-time tooling setup
+
+```bash
+# Enable Corepack (ships with Node) — activates the pnpm version from packageManager
+corepack enable
+corepack prepare pnpm@10.24.0 --activate
+
+# Node version (pick one that you use)
+nvm install 20.19.0 && nvm use 20.19.0   # nvm — reads .node-version
+# fnm use                                 # fnm — reads .node-version
+```
+
+Verify:
+
+```bash
+node -v   # v20.19.0
+pnpm -v   # 10.24.0
+```
 
 ## Setup
 
