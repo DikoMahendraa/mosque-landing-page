@@ -88,3 +88,4 @@ supabase/         SQL migrations, seed data, fixes
 - [SUPABASE_SETUP.md](../SUPABASE_SETUP.md) — Supabase connection
 - [supabase/README.md](../supabase/README.md) — SQL migrations reference
 - [GITFLOW.md](./GITFLOW.md) — branching strategy & GitHub Actions CI
+- [VERSIONING.md](./VERSIONING.md) — semver & release process

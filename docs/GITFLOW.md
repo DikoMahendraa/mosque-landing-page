@@ -187,4 +187,5 @@ feature/fix ──PR──► develop ──PR──► main ──► productio
 ## Related docs
 
 - [DEVELOPMENT.md](./DEVELOPMENT.md) — local setup, Husky hooks
+- [VERSIONING.md](./VERSIONING.md) — semver, CHANGELOG, first release checklist
 - [SUPABASE_SETUP.md](../SUPABASE_SETUP.md) — database setup

@@ -33,4 +33,9 @@ Continue building your app on:
 
 - **Local setup & git hooks:** [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)
 - **GitFlow & CI:** [docs/GITFLOW.md](docs/GITFLOW.md)
+- **Versioning & releases:** [docs/VERSIONING.md](docs/VERSIONING.md)
 - **Supabase:** [SUPABASE_SETUP.md](SUPABASE_SETUP.md)
+
+## Version
+
+Current release: **1.0.0** — see [CHANGELOG.md](CHANGELOG.md)
