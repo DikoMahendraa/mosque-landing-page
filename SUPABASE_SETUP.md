@@ -11,13 +11,24 @@
 
 ## Step 2 · Run the Schema
 
+All SQL scripts are organized under the [`supabase/`](./supabase/) folder. See [`supabase/README.md`](./supabase/README.md) for full documentation.
+
+**New project** — run each file in order in the SQL Editor:
+
+| Order | File |
+|-------|------|
+| 1 | `supabase/migrations/01_core_tables.sql` |
+| 2 | `supabase/migrations/02_triggers_and_rls.sql` |
+| 3 | `supabase/migrations/03_finance.sql` |
+| 4 | `supabase/migrations/04_registrations.sql` |
+| 5 | `supabase/seed/01_sample_data.sql` *(optional)* |
+
 1. In your Supabase dashboard, click **SQL Editor** in the left sidebar.
 2. Click **New query**.
-3. Open `supabase-schema.sql` from this project folder.
-4. Paste the entire contents into the SQL editor.
-5. Click **Run** (or press `Cmd+Enter`).
+3. Open the first migration file, paste into the editor, and click **Run** (`Cmd+Enter`).
+4. Repeat for each file in the table above.
 
-This creates all tables (`hero_sections`, `mosque_stats`, `events`, `kajian`, `daily_activities`), triggers, RLS policies, and seed data in one shot.
+This creates all tables, triggers, RLS policies, registration forms, and optional seed data.
 
 ---
 
@@ -102,6 +113,9 @@ The `events` and `kajian` tables have an `image_url` column:
 | `events` | All mosque events | title, date, time, location, category, featured, attendees_count |
 | `kajian` | Islamic study sessions | title, instructor, level, duration, students, active |
 | `daily_activities` | Weekly prayer/activity schedule | day, time, title, location, sort_order |
+| `event_registrations` | Event signup form data | event_id, name, address, age, phone |
+| `kajian_registrations` | Kajian signup form data | kajian_id, name, address, age, phone |
+| `transactions` | Mosque finance records | type, category, amount, date |
 
 ---
 
@@ -119,3 +133,6 @@ The `events` and `kajian` tables have an `image_url` column:
 **Schema errors when running SQL?**
 - "relation already exists" — the table already exists, safe to ignore (`CREATE TABLE IF NOT EXISTS` is used).
 - Duplicate policy errors — drop them first: `DROP POLICY IF EXISTS "policy_name" ON table_name;`
+- Event registration fails with `attendees_count` — run `supabase/fixes/01_event_registrations_cleanup.sql`
+
+For detailed SQL documentation, see [`supabase/README.md`](./supabase/README.md).

@@ -24,9 +24,11 @@ The homepage automatically:
 - Updates in real-time when you change data in the dashboard
 
 ## 4. Table Structure Expected
-Your app expects these tables:
-- `home_page` - Main page content
+Your app expects these tables (see [`supabase/README.md`](./supabase/README.md) for SQL setup):
+- `hero_sections` - Main page content
 - `mosque_stats` - Statistics (events, members, etc.)  
 - `events` - Event listings
+- `kajian` - Study sessions
+- `event_registrations` / `kajian_registrations` - Signup form data
 
 That's it! Your app will now consume data directly from your Supabase dashboard.
