@@ -32,6 +32,20 @@ export interface Event {
   updated_at: string
 }
 
+export interface EventRegistration {
+  id: string
+  event_id: string
+  name: string
+  address: string
+  age: number
+  phone?: string
+  created_at: string
+}
+
+export type EventRegistrationInput = Pick<EventRegistration, 'event_id' | 'name' | 'address' | 'age'> & {
+  phone?: string
+}
+
 export interface Kajian {
   id: string
   title: string

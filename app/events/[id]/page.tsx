@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
-import { Calendar, MapPin, Users, Clock, ArrowLeft, Share2, Heart, Copy, X } from "lucide-react"
+import { Calendar, MapPin, Users, Clock, ArrowLeft, Share2, Copy, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { MotionCard } from "@/components/motion-card"
 import { MotionSection } from "@/components/motion-section"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
-import { buildRegistrationUrl } from "@/lib/whatsapp"
-import { getEventById } from "@/lib/data"
+import { EventRegistrationModal } from "@/components/event-registration-modal"
+import { getEventById, getEventRegistrationCount } from "@/lib/data"
 import { Event } from "@/lib/types"
 import parse from "html-react-parser"
 import Head from "next/head"
@@ -22,11 +22,16 @@ export default function EventDetailPage() {
   const [event, setEvent] = useState<Event | null>(null)
   const [loading, setLoading] = useState(true)
   const [showShareModal, setShowShareModal] = useState(false)
+  const [showRegisterModal, setShowRegisterModal] = useState(false)
   const [copySuccess, setCopySuccess] = useState(false)
+  const [registrationCount, setRegistrationCount] = useState(0)
 
   useEffect(() => {
-    getEventById(eventId)
-      .then((data) => setEvent(data))
+    Promise.all([getEventById(eventId), getEventRegistrationCount(eventId)])
+      .then(([data, count]) => {
+        setEvent(data)
+        setRegistrationCount(count)
+      })
       .catch((err) => {
         console.error("Failed to fetch event:", err)
         setEvent(null)
@@ -262,32 +267,26 @@ export default function EventDetailPage() {
                   <div className="h-px bg-border" />
 
                   {/* Attendees */}
-                  {/* <div>
+                  <div>
                     <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
                       Peserta
                     </h3>
                     <div className="flex items-center gap-3">
                       <Users className="w-5 h-5 text-primary flex-shrink-0" />
-                      <span className="font-bold text-lg text-primary">{event.attendees_count}</span>
+                      <span className="font-bold text-lg text-primary">{registrationCount}</span>
                       <span className="text-sm text-primary">terdaftar</span>
                     </div>
-                  </div> */}
+                  </div>
 
                   <div className="h-px bg-border" />
 
                   {/* Action Buttons */}
                   <div className="space-y-3 pt-2">
                     <Button
-                      asChild
                       className="w-full rounded-xl font-semibold bg-primary hover:bg-primary/90"
+                      onClick={() => setShowRegisterModal(true)}
                     >
-                      <a
-                        href={buildRegistrationUrl(event.title, "acara")}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Daftar Sekarang
-                      </a>
+                      Daftar Sekarang
                     </Button>
                     <div className="flex gap-3">
                       {/* <Button variant="outline" className="flex-1 rounded-xl bg-transparent">
@@ -382,6 +381,14 @@ export default function EventDetailPage() {
             </div>
           </div>
         )}
+
+        <EventRegistrationModal
+          eventId={event.id}
+          eventTitle={event.title}
+          open={showRegisterModal}
+          onClose={() => setShowRegisterModal(false)}
+          onSuccess={() => setRegistrationCount((count) => count + 1)}
+        />
       </div>
       <Footer />
     </>

@@ -65,6 +65,59 @@ export async function getEventById(id: string) {
   return data
 }
 
+export async function registerForEvent(input: {
+  event_id: string
+  name: string
+  address: string
+  age: number
+  phone?: string
+}) {
+  const { data, error } = await supabase
+    .from('event_registrations')
+    .insert({
+      event_id: input.event_id,
+      name: input.name.trim(),
+      address: input.address.trim(),
+      age: input.age,
+      phone: input.phone?.trim() || null,
+    })
+    .select()
+    .single()
+
+  if (error) {
+    console.error('Error registering for event:', error)
+    throw error
+  }
+  return data
+}
+
+export async function getEventRegistrations(eventId: string) {
+  const { data, error } = await supabase
+    .from('event_registrations')
+    .select('*')
+    .eq('event_id', eventId)
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    console.error('Error fetching event registrations:', error)
+    return []
+  }
+  return data
+}
+
+export async function getEventRegistrationCount(eventId: string) {
+  const { count, error } = await supabase
+    .from('event_registrations')
+    .select('*', { count: 'exact', head: true })
+    .eq('event_id', eventId)
+
+  if (error) {
+    console.error('Error fetching registration count:', error)
+    return 0
+  }
+  return count ?? 0
+}
+
 export async function getAllKajian() {
   const { data, error } = await supabase
     .from('kajian')
