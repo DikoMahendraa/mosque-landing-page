@@ -2,14 +2,14 @@
 
 ## Prerequisites
 
-Strict versions are enforced — install will **fail** if your runtime does not match:
+Major versions are enforced — install will **fail** if your runtime does not match:
 
-| Tool | Required version |
-|------|------------------|
-| **Node.js** | `20.19.0` |
-| **pnpm** | `10.24.0` |
+| Tool | Required version | Pinned locally |
+|------|------------------|----------------|
+| **Node.js** | `20.x` | `.node-version` → `20.19.0` |
+| **pnpm** | `10.x` | `packageManager` → `pnpm@10.24.0` |
 
-Enforced via `package.json` → `engines`, `.npmrc` → `engine-strict=true`, and the `preinstall` script (blocks npm/yarn).
+Enforced via `package.json` → `engines`, `.npmrc` → `engine-strict=true`, and the `preinstall` script (blocks npm/yarn). Use major-only ranges in `engines` so Vercel (and other hosts) can run any compatible patch release.
 
 ### One-time tooling setup
 
