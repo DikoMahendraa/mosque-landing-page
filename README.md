@@ -32,4 +32,5 @@ Continue building your app on:
 ## Development
 
 - **Local setup & git hooks:** [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)
+- **GitFlow & CI:** [docs/GITFLOW.md](docs/GITFLOW.md)
 - **Supabase:** [SUPABASE_SETUP.md](SUPABASE_SETUP.md)

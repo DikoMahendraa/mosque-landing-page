@@ -67,6 +67,12 @@ git commit --no-verify -m "your message"
 
 Use sparingly — skips lint checks.
 
+## CI / GitHub Actions
+
+On every push or PR to `main` / `develop`, GitHub Actions runs lint and build automatically.
+
+See [GITFLOW.md](./GITFLOW.md) for branching strategy and CI details.
+
 ## Project structure (high level)
 
 ```
@@ -81,3 +87,4 @@ supabase/         SQL migrations, seed data, fixes
 
 - [SUPABASE_SETUP.md](../SUPABASE_SETUP.md) — Supabase connection
 - [supabase/README.md](../supabase/README.md) — SQL migrations reference
+- [GITFLOW.md](./GITFLOW.md) — branching strategy & GitHub Actions CI

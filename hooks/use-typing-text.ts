@@ -9,6 +9,8 @@ export function useTypingText(text: string, active = true, speedMs = 35) {
   useEffect(() => {
     if (!active) return
 
+    // Reset animation state when text/input changes before starting interval
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional animation reset
     setDisplayed("")
     setIsComplete(false)
     let index = 0
