@@ -144,6 +144,59 @@ export async function getKajianById(id: string) {
   return data
 }
 
+export async function registerForKajian(input: {
+  kajian_id: string
+  name: string
+  address: string
+  age: number
+  phone?: string
+}) {
+  const { data, error } = await supabase
+    .from('kajian_registrations')
+    .insert({
+      kajian_id: input.kajian_id,
+      name: input.name.trim(),
+      address: input.address.trim(),
+      age: input.age,
+      phone: input.phone?.trim() || null,
+    })
+    .select()
+    .single()
+
+  if (error) {
+    console.error('Error registering for kajian:', error)
+    throw error
+  }
+  return data
+}
+
+export async function getKajianRegistrations(kajianId: string) {
+  const { data, error } = await supabase
+    .from('kajian_registrations')
+    .select('*')
+    .eq('kajian_id', kajianId)
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    console.error('Error fetching kajian registrations:', error)
+    return []
+  }
+  return data
+}
+
+export async function getKajianRegistrationCount(kajianId: string) {
+  const { count, error } = await supabase
+    .from('kajian_registrations')
+    .select('*', { count: 'exact', head: true })
+    .eq('kajian_id', kajianId)
+
+  if (error) {
+    console.error('Error fetching kajian registration count:', error)
+    return 0
+  }
+  return count ?? 0
+}
+
 export async function getDailyActivities() {
   const { data, error } = await supabase
     .from('daily_activities')

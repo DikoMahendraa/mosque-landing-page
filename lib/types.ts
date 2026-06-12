@@ -46,6 +46,20 @@ export type EventRegistrationInput = Pick<EventRegistration, 'event_id' | 'name'
   phone?: string
 }
 
+export interface KajianRegistration {
+  id: string
+  kajian_id: string
+  name: string
+  address: string
+  age: number
+  phone?: string
+  created_at: string
+}
+
+export type KajianRegistrationInput = Pick<KajianRegistration, 'kajian_id' | 'name' | 'address' | 'age'> & {
+  phone?: string
+}
+
 export interface Kajian {
   id: string
   title: string

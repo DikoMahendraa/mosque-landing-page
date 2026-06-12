@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
-import { Clock, Award, ArrowLeft, Share2, Heart, UsersIcon, Copy, X } from "lucide-react"
+import { Clock, Award, ArrowLeft, Share2, UsersIcon, Copy, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { MotionCard } from "@/components/motion-card"
 import { MotionSection } from "@/components/motion-section"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
-import { buildRegistrationUrl } from "@/lib/whatsapp"
-import { getKajianById } from "@/lib/data"
+import { RegistrationModal } from "@/components/event-registration-modal"
+import { getKajianById, getKajianRegistrationCount } from "@/lib/data"
 import { Kajian } from "@/lib/types"
 import parse from "html-react-parser"
 import Head from "next/head"
@@ -22,11 +22,16 @@ export default function KajianDetailPage() {
   const [kajian, setKajian] = useState<Kajian | null>(null)
   const [loading, setLoading] = useState(true)
   const [showShareModal, setShowShareModal] = useState(false)
+  const [showRegisterModal, setShowRegisterModal] = useState(false)
   const [copySuccess, setCopySuccess] = useState(false)
+  const [registrationCount, setRegistrationCount] = useState(0)
 
   useEffect(() => {
-    getKajianById(kajianId)
-      .then((data) => setKajian(data))
+    Promise.all([getKajianById(kajianId), getKajianRegistrationCount(kajianId)])
+      .then(([data, count]) => {
+        setKajian(data)
+        setRegistrationCount(count)
+      })
       .catch((err) => {
         console.error("Failed to fetch kajian:", err)
         setKajian(null)
@@ -254,16 +259,27 @@ export default function KajianDetailPage() {
 
                   <div className="h-px bg-border" />
 
+                  {/* Participants */}
+                  <div>
+                    <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
+                      Peserta
+                    </h3>
+                    <div className="flex items-center gap-3">
+                      <UsersIcon className="w-5 h-5 text-primary shrink-0" />
+                      <span className="font-bold text-lg text-primary">{registrationCount}</span>
+                      <span className="text-sm text-primary">terdaftar</span>
+                    </div>
+                  </div>
+
+                  <div className="h-px bg-border" />
+
                   {/* Action Buttons */}
                   <div className="space-y-3 pt-2">
-                    <Button asChild className="w-full rounded-xl font-semibold bg-primary hover:bg-primary/90">
-                      <a
-                        href={buildRegistrationUrl(kajian.title, "kajian")}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Daftar Sekarang
-                      </a>
+                    <Button
+                      className="w-full rounded-xl font-semibold bg-primary hover:bg-primary/90"
+                      onClick={() => setShowRegisterModal(true)}
+                    >
+                      Daftar Sekarang
                     </Button>
                     <div className="flex gap-3">
                       {/* <Button variant="outline" className="flex-1 rounded-xl bg-transparent">
@@ -358,6 +374,15 @@ export default function KajianDetailPage() {
             </div>
           </div>
         )}
+
+        <RegistrationModal
+          kind="kajian"
+          itemId={kajian.id}
+          itemTitle={kajian.title}
+          open={showRegisterModal}
+          onClose={() => setShowRegisterModal(false)}
+          onSuccess={() => setRegistrationCount((count) => count + 1)}
+        />
       </div>
       <Footer />
     </>

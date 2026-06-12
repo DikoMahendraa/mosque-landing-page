@@ -24,6 +24,35 @@ export function buildRegistrationUrl(title: string, kind: RegistrationKind) {
   return `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(message)}`
 }
 
+export function buildRegistrationConfirmationUrl(params: {
+  kind: RegistrationKind
+  title: string
+  name: string
+  address: string
+  age: number
+  phone?: string
+}) {
+  const label = params.kind === "kajian" ? "Kajian" : "Acara"
+
+  const message = [
+    "Assalamualaikum warahmatullahi wabarakatuh.",
+    "",
+    `Saya ingin mengkonfirmasi pendaftaran ${params.kind} berikut:`,
+    "",
+    `Nama: ${params.name}`,
+    `Alamat: ${params.address}`,
+    `Umur: ${params.age}`,
+    `No. WhatsApp: ${params.phone || "-"}`,
+    "",
+    `${label}: ${params.title}`,
+    "",
+    "Terima kasih.",
+  ].join("\n")
+
+  return `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(message)}`
+}
+
+/** @deprecated Use buildRegistrationConfirmationUrl */
 export function buildEventConfirmationUrl(params: {
   eventTitle: string
   name: string
@@ -31,22 +60,14 @@ export function buildEventConfirmationUrl(params: {
   age: number
   phone?: string
 }) {
-  const message = [
-    "Assalamualaikum warahmatullahi wabarakatuh.",
-    "",
-    "Saya ingin mengkonfirmasi pendaftaran acara berikut:",
-    "",
-    `Nama: ${params.name}`,
-    `Alamat: ${params.address}`,
-    `Umur: ${params.age}`,
-    `No. WhatsApp: ${params.phone || "-"}`,
-    "",
-    `Acara: ${params.eventTitle}`,
-    "",
-    "Terima kasih.",
-  ].join("\n")
-
-  return `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(message)}`
+  return buildRegistrationConfirmationUrl({
+    kind: "acara",
+    title: params.eventTitle,
+    name: params.name,
+    address: params.address,
+    age: params.age,
+    phone: params.phone,
+  })
 }
 
 /** @deprecated Use buildRegistrationUrl(title, "acara") */

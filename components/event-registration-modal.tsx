@@ -3,27 +3,40 @@
 import { useState } from "react"
 import { X, CheckCircle2, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { registerForEvent } from "@/lib/data"
-import { buildEventConfirmationUrl, WhatsAppIcon } from "@/lib/whatsapp"
+import { registerForEvent, registerForKajian } from "@/lib/data"
+import { buildRegistrationConfirmationUrl, WhatsAppIcon, RegistrationKind } from "@/lib/whatsapp"
 
-interface EventRegistrationModalProps {
-  eventId: string
-  eventTitle: string
+interface RegistrationModalProps {
+  kind: RegistrationKind
+  itemId: string
+  itemTitle: string
   open: boolean
   onClose: () => void
   onSuccess?: () => void
 }
 
+const labels: Record<RegistrationKind, { title: string; success: string }> = {
+  acara: {
+    title: "Daftar Acara",
+    success: "Pendaftaran Anda untuk acara ini telah tercatat.",
+  },
+  kajian: {
+    title: "Daftar Kajian",
+    success: "Pendaftaran Anda untuk kajian ini telah tercatat.",
+  },
+}
+
 const inputClassName =
   "w-full px-4 py-2.5 rounded-xl border-2 border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
 
-export function EventRegistrationModal({
-  eventId,
-  eventTitle,
+export function RegistrationModal({
+  kind,
+  itemId,
+  itemTitle,
   open,
   onClose,
   onSuccess,
-}: EventRegistrationModalProps) {
+}: RegistrationModalProps) {
   const [name, setName] = useState("")
   const [address, setAddress] = useState("")
   const [age, setAge] = useState("")
@@ -31,6 +44,8 @@ export function EventRegistrationModal({
   const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  const { title, success: successMessage } = labels[kind]
 
   if (!open) return null
 
@@ -69,15 +84,20 @@ export function EventRegistrationModal({
       return
     }
 
+    const payload = {
+      name: trimmedName,
+      address: trimmedAddress,
+      age: parsedAge,
+      phone: phone.trim() || undefined,
+    }
+
     setSubmitting(true)
     try {
-      await registerForEvent({
-        event_id: eventId,
-        name: trimmedName,
-        address: trimmedAddress,
-        age: parsedAge,
-        phone: phone.trim() || undefined,
-      })
+      if (kind === "acara") {
+        await registerForEvent({ event_id: itemId, ...payload })
+      } else {
+        await registerForKajian({ kajian_id: itemId, ...payload })
+      }
       setSuccess(true)
       onSuccess?.()
     } catch {
@@ -88,8 +108,9 @@ export function EventRegistrationModal({
   }
 
   const handleConfirmToAdmin = () => {
-    const url = buildEventConfirmationUrl({
-      eventTitle,
+    const url = buildRegistrationConfirmationUrl({
+      kind,
+      title: itemTitle,
       name: name.trim(),
       address: address.trim(),
       age: parseInt(age, 10),
@@ -109,8 +130,8 @@ export function EventRegistrationModal({
       >
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h3 className="text-xl font-bold">Daftar Acara</h3>
-            <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{eventTitle}</p>
+            <h3 className="text-xl font-bold">{title}</h3>
+            <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{itemTitle}</p>
           </div>
           <button
             type="button"
@@ -127,7 +148,7 @@ export function EventRegistrationModal({
             <div>
               <p className="text-lg font-semibold">Pendaftaran Berhasil!</p>
               <p className="text-sm text-muted-foreground mt-2">
-                Terima kasih, {name}. Pendaftaran Anda untuk acara ini telah tercatat.
+                Terima kasih, {name}. {successMessage}
               </p>
             </div>
             <div className="space-y-3">
@@ -240,5 +261,25 @@ export function EventRegistrationModal({
         )}
       </div>
     </div>
+  )
+}
+
+/** @deprecated Use RegistrationModal with kind="acara" */
+export function EventRegistrationModal(props: {
+  eventId: string
+  eventTitle: string
+  open: boolean
+  onClose: () => void
+  onSuccess?: () => void
+}) {
+  return (
+    <RegistrationModal
+      kind="acara"
+      itemId={props.eventId}
+      itemTitle={props.eventTitle}
+      open={props.open}
+      onClose={props.onClose}
+      onSuccess={props.onSuccess}
+    />
   )
 }
