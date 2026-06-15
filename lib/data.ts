@@ -211,6 +211,19 @@ export async function getDailyActivities() {
 }
 
 // ── TRANSACTIONS ──────────────────────────────────────────
+export async function getMosqueAdmins() {
+  const { data, error } = await supabase
+    .from('mosque_admins')
+    .select('*')
+    .order('period_start', { ascending: false })
+
+  if (error) {
+    console.error('Error fetching mosque admins:', error)
+    return []
+  }
+  return data
+}
+
 export async function getTransactions(type?: 'in' | 'out') {
   let query = supabase
     .from('finance_transactions')

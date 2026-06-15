@@ -1,13 +1,17 @@
 "use client"
 
+import { useEffect, useMemo, useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import {
   ArrowLeft,
   Briefcase,
   Crown,
   GraduationCap,
   HandHeart,
+  Mail,
   Megaphone,
+  Phone,
   Scale,
   UserCircle,
   Users,
@@ -16,10 +20,12 @@ import {
 } from "lucide-react"
 import { MotionCard } from "@/components/motion-card"
 import { MotionSection } from "@/components/motion-section"
+import { getMosqueAdmins } from "@/lib/data"
 import {
-  MOSQUE_ORGANIZATION,
-  ORG_CHART_LINKS,
   ORG_SECTIONS,
+  buildOrgChartLinks,
+  mapAdminToOrgMember,
+  sortOrgMembers,
   type OrgMember,
 } from "@/lib/mosque-organization"
 
@@ -46,17 +52,19 @@ function OrgChartButton({ label, targetId, className }: OrgChartButtonProps) {
   )
 }
 
-const ROLE_ICONS: Record<string, typeof Crown> = {
-  "Ketua Takmir": Crown,
-  "Wakil Ketua Takmir": Users,
-  Sekretaris: Briefcase,
-  Bendahara: Wallet,
-  Penasihat: Scale,
-  "Koordinator Kajian": GraduationCap,
-  "Koordinator Pemuda": Users,
-  "Koordinator Sosial": HandHeart,
-  "Koordinator Sarana": Wrench,
-  "Koordinator Humas": Megaphone,
+function RoleIcon({ role, className }: { role: string; className?: string }) {
+  const r = role.toLowerCase()
+  if (r.includes("ketua")) return <Crown className={className} />
+  if (r.includes("wakil")) return <Users className={className} />
+  if (r.includes("sekretaris")) return <Briefcase className={className} />
+  if (r.includes("bendahara")) return <Wallet className={className} />
+  if (r.includes("penasihat")) return <Scale className={className} />
+  if (r.includes("kajian")) return <GraduationCap className={className} />
+  if (r.includes("pemuda")) return <Users className={className} />
+  if (r.includes("sosial")) return <HandHeart className={className} />
+  if (r.includes("sarana")) return <Wrench className={className} />
+  if (r.includes("humas")) return <Megaphone className={className} />
+  return <UserCircle className={className} />
 }
 
 const TIER_STYLES: Record<OrgMember["tier"], { badge: string; icon: string; ring: string }> = {
@@ -83,37 +91,109 @@ const TIER_STYLES: Record<OrgMember["tier"], { badge: string; icon: string; ring
 }
 
 function OrgMemberCard({ member, index }: { member: OrgMember; index: number }) {
-  const Icon = ROLE_ICONS[member.role] ?? UserCircle
   const styles = TIER_STYLES[member.tier]
 
   return (
     <div id={`member-${member.id}`} className="scroll-mt-24 h-full">
-    <MotionCard
-      index={index}
-      className={`p-5 sm:p-6 bg-background border-0 shadow-sm hover:shadow-md transition-shadow rounded-2xl h-full ring-1 ${styles.ring}`}
-    >
-      <div className="flex items-start gap-4">
-        <div className={`shrink-0 w-12 h-12 rounded-xl flex items-center justify-center ${styles.icon}`}>
-          <Icon className="w-6 h-6" />
-        </div>
-
-        <div className="flex-1 min-w-0">
-          <span className={`inline-block px-2.5 py-0.5 text-xs font-semibold rounded-lg mb-2 ${styles.badge}`}>
-            {member.role}
-          </span>
-          <h3 className="text-lg font-bold text-foreground">{member.name}</h3>
-          {member.period && (
-            <p className="text-xs text-muted-foreground mt-0.5">Masa bakti {member.period}</p>
+      <MotionCard
+        index={index}
+        className={`p-5 sm:p-6 bg-background border-0 shadow-sm hover:shadow-md transition-shadow rounded-2xl h-full ring-1 ${styles.ring}`}
+      >
+        <div className="flex items-start gap-4">
+          {member.photo ? (
+            <div className="shrink-0 w-14 h-14 rounded-xl overflow-hidden ring-2 ring-border/50">
+              <Image
+                src={member.photo}
+                alt={member.name}
+                width={56}
+                height={56}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ) : (
+            <div className={`shrink-0 w-12 h-12 rounded-xl flex items-center justify-center ${styles.icon}`}>
+              <RoleIcon role={member.role} className="w-6 h-6" />
+            </div>
           )}
-          <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{member.description}</p>
+
+          <div className="flex-1 min-w-0">
+            <span className={`inline-block px-2.5 py-0.5 text-xs font-semibold rounded-lg mb-2 ${styles.badge}`}>
+              {member.role}
+            </span>
+            <h3 className="text-lg font-bold text-foreground">{member.name}</h3>
+            {member.period && (
+              <p className="text-xs text-muted-foreground mt-0.5">Masa bakti {member.period}</p>
+            )}
+            {(member.phone || member.email) && (
+              <div className="mt-3 space-y-1.5">
+                {member.phone && (
+                  <a
+                    href={`tel:${member.phone.replace(/\s/g, "")}`}
+                    className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    <Phone className="w-3.5 h-3.5 shrink-0" />
+                    <span>{member.phone}</span>
+                  </a>
+                )}
+                {member.email && (
+                  <a
+                    href={`mailto:${member.email}`}
+                    className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors break-all"
+                  >
+                    <Mail className="w-3.5 h-3.5 shrink-0" />
+                    <span>{member.email}</span>
+                  </a>
+                )}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </MotionCard>
+      </MotionCard>
+    </div>
+  )
+}
+
+function OrganizationSkeleton() {
+  return (
+    <div className="space-y-16 py-12">
+      {[1, 2].map((section) => (
+        <div key={section} className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="h-8 w-48 bg-muted rounded-lg animate-pulse mb-2" />
+          <div className="h-4 w-72 bg-muted/60 rounded animate-pulse mb-8" />
+          <div className="grid gap-5 md:grid-cols-2">
+            {[1, 2].map((card) => (
+              <div key={card} className="h-36 bg-muted/40 rounded-2xl animate-pulse" />
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   )
 }
 
 export default function MosqueOrganization() {
+  const [members, setMembers] = useState<OrgMember[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    getMosqueAdmins()
+      .then((data) => {
+        const mapped = sortOrgMembers(data.map(mapAdminToOrgMember))
+        setMembers(mapped)
+      })
+      .catch((err) => {
+        console.error("Failed to fetch mosque admins:", err)
+        setMembers([])
+      })
+      .finally(() => setLoading(false))
+  }, [])
+
+  const orgChartLinks = useMemo(() => buildOrgChartLinks(members), [members])
+  const hasOrgChart =
+    orgChartLinks.leadership.length > 0 ||
+    orgChartLinks.core.length > 0 ||
+    orgChartLinks.coordinators.length > 0
+
   return (
     <main className="min-h-screen bg-background">
       <MotionSection
@@ -139,99 +219,114 @@ export default function MosqueOrganization() {
         </div>
       </MotionSection>
 
-      {/* Org overview diagram */}
-      <MotionSection className="py-12 sm:py-16 border-b border-border/40">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <h2 className="text-xl font-bold text-center mb-8">Bagan Struktur</h2>
-          <p className="text-sm text-muted-foreground text-center mb-6">
-            Klik posisi di bawah untuk melihat pengurus terkait
-          </p>
-          <div className="flex flex-col items-center gap-4">
-            {ORG_CHART_LINKS.leadership.map((node, i) => (
-              <div key={node.target} className="flex flex-col items-center gap-4 w-full">
-                {i > 0 && <div className="w-px h-6 bg-border" />}
-                <OrgChartButton
-                  label={node.label}
-                  targetId={node.target}
-                  className={`px-6 py-3 rounded-xl font-semibold text-sm sm:text-base text-center shadow-sm w-full max-w-xs ${
-                    i === 0
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-primary/80 text-primary-foreground"
-                  }`}
-                />
-              </div>
-            ))}
-
-            <div className="w-px h-6 bg-border" />
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-2xl">
-              {ORG_CHART_LINKS.core.map((node) => (
-                <OrgChartButton
-                  key={node.target}
-                  label={node.label}
-                  targetId={node.target}
-                  className="px-4 py-2.5 rounded-xl bg-accent/15 border border-accent/20 text-accent font-medium text-sm text-center"
-                />
-              ))}
-            </div>
-
-            <div className="w-px h-6 bg-border" />
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 w-full">
-              {ORG_CHART_LINKS.coordinators.map((node) => (
-                <OrgChartButton
-                  key={node.target}
-                  label={node.label}
-                  targetId={node.target}
-                  className="px-3 py-2 rounded-lg bg-muted text-muted-foreground font-medium text-xs sm:text-sm text-center hover:bg-muted/80"
-                />
-              ))}
-            </div>
+      {loading ? (
+        <OrganizationSkeleton />
+      ) : members.length === 0 ? (
+        <MotionSection className="py-16">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+            <p className="text-muted-foreground">
+              Data pengurus belum tersedia. Silakan tambahkan melalui dashboard admin.
+            </p>
           </div>
-        </div>
-      </MotionSection>
+        </MotionSection>
+      ) : (
+        <>
+          {hasOrgChart && (
+            <MotionSection className="py-12 sm:py-16 border-b border-border/40">
+              <div className="max-w-4xl mx-auto px-4 sm:px-6">
+                <h2 className="text-xl font-bold text-center mb-8">Bagan Struktur</h2>
+                <p className="text-sm text-muted-foreground text-center mb-6">
+                  Klik posisi di bawah untuk melihat pengurus terkait
+                </p>
+                <div className="flex flex-col items-center gap-4">
+                  {orgChartLinks.leadership.map((node, i) => (
+                    <div key={node.target} className="flex flex-col items-center gap-4 w-full">
+                      {i > 0 && <div className="w-px h-6 bg-border" />}
+                      <OrgChartButton
+                        label={node.label}
+                        targetId={node.target}
+                        className={`px-6 py-3 rounded-xl font-semibold text-sm sm:text-base text-center shadow-sm w-full max-w-xs ${
+                          i === 0
+                            ? "bg-primary text-primary-foreground"
+                            : "bg-primary/80 text-primary-foreground"
+                        }`}
+                      />
+                    </div>
+                  ))}
 
-      {/* Member cards by section */}
-      {ORG_SECTIONS.map((section) => {
-        const members = MOSQUE_ORGANIZATION.filter((m) => m.tier === section.tier)
-        if (members.length === 0) return null
+                  {orgChartLinks.core.length > 0 && (
+                    <>
+                      {orgChartLinks.leadership.length > 0 && <div className="w-px h-6 bg-border" />}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-2xl">
+                        {orgChartLinks.core.map((node) => (
+                          <OrgChartButton
+                            key={node.target}
+                            label={node.label}
+                            targetId={node.target}
+                            className="px-4 py-2.5 rounded-xl bg-accent/15 border border-accent/20 text-accent font-medium text-sm text-center"
+                          />
+                        ))}
+                      </div>
+                    </>
+                  )}
 
-        return (
-          <MotionSection
-            key={section.tier}
-            id={`section-${section.tier}`}
-            className="py-12 sm:py-16 even:bg-muted/30 scroll-mt-24"
-          >
-            <div className="max-w-6xl mx-auto px-4 sm:px-6">
-              <div className="mb-8">
-                <h2 className="text-2xl sm:text-3xl font-bold text-foreground">{section.title}</h2>
-                <p className="text-muted-foreground mt-1">{section.subtitle}</p>
+                  {orgChartLinks.coordinators.length > 0 && (
+                    <>
+                      {(orgChartLinks.leadership.length > 0 || orgChartLinks.core.length > 0) && (
+                        <div className="w-px h-6 bg-border" />
+                      )}
+                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 w-full">
+                        {orgChartLinks.coordinators.map((node) => (
+                          <OrgChartButton
+                            key={node.target}
+                            label={node.label}
+                            targetId={node.target}
+                            className="px-3 py-2 rounded-lg bg-muted text-muted-foreground font-medium text-xs sm:text-sm text-center hover:bg-muted/80"
+                          />
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
+            </MotionSection>
+          )}
 
-              <div
-                className={`grid gap-5 ${
-                  section.tier === "leadership"
-                    ? "md:grid-cols-2"
-                    : section.tier === "advisor"
-                      ? "md:grid-cols-2"
-                      : "sm:grid-cols-2 lg:grid-cols-3"
-                }`}
+          {ORG_SECTIONS.map((section) => {
+            const sectionMembers = members.filter((m) => m.tier === section.tier)
+            if (sectionMembers.length === 0) return null
+
+            return (
+              <MotionSection
+                key={section.tier}
+                id={`section-${section.tier}`}
+                className="py-12 sm:py-16 even:bg-muted/30 scroll-mt-24"
               >
-                {members.map((member, index) => (
-                  <OrgMemberCard key={member.id} member={member} index={index} />
-                ))}
-              </div>
-            </div>
-          </MotionSection>
-        )
-      })}
+                <div className="max-w-6xl mx-auto px-4 sm:px-6">
+                  <div className="mb-8">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-foreground">{section.title}</h2>
+                    <p className="text-muted-foreground mt-1">{section.subtitle}</p>
+                  </div>
 
-      <MotionSection className="py-12 border-t border-border/40">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            Data pengurus di atas bersifat sementara untuk pengembangan. Informasi resmi akan
-            diperbarui melalui dashboard Supabase setelah integrasi selesai.
-          </p>
-        </div>
-      </MotionSection>
+                  <div
+                    className={`grid gap-5 ${
+                      section.tier === "leadership"
+                        ? "md:grid-cols-2"
+                        : section.tier === "advisor"
+                          ? "md:grid-cols-2"
+                          : "sm:grid-cols-2 lg:grid-cols-3"
+                    }`}
+                  >
+                    {sectionMembers.map((member, index) => (
+                      <OrgMemberCard key={member.id} member={member} index={index} />
+                    ))}
+                  </div>
+                </div>
+              </MotionSection>
+            )
+          })}
+        </>
+      )}
     </main>
   )
 }

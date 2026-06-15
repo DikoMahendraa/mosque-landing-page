@@ -94,5 +94,19 @@ export interface Transaction {
   created_at: string
 }
 
+export interface MosqueAdmin {
+  id: string
+  name: string
+  position: string
+  phone: string
+  email: string
+  photo: string
+  period_start: string
+  period_end: string
+  created_by?: string | null
+  created_at: string
+  updated_at: string
+}
+
 export const INCOME_CATEGORIES  = ['Infaq', 'Zakat', 'Wakaf', 'Shodaqoh', 'Donasi', 'Lainnya'] as const
 export const EXPENSE_CATEGORIES = ['Operasional', 'Pembangunan', 'Konsumsi', 'Gaji/Honor', 'Lainnya'] as const
