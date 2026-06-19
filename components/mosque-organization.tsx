@@ -52,8 +52,13 @@ function OrgChartButton({ label, targetId, className }: OrgChartButtonProps) {
   )
 }
 
+function OrgChartConnector() {
+  return <div aria-hidden className="w-px h-6 bg-border shrink-0" />
+}
+
 function RoleIcon({ role, className }: { role: string; className?: string }) {
   const r = role.toLowerCase()
+  if (r.includes("pembina")) return <Crown className={className} />
   if (r.includes("ketua")) return <Crown className={className} />
   if (r.includes("wakil")) return <Users className={className} />
   if (r.includes("sekretaris")) return <Briefcase className={className} />
@@ -68,6 +73,11 @@ function RoleIcon({ role, className }: { role: string; className?: string }) {
 }
 
 const TIER_STYLES: Record<OrgMember["tier"], { badge: string; icon: string; ring: string }> = {
+  pembina: {
+    badge: "bg-primary/15 text-primary",
+    icon: "bg-primary text-primary-foreground",
+    ring: "ring-primary/30",
+  },
   leadership: {
     badge: "bg-primary/10 text-primary",
     icon: "bg-primary text-primary-foreground",
@@ -190,6 +200,7 @@ export default function MosqueOrganization() {
 
   const orgChartLinks = useMemo(() => buildOrgChartLinks(members), [members])
   const hasOrgChart =
+    orgChartLinks.pembina.length > 0 ||
     orgChartLinks.leadership.length > 0 ||
     orgChartLinks.core.length > 0 ||
     orgChartLinks.coordinators.length > 0
@@ -239,24 +250,62 @@ export default function MosqueOrganization() {
                   Klik posisi di bawah untuk melihat pengurus terkait
                 </p>
                 <div className="flex flex-col items-center gap-4">
-                  {orgChartLinks.leadership.map((node, i) => (
-                    <div key={node.target} className="flex flex-col items-center gap-4 w-full">
-                      {i > 0 && <div className="w-px h-6 bg-border" />}
-                      <OrgChartButton
-                        label={node.label}
-                        targetId={node.target}
-                        className={`px-6 py-3 rounded-xl font-semibold text-sm sm:text-base text-center shadow-sm w-full max-w-xs ${
-                          i === 0
-                            ? "bg-primary text-primary-foreground"
-                            : "bg-primary/80 text-primary-foreground"
-                        }`}
-                      />
+                  {orgChartLinks.pembina.length > 0 ? (
+                    <div className="flex flex-col items-center gap-4 w-full">
+                      <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 w-full">
+                        {orgChartLinks.pembina.map((node) => (
+                          <OrgChartButton
+                            key={node.target}
+                            label={node.label}
+                            targetId={node.target}
+                            className="px-5 py-3 rounded-xl font-semibold text-sm sm:text-base text-center shadow-md w-full max-w-xs sm:w-auto sm:min-w-[8rem] sm:max-w-[10rem] bg-primary text-primary-foreground"
+                          />
+                        ))}
+                      </div>
+                      {orgChartLinks.leadership.length > 0 && (
+                        <>
+                          <OrgChartConnector />
+                          <div className="flex flex-col items-center gap-4 w-full max-w-xs">
+                            {orgChartLinks.leadership.map((node, i) => (
+                              <div key={node.target} className="flex flex-col items-center gap-4 w-full">
+                                {i > 0 && <OrgChartConnector />}
+                                <OrgChartButton
+                                  label={node.label}
+                                  targetId={node.target}
+                                  className={`px-6 py-3 rounded-xl font-semibold text-sm sm:text-base text-center shadow-sm w-full ${
+                                    i === 0
+                                      ? "bg-primary/90 text-primary-foreground"
+                                      : "bg-primary/80 text-primary-foreground"
+                                  }`}
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        </>
+                      )}
                     </div>
-                  ))}
+                  ) : (
+                    orgChartLinks.leadership.map((node, i) => (
+                      <div key={node.target} className="flex flex-col items-center gap-4 w-full">
+                        {i > 0 && <OrgChartConnector />}
+                        <OrgChartButton
+                          label={node.label}
+                          targetId={node.target}
+                          className={`px-6 py-3 rounded-xl font-semibold text-sm sm:text-base text-center shadow-sm w-full max-w-xs ${
+                            i === 0
+                              ? "bg-primary text-primary-foreground"
+                              : "bg-primary/80 text-primary-foreground"
+                          }`}
+                        />
+                      </div>
+                    ))
+                  )}
 
                   {orgChartLinks.core.length > 0 && (
                     <>
-                      {orgChartLinks.leadership.length > 0 && <div className="w-px h-6 bg-border" />}
+                      {(orgChartLinks.pembina.length > 0 || orgChartLinks.leadership.length > 0) && (
+                        <OrgChartConnector />
+                      )}
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-2xl">
                         {orgChartLinks.core.map((node) => (
                           <OrgChartButton
@@ -272,9 +321,9 @@ export default function MosqueOrganization() {
 
                   {orgChartLinks.coordinators.length > 0 && (
                     <>
-                      {(orgChartLinks.leadership.length > 0 || orgChartLinks.core.length > 0) && (
-                        <div className="w-px h-6 bg-border" />
-                      )}
+                      {(orgChartLinks.pembina.length > 0 ||
+                        orgChartLinks.leadership.length > 0 ||
+                        orgChartLinks.core.length > 0) && <OrgChartConnector />}
                       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 w-full">
                         {orgChartLinks.coordinators.map((node) => (
                           <OrgChartButton
@@ -310,11 +359,13 @@ export default function MosqueOrganization() {
 
                   <div
                     className={`grid gap-5 ${
-                      section.tier === "leadership"
-                        ? "md:grid-cols-2"
-                        : section.tier === "advisor"
+                      section.tier === "pembina"
+                        ? "max-w-md mx-auto"
+                        : section.tier === "leadership"
                           ? "md:grid-cols-2"
-                          : "sm:grid-cols-2 lg:grid-cols-3"
+                          : section.tier === "advisor"
+                            ? "md:grid-cols-2"
+                            : "sm:grid-cols-2 lg:grid-cols-3"
                     }`}
                   >
                     {sectionMembers.map((member, index) => (

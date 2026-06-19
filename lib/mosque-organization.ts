@@ -1,6 +1,6 @@
 import type { MosqueAdmin } from '@/lib/types'
 
-export type OrgTier = 'leadership' | 'core' | 'advisor' | 'coordinator'
+export type OrgTier = 'pembina' | 'leadership' | 'core' | 'advisor' | 'coordinator'
 
 export type OrgMember = {
   id: string
@@ -19,15 +19,25 @@ export type OrgChartNode = {
 }
 
 const TIER_ORDER: Record<OrgTier, number> = {
-  leadership: 0,
-  core: 1,
-  advisor: 2,
-  coordinator: 3,
+  pembina: 0,
+  leadership: 1,
+  core: 2,
+  advisor: 3,
+  coordinator: 4,
+}
+
+function getRoleOrder(role: string): number {
+  const key = role.toLowerCase()
+  if (key.includes('pembina')) return 0
+  if (key.includes('wakil')) return 2
+  if (key.includes('ketua')) return 1
+  return 99
 }
 
 export function getTierFromPosition(position: string): OrgTier {
   const key = position.toLowerCase().trim()
 
+  if (key.includes('pembina')) return 'pembina'
   if (key.includes('ketua')) return 'leadership'
   if (key.includes('wakil')) return 'leadership'
   if (key.includes('sekretaris') || key.includes('bendahara')) return 'core'
@@ -60,11 +70,17 @@ export function sortOrgMembers(members: OrgMember[]): OrgMember[] {
   return [...members].sort((a, b) => {
     const tierDiff = TIER_ORDER[a.tier] - TIER_ORDER[b.tier]
     if (tierDiff !== 0) return tierDiff
+    const roleDiff = getRoleOrder(a.role) - getRoleOrder(b.role)
+    if (roleDiff !== 0) return roleDiff
     return a.name.localeCompare(b.name, 'id')
   })
 }
 
 export function buildOrgChartLinks(members: OrgMember[]) {
+  const pembina = members
+    .filter((m) => m.tier === 'pembina')
+    .map((m) => ({ label: m.role, target: `member-${m.id}` }))
+
   const leadership = members
     .filter((m) => m.tier === 'leadership')
     .map((m) => ({ label: m.role, target: `member-${m.id}` }))
@@ -88,10 +104,15 @@ export function buildOrgChartLinks(members: OrgMember[]) {
       target: `member-${m.id}`,
     }))
 
-  return { leadership, core, coordinators }
+  return { pembina, leadership, core, coordinators }
 }
 
 export const ORG_SECTIONS = [
+  {
+    tier: 'pembina' as const,
+    title: 'Pembina',
+    subtitle: 'Penasehat dan pembimbing utama pengurus masjid',
+  },
   {
     tier: 'leadership' as const,
     title: 'Pimpinan Takmir',
