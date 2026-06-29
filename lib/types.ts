@@ -108,5 +108,19 @@ export interface MosqueAdmin {
   updated_at: string
 }
 
+export interface Post {
+  id: string
+  title: string
+  slug: string
+  content: string
+  cover_image: string
+  author: string
+  category: string
+  published_date: string
+  status: 'draft' | 'published'
+  created_at: string
+  updated_at: string
+}
+
 export const INCOME_CATEGORIES  = ['Infaq', 'Zakat', 'Wakaf', 'Shodaqoh', 'Donasi', 'Lainnya'] as const
 export const EXPENSE_CATEGORIES = ['Operasional', 'Pembangunan', 'Konsumsi', 'Gaji/Honor', 'Lainnya'] as const

@@ -131,3 +131,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+.entry-header {
+  inset: 0;
+  display: none !important;
+}
+
+.entry-content.no-share {
+  width: 100% !important;
+}

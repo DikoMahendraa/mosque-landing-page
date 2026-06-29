@@ -224,6 +224,52 @@ export async function getMosqueAdmins() {
   return data
 }
 
+export async function getLatestPosts(limit = 3) {
+  const { data, error } = await supabase
+    .from('posts')
+    .select('*')
+    .eq('status', 'published')
+    .order('published_date', { ascending: false })
+    .order('created_at', { ascending: false })
+    .limit(limit)
+
+  if (error) {
+    console.error('Error fetching latest posts:', error)
+    return []
+  }
+  return data
+}
+
+export async function getAllPosts() {
+  const { data, error } = await supabase
+    .from('posts')
+    .select('*')
+    .eq('status', 'published')
+    .order('published_date', { ascending: false })
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    console.error('Error fetching posts:', error)
+    return []
+  }
+  return data
+}
+
+export async function getPostBySlug(slug: string) {
+  const { data, error } = await supabase
+    .from('posts')
+    .select('*')
+    .eq('slug', slug)
+    .eq('status', 'published')
+    .single()
+
+  if (error) {
+    console.error('Error fetching post:', error)
+    return null
+  }
+  return data
+}
+
 export async function getTransactions(type?: 'in' | 'out') {
   let query = supabase
     .from('finance_transactions')

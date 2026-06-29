@@ -9,6 +9,7 @@ import IslamicQuotesCarousel from "@/components/islamic-quotes-carousel"
 import HeroTypingContent from "@/components/hero-typing-content"
 import CommunityStats from "@/components/community-stats"
 import FeaturedEventsSection from "@/components/featured-events-section"
+import BeritaSection from "@/components/berita-section"
 import YoutubeIntroSection from "@/components/youtube-intro-section"
 import { PLACEHOLDER_IMAGES } from "@/lib/placeholder-images"
 import { STATIC_HERO, STATIC_STATS } from "@/lib/static-content"
@@ -81,6 +82,8 @@ export default function HomePage() {
       <SponsorCarousel />
 
       <FeaturedEventsSection />
+
+      <BeritaSection />
 
       <IslamicQuotesCarousel />
 

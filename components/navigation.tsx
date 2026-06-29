@@ -41,9 +41,8 @@ export default function Navigation() {
 
   const navItems = [
     { label: "Acara", href: "/events" },
-    // { label: "Kegiatan", href: "/activity" },
-    // { label: "Dokumentasi", href: "/documentation" },
     { label: "Kajian", href: "/kajian" },
+    { label: "Berita", href: "/berita" },
     { label: "Keuangan", href: "/keuangan" },
     { label: "Pengurus", href: "/structure" },
   ]
