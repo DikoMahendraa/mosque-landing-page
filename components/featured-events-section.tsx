@@ -51,7 +51,7 @@ export default function FeaturedEventsSection() {
                 >
                   <div className="relative h-40 w-full overflow-hidden shrink-0">
                     <Image
-                      src={getEventThumbnail(event.image_url, event.id)}
+                      src={getEventThumbnail(event.poster, event.id)}
                       alt={event.title}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -82,7 +82,7 @@ export default function FeaturedEventsSection() {
                       size="sm"
                       className="w-full rounded-xl bg-white text-primary hover:bg-white/90 font-semibold"
                     >
-                      Pelajari Lebih Lanjut
+                      Lihat Detail
                     </Button>
                   </div>
                 </MotionCard>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, memo } from "react"
 import { MotionSection } from "@/components/motion-section"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
@@ -9,12 +9,35 @@ import IslamicQuotesCarousel from "@/components/islamic-quotes-carousel"
 import HeroTypingContent from "@/components/hero-typing-content"
 import CommunityStats from "@/components/community-stats"
 import FeaturedEventsSection from "@/components/featured-events-section"
+import FeaturedKajianSection from "@/components/featured-kajian-section"
 import BeritaSection from "@/components/berita-section"
 import YoutubeIntroSection from "@/components/youtube-intro-section"
 import { PLACEHOLDER_IMAGES } from "@/lib/placeholder-images"
 import { STATIC_HERO, STATIC_STATS } from "@/lib/static-content"
 
 const HERO_IMAGES = PLACEHOLDER_IMAGES
+
+// Memoize components to prevent unnecessary re-renders from hero slider
+const MemoizedCommunityStats = memo(CommunityStats)
+MemoizedCommunityStats.displayName = 'MemoizedCommunityStats'
+
+const MemoizedYoutubeIntroSection = memo(YoutubeIntroSection)
+MemoizedYoutubeIntroSection.displayName = 'MemoizedYoutubeIntroSection'
+
+const MemoizedSponsorCarousel = memo(SponsorCarousel)
+MemoizedSponsorCarousel.displayName = 'MemoizedSponsorCarousel'
+
+const MemoizedFeaturedEventsSection = memo(FeaturedEventsSection)
+MemoizedFeaturedEventsSection.displayName = 'MemoizedFeaturedEventsSection'
+
+const MemoizedBeritaSection = memo(BeritaSection)
+MemoizedBeritaSection.displayName = 'MemoizedBeritaSection'
+
+const MemoizedFeaturedKajianSection = memo(FeaturedKajianSection)
+MemoizedFeaturedKajianSection.displayName = 'MemoizedFeaturedKajianSection'
+
+const MemoizedIslamicQuotesCarousel = memo(IslamicQuotesCarousel)
+MemoizedIslamicQuotesCarousel.displayName = 'MemoizedIslamicQuotesCarousel'
 
 export default function HomePage() {
   const [heroIndex, setHeroIndex] = useState(0)
@@ -75,17 +98,19 @@ export default function HomePage() {
         </div>
       </MotionSection>
 
-      <CommunityStats stats={STATIC_STATS} />
+      <MemoizedCommunityStats stats={STATIC_STATS} />
 
-      <YoutubeIntroSection />
+      <MemoizedYoutubeIntroSection />
 
-      <SponsorCarousel />
+      <MemoizedSponsorCarousel />
 
-      <FeaturedEventsSection />
+      <MemoizedFeaturedEventsSection />
 
-      <BeritaSection />
+      <MemoizedBeritaSection />
 
-      <IslamicQuotesCarousel />
+      <MemoizedFeaturedKajianSection />
+
+      <MemoizedIslamicQuotesCarousel />
 
       <Footer />
     </div>

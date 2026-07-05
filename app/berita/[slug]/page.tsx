@@ -106,6 +106,7 @@ export default function BeritaDetailPage() {
             Kembali ke Berita
           </button>
 
+          <h1 className="text-3xl md:text-4xl font-bold text-primary mb-4">{post.title}</h1>
           {/* <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-primary mb-0">
               {post.category && (
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/20 text-primary text-xs font-semibold rounded-lg mb-4">
@@ -150,16 +151,14 @@ export default function BeritaDetailPage() {
 
         {/* Content */}
         <MotionSection className="py-12 sm:px-6">
-          <div className="">
-            <div className="">
-              {post.content ? (
-                <div className="w-full">
-                  {parse(post.content)}
-                </div>
-              ) : (
-                <p className="text-muted-foreground italic">Tidak ada konten.</p>
-              )}
-            </div>
+          <div className="max-w-4xl mx-auto">
+            {post.content ? (
+              <div className="">
+                {parse(post.content)}
+              </div>
+            ) : (
+              <p className="text-muted-foreground italic">Tidak ada konten.</p>
+            )}
 
 
             {/* Sidebar */}

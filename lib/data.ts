@@ -270,12 +270,12 @@ export async function getPostBySlug(slug: string) {
   return data
 }
 
-export async function getTransactions(type?: 'in' | 'out') {
+export async function getTransactions(type?: 'income' | 'expense') {
   let query = supabase
     .from('finance_transactions')
     .select('*')
-    // .order('date', { ascending: false })
-    // .order('created_at', { ascending: false })
+    .order('date', { ascending: false })
+    .order('created_at', { ascending: false })
 
   if (type) query = query.eq('type', type)
 

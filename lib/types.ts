@@ -23,11 +23,11 @@ export interface Event {
   description?: string
   event_date: string
   time: string
+  poster: string
   location: string
   status: string
   attendees_count: number
   featured: boolean
-  image_url?: string
   created_at: string
   updated_at: string
 }
@@ -68,7 +68,7 @@ export interface Kajian {
   description?: string
   time: string
   location: number
-  image_url?: string
+  poster_image: string
   active: boolean
   created_at: string
   updated_at: string
@@ -85,13 +85,15 @@ export interface DailyActivity {
 
 export interface Transaction {
   id: string
-  type: 'income' | 'expense'
+  title: string
   category: string
   amount: number
-  description?: string
   date: string
-  recorded_by: string
+  description: string
+  type: 'income' | 'expense'
+  created_by: string | null
   created_at: string
+  updated_at: string
 }
 
 export interface MosqueAdmin {
