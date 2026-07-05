@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import Head from "next/head"
-import { Clock, User, Award, ArrowRight, Building, Building2 } from "lucide-react"
+import { Clock, User, Award, ArrowRight, Building2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { MotionCard } from "@/components/motion-card"
 import EventGridSkeleton from "@/components/event-grid-skeleton"
@@ -14,12 +14,30 @@ import { getAllKajian } from "@/lib/data"
 import { Kajian } from "@/lib/types"
 import HtmlContent from "@/lib/html-content"
 
+function translateStatus(status: string): string {
+  const statusMap: Record<string, string> = {
+    "upcoming": "Akan Datang",
+    "incoming": "Akan Datang",
+    "ongoing": "Sedang Berlangsung",
+    "completed": "Selesai",
+    "finished": "Selesai",
+  }
+  return statusMap[status.toLowerCase()] || status
+}
+
 function getStatusColor(status: string) {
-  switch (status) {
-    case "upcoming": return "bg-accent/10 text-accent"
-    case "ongoing": return "bg-secondary/10 text-secondary"
-    case "completed": return "bg-primary/10 text-primary"
-    default: return "bg-muted text-muted-foreground"
+  const normalizedStatus = status.toLowerCase()
+  switch (normalizedStatus) {
+    case "upcoming":
+    case "incoming":
+      return "bg-accent/10 text-accent"
+    case "ongoing":
+      return "bg-secondary/10 text-secondary"
+    case "completed":
+    case "finished":
+      return "bg-primary/10 text-primary"
+    default:
+      return "bg-muted text-muted-foreground"
   }
 }
 
@@ -70,6 +88,24 @@ export default function KajianPage() {
           <div className="max-w-6xl mx-auto">
             {loading ? (
               <EventGridSkeleton count={4} variant="kajian" />
+            ) : kajianList.length === 0 ? (
+              <div className="text-center py-20">
+                <MotionCard index={0} className="max-w-md mx-auto p-12 rounded-2xl border-0 shadow-sm">
+                  <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Award className="w-10 h-10 text-primary" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3">Belum Ada Kajian</h3>
+                  <p className="text-muted-foreground mb-6">
+                    Saat ini belum ada sesi kajian yang tersedia. Silakan cek kembali nanti untuk informasi kajian terbaru.
+                  </p>
+                  <Link href="/">
+                    <Button variant="outline" className="gap-2">
+                      <ArrowRight className="w-4 h-4 rotate-180" />
+                      Kembali ke Beranda
+                    </Button>
+                  </Link>
+                </MotionCard>
+              </div>
             ) : (
               <div className="grid md:grid-cols-2 gap-6">
                 {kajianList.map((kajian, index) => {
@@ -78,7 +114,7 @@ export default function KajianPage() {
                       <MotionCard index={index} className="p-6 bg-background border-0 shadow-sm hover:shadow-lg transition-all duration-300 rounded-2xl flex flex-col h-full">
                         <div className="mb-4">
                           <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-lg ${getStatusColor(kajian.status)}`}>
-                            {kajian.status}
+                            {translateStatus(kajian.status)}
                           </span>
                         </div>
                         <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">

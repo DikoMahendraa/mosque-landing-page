@@ -213,7 +213,7 @@ export default function KeuanganPage() {
                         {/* Description */}
                         <div className="min-w-0">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <span className="font-semibold text-sm">{t.description}</span>
+                            <span className="font-semibold text-sm">{t.title}</span>
                             <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${t.type === "income"
                               ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-400"
                               : "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-400"
@@ -222,9 +222,19 @@ export default function KeuanganPage() {
                             </span>
                           </div>
                           <p className="text-xs text-muted-foreground mt-0.5">
-                            <span className="sm:hidden">{formatDate(t.date)} · </span>
-                            Dicatat oleh {t.recorded_by}
+                            <span className="sm:hidden">{formatDate(t.date)}</span>
+                            {t.description && (
+                              <>
+                                <span className="sm:hidden"> · </span>
+                                <span className="hidden sm:inline">{t.description}</span>
+                              </>
+                            )}
                           </p>
+                          {t.description && (
+                            <p className="sm:hidden text-xs text-muted-foreground mt-0.5">
+                              {t.description}
+                            </p>
+                          )}
                           {/* Mobile amount */}
                           <p className={`sm:hidden font-bold text-sm mt-1 ${t.type === "income" ? "text-emerald-600" : "text-red-600"
                             }`}>
