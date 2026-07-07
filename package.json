@@ -1,7 +1,7 @@
 {
   "name": "digital-mosque",
-  "version": "1.0.0",
-  "description": "Masjid Darussalam — digital mosque website with events, kajian, and Supabase registration",
+  "version": "1.1.0",
+  "description": "Masjid Darussalam — digital mosque website with events, kajian, prayer times, qibla direction, and nearby mosques finder",
   "private": true,
   "packageManager": "pnpm@10.24.0",
   "engines": {

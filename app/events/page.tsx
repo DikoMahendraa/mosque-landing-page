@@ -1,10 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import Link from "next/link"
+import { useRouter } from "next/navigation"
 import Image from "next/image"
 import Head from "next/head"
-import { Calendar, MapPin, Users, ArrowRight } from "lucide-react"
+import { Calendar, MapPin, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { MotionCard } from "@/components/motion-card"
 import EventGridSkeleton from "@/components/event-grid-skeleton"
@@ -18,6 +18,7 @@ import HtmlContent from "@/lib/html-content"
 
 
 export default function EventsPage() {
+  const router = useRouter()
   const [events, setEvents] = useState<Event[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -69,49 +70,52 @@ export default function EventsPage() {
             ) : (
               <div className="grid md:grid-cols-2 gap-6">
                 {events.map((event, index) => (
-                  <Link key={event.id} href={`/events/${event.id}`} className="group block h-full">
-                    <MotionCard index={index} className="overflow-hidden border-0 shadow-sm hover:shadow-xl transition-all duration-300 rounded-2xl h-full flex flex-col">
-                      <div className="relative h-44 w-full overflow-hidden shrink-0">
-                        <Image
-                          src={getEventThumbnail(event.poster, event.id)}
-                          alt={event.title}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
-                          unoptimized
-                        />
+                  <MotionCard
+                    key={event.id}
+                    index={index}
+                    className="group overflow-hidden border-0 shadow-sm hover:shadow-xl transition-all duration-300 rounded-2xl h-full flex flex-col cursor-pointer"
+                    onClick={() => router.push(`/events/${event.id}`)}
+                  >
+                    <div className="relative h-44 w-full overflow-hidden shrink-0">
+                      <Image
+                        src={getEventThumbnail(event.poster, event.id)}
+                        alt={event.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        unoptimized
+                      />
+                    </div>
+                    {/* Content — gradient background */}
+                    <div className="flex flex-col flex-1 p-6 bg-gradient-to-br from-primary to-accent text-white">
+                      <div className="mb-3">
+                        <span className="inline-block px-3 py-1 bg-white/20 text-white text-xs font-semibold rounded-lg backdrop-blur-sm">
+                          {event.status}
+                        </span>
                       </div>
-                      {/* Content — gradient background */}
-                      <div className="flex flex-col flex-1 p-6 bg-gradient-to-br from-primary to-accent text-white">
-                        <div className="mb-3">
-                          <span className="inline-block px-3 py-1 bg-white/20 text-white text-xs font-semibold rounded-lg backdrop-blur-sm">
-                            {event.status}
-                          </span>
+                      <h3 className="text-xl font-semibold mb-2 group-hover:text-white/90 transition-colors">
+                        {event.title}
+                      </h3>
+                      {
+                        event.description && (
+                          <HtmlContent content={event.description} maxLength={100} detailLink={`/events/${event.id}`} />
+                        )
+                      }
+                      <div className="space-y-2.5 mb-6 mt-4 text-sm">
+                        <div className="flex items-center gap-3 text-white">
+                          <Calendar className="w-4 h-4 flex-shrink-0 text-white" />
+                          <span>{event.event_date}</span>
                         </div>
-                        <h3 className="text-xl font-semibold mb-2 group-hover:text-white/90 transition-colors">
-                          {event.title}
-                        </h3>
-                        {
-                          event.description && (
-                            <HtmlContent content={event.description} maxLength={100} detailLink={`/events/${event.id}`} />
-                          )
-                        }
-                        <div className="space-y-2.5 mb-6 mt-4 text-sm">
-                          <div className="flex items-center gap-3 text-white">
-                            <Calendar className="w-4 h-4 flex-shrink-0 text-white" />
-                            <span>{event.event_date}</span>
-                          </div>
-                          <div className="flex items-center gap-3 text-white">
-                            <MapPin className="w-4 h-4 flex-shrink-0 text-white" />
-                            <span>{event.location}</span>
-                          </div>
+                        <div className="flex items-center gap-3 text-white">
+                          <MapPin className="w-4 h-4 flex-shrink-0 text-white" />
+                          <span>{event.location}</span>
                         </div>
-                        <Button className="w-full rounded-xl font-semibold gap-2 bg-white text-primary hover:bg-white/90">
-                          Lihat Detail
-                          <ArrowRight className="w-4 h-4" />
-                        </Button>
                       </div>
-                    </MotionCard>
-                  </Link>
+                      <Button className="w-full rounded-xl font-semibold gap-2 bg-white text-primary hover:bg-white/90">
+                        Lihat Detail
+                        <ArrowRight className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </MotionCard>
                 ))}
               </div>
             )}

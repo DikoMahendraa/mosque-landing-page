@@ -44,13 +44,13 @@ export default function BeritaPage() {
       <Navigation />
 
       <MotionSection variant="hero" className="bg-gradient-to-b from-primary to-background pt-20 pb-12 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto text-center text-white pt-8">
+        <div className="max-w-6xl mx-auto text-center text-primary pt-8">
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm font-medium mb-4">
             <Newspaper className="w-4 h-4" />
             Berita & Informasi
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Berita Terkini</h1>
-          <p className="text-lg text-white/80 max-w-2xl mx-auto">
+          <p className="text-lg text-primary max-w-2xl mx-auto">
             Temukan informasi dan kabar terbaru seputar kegiatan Masjid Darussalam
           </p>
         </div>
