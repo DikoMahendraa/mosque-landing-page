@@ -88,7 +88,6 @@ export default function BeritaDetailPage() {
     )
   }
 
-  const coverImage = getEventThumbnail(post.cover_image || undefined, post.id)
 
   return (
     <>
@@ -97,7 +96,7 @@ export default function BeritaDetailPage() {
 
         {/* Hero header */}
         {/* <MotionSection variant="hero" className="bg-gradient-to-b from-primary to-background pt-20 pb-0 px-4 sm:px-6"> */}
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto p-4">
           <button
             onClick={() => router.push('/berita')}
             className="mt-6 mb-6 flex items-center gap-2 text-sm font-medium text-primary/80 hover:text-primary transition-colors"
@@ -151,7 +150,7 @@ export default function BeritaDetailPage() {
 
         {/* Content */}
         <MotionSection className="py-12 sm:px-6">
-          <div className="max-w-4xl mx-auto">
+          <div className="lg:max-w-4xl max-w-2xl overflow-x-auto lg:p-0 p-4 mx-auto">
             {post.content ? (
               <div className="">
                 {parse(post.content)}

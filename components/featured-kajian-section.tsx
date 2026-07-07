@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Clock, User, Building2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { MotionCard } from "@/components/motion-card"
@@ -39,6 +40,7 @@ function getStatusColor(status: string) {
 }
 
 export default function FeaturedKajianSection() {
+  const router = useRouter()
   const [kajianList, setKajianList] = useState<Kajian[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -72,41 +74,41 @@ export default function FeaturedKajianSection() {
         ) : (
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             {kajianList.map((kajian, index) => (
-              <Link key={kajian.id} href={`/kajian/${kajian.id}`} className="group block h-full">
-                <MotionCard
-                  index={index}
-                  className="p-6 bg-background border-0 shadow-sm hover:shadow-xl transition-all duration-300 rounded-2xl flex flex-col h-full"
-                >
-                  <div className="mb-4">
-                    <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-lg ${getStatusColor(kajian.status)}`}>
-                      {translateStatus(kajian.status)}
-                    </span>
+              <MotionCard
+                key={kajian.id}
+                index={index}
+                className="group p-6 bg-background border-0 shadow-sm hover:shadow-xl transition-all duration-300 rounded-2xl flex flex-col h-full cursor-pointer"
+                onClick={() => router.push(`/kajian/${kajian.id}`)}
+              >
+                <div className="mb-4">
+                  <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-lg ${getStatusColor(kajian.status)}`}>
+                    {translateStatus(kajian.status)}
+                  </span>
+                </div>
+                <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors flex-1">
+                  {kajian.title}
+                </h3>
+                {kajian.description && (
+                  <HtmlContent content={kajian.description} maxLength={100} detailLink={`/kajian/${kajian.id}`} />
+                )}
+                <div className="space-y-3 mb-6 text-sm border-t border-border pt-4 mt-4">
+                  <div className="flex items-center gap-3 text-muted-foreground">
+                    <User className="w-4 h-4 flex-shrink-0 text-primary" />
+                    <span className="font-medium">{kajian.speaker}</span>
                   </div>
-                  <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors flex-1">
-                    {kajian.title}
-                  </h3>
-                  {kajian.description && (
-                    <HtmlContent content={kajian.description} maxLength={100} detailLink={`/kajian/${kajian.id}`} />
-                  )}
-                  <div className="space-y-3 mb-6 text-sm border-t border-border pt-4 mt-4">
-                    <div className="flex items-center gap-3 text-muted-foreground">
-                      <User className="w-4 h-4 flex-shrink-0 text-primary" />
-                      <span className="font-medium">{kajian.speaker}</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-muted-foreground">
-                      <Clock className="w-4 h-4 flex-shrink-0 text-primary" />
-                      <span>{kajian.time}</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-muted-foreground">
-                      <Building2 className="w-4 h-4 flex-shrink-0 text-primary" />
-                      <span>{kajian.location}</span>
-                    </div>
+                  <div className="flex items-center gap-3 text-muted-foreground">
+                    <Clock className="w-4 h-4 flex-shrink-0 text-primary" />
+                    <span>{kajian.time}</span>
                   </div>
-                  <Button className="w-full rounded-xl font-semibold gap-2 bg-primary hover:bg-primary/90">
-                    Lihat Detail
-                  </Button>
-                </MotionCard>
-              </Link>
+                  <div className="flex items-center gap-3 text-muted-foreground">
+                    <Building2 className="w-4 h-4 flex-shrink-0 text-primary" />
+                    <span>{kajian.location}</span>
+                  </div>
+                </div>
+                <Button className="w-full rounded-xl font-semibold gap-2 bg-primary hover:bg-primary/90">
+                  Lihat Detail
+                </Button>
+              </MotionCard>
             ))}
           </div>
         )}
